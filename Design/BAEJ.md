@@ -50,6 +50,7 @@ For example, if we have made only one function call, FCC would be 1. If we wante
 |```cal```|I Type|0100|```cal immediate```|Changes pc to immediate and sets a return address|```ra=pc+4```<br>```pc=immediate```|
 |```beq```|I Type|0101|```beq .rs .rd immediate```|Changes pc to immediate if rs and rd are equal|```if rs==rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=immediate;```|
 |```bne```|I Type|0110|```bne .rs .rd immediate```|Changes pc to immediate if rs and rd aren't equal|```if rs!=rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=immediate;```|
+|```sft```|I Type|0111|```sft .rs .rd immediate```|Shifts value in rs to rd by immediate. Positive shifts left, negative shifts right|```rd=rs<<immediate```|
 |```cop```|G Type|1000|```cop .rs .rd```|Copies the value of rs to rd while retaining the original value of rs|```rd=rs```|
 |```mov```|G Type|1001|```mov .rs .rd```|Copies the value of rs to rd and places a value of 0 into rs|```rd=rs```<br>```rs=0```|
 |```slt```|G Type|1010|```slt .rs .rd```|Sets cr to a value other than 0 if rs is less than rd|```t0=rs<rd?1:0```|
@@ -137,18 +138,34 @@ gcd:	bne .a0 .z0 cont
 		cop .a1 .v0
 		ret
 		
-cont:	beq .a1 .z0 end
+		cop .a0 .m0			# Copy arguments into accumulators
+		cop .a1 .m1
+
+cont:	beq .m1 .z0 end		# While b != 0
 		slt .a1 .a0
-		beq .t0 .z0 else
-		cop .a0 .m0
-		sub .a1 .a0
+		beq .t0 .z0 else	# If a > b
+		sub .m1
 		bop cont
 		
-else:	cop .a1 .m0
-		sub .a0 .a1
+else:	sub .m0 .m1			# Else
 		bop cont
 		
 end:	cop .a0 .v0
+		ret
+		
+# The following is a function to find the first relative prime of a number n
+# .m0 stores value of m
+# .a0 stores value of n
+relP:	ldi .m0 2
+
+loop:	cop .m0 .a1
+		cal gcd
+		ldi .t1 1
+		beq .v0 .t1 done
+		add .t1
+		bop loop
+
+done:	cop .m0 .v0
 		ret
 ```
 
