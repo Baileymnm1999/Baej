@@ -6,3 +6,5 @@ Monday, January 7, 2019 [50 min]: Decisions on architecture type. Load-store wit
 
 Tuesday, January 8, 2019 [50 min (1), 90 min (2)]: Assigning registers (Function regs, args, etc.). 2 instruction types (G and I).
 			Began work on implementing Euclid's algorithm in our language. Worked on desgin document.
+
+Wednesday, January 9, 2019 [120 min]: Finishing translation of relPrime into BAEJ and machine language. Reformatting document.
