@@ -120,8 +120,7 @@ loop:
 ```
 
 ### Euclid's Algorithm
-
-The following is an implementation of Euclid's algorithm in C which we converted to JAEB
+The following is an implementation of Euclid's algorithm in C which we converted to BAEJ
 ```c
 // Find m that is relatively prime to n.
 int
@@ -158,6 +157,7 @@ gcd(int a, int b)
   return a;
 }
 ```
+#### BAEJ Translation
 ```mips
 # The following is a function to find the greatest common divisor
 gcd:	bne .a0 .z0 cont
@@ -180,18 +180,77 @@ end:	cop .m0 .v0
 		ret
 		
 # The following is a function to find the first relative prime of a number n
-# .m0 stores value of m
-# .a0 stores value of n
+# .m0 stores value of m, .a0 stores value of n
 relP:	ldi .m0 2
 
-loop:	cop .m0 .a1
+loop:	cop .m0 .a1				
 		cal gcd
 		ldi .t1 1
-		beq .v0 .t1 done
-		add .t1
+		beq .v0 .t1 done	# While gcd(n,m) != 1
+		add .t1				# m = m + 1
 		bop loop
 
 done:	cop .m0 .v0
-		ret
+		ret					# return m
 ```
+#### Machine Code Translations
+```
+# Greatest Common Divisor
+		0110 101101 111111
+		(cont)
+		
+		1000 101110 111011
+		
+		1011 000000 000000
+		
+		1000 101101 110011
+		
+		1000 101110 110100
+		
+		0101 110100 111111
+		(end)
+		
+		1010 110100 110011
+		
+		0101 111010 111111
+		(else)
+		
+		1101 110100 000000
+		
+		0011 0000 0000 0000
+		(cont)
+		
+		1101 110011 110100
+		
+		0011 0000 0000 0000
+		(cont)
+		
+		1000 101101 111011
+		
+		1011 0000 0000 0000
+		
+# Relative Prime
+		0001 110011 000000	
+		0000 000000 000010
+		
+		1000 110011 101110
+		
+		0100 (gcd)
+		
+		0001 010001 000000
+		0000 000000 000001
+		
+		0101 111011 010001
+		(done)
+		
+		1100 010001 000000
+		
+		0011 0000 0000 0000
+		(loop)
+		
+		1000 110011 111011
+		
+		1011 0000 0000 0000
 
+
+```
