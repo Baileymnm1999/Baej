@@ -168,15 +168,15 @@ gcd:	bne .a0 .z0 cont
 		cop .a1 .m1
 
 cont:	beq .m1 .z0 end		# While b != 0
-		slt .a1 .a0
-		beq .t0 .z0 else	# If a > b
+		slt .m1 .m0
+		beq .cr .z0 else	# If a > b
 		sub .m1
 		bop cont
 		
 else:	sub .m0 .m1			# Else
 		bop cont
 		
-end:	cop .a0 .v0
+end:	cop .m0 .v0
 		ret
 		
 # The following is a function to find the first relative prime of a number n
