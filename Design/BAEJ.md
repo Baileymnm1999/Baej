@@ -29,11 +29,14 @@ For example, if we have made only one function call, FCC would be 1. If we wante
 >* Increase FCC to 12 bits and limit to 4096 function calls (easy)
 >* Use a dedicated memory unit to backup entire register file (medium possibly extra credit) 128 bit words
 
+#### Contingency Plan
+
+If we continue to run into issues with the proposed plan for f registers as described above, or hit an impassable roadblock, our contingency plan is to only use 15 registers addressed normally which will be required by functions to be backed up on the stack in memory.
+
 ## Machine Code Formats
-**I**	|<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
 
-
-​	|<sup>15</sup>                  IMMEDIATE                   <sup>0</sup>|	(2<sup>nd</sup> word)
+**I**          |<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
+​           |<sup>15</sup>                  IMMEDIATE                   <sup>0</sup>|	(2<sup>nd</sup> word)
 
 >I type instructions use the format above. They are multi-word instructions with the first word consisting of a 4 bit op code followed by two 6 bit register addresses. The second word will be the 16 bit immediate value used in the instruction.
 
@@ -63,9 +66,12 @@ For example, if we have made only one function call, FCC would be 1. If we wante
 |```orr```|G Type|1111|```orr .rs [.rm]```|Ors rs with the accumulator*|```[rm]|=rs```|
 ***optional argument of .rm specifies an accumulator register to operate on (defaults to .m0)**
 
-## Common Assembly/Machine Language Fragments
+## Function Calls
+Function calls are made easy with BAEJ. When calling a function the programmer simply places the arguments in registers a0 - a5 and uses the command ```cal <FUNCTION>```. The instruction will jump the program counter to the address of the function while also putting the previous value of the program counter plus 2 into the return address register. The function will then return with ```ret``` which returns to the address in the ra register. The programmer can expect their data in f registers to be retained while they should not expect data in any other register to be retained. After a function returns, returned values will be in the v registers.
+
+## Common Assembly Language Fragments
 ### Loading an address into a register
-```c
+```
 ldi	.f0	addr
 lda	.f0[0] .f1		
 ```
@@ -79,7 +85,7 @@ lda	.f0[0] .f1
 
 ### Sum Values from x (a0) to y (a1) assuming x < y
 
-```c
+```
 	cop	.a0 .m0
 	cop .a0 .m1
 	ldi	.f0 1
@@ -106,7 +112,7 @@ loop:
 
 ### Modulus
 
-```c
+```
 loop: 
 	add	.a1
 	slt	.a0	.m0
@@ -165,8 +171,8 @@ gcd(int a, int b)
   return a;
 }
 ```
-### BAEJ Translation
-```mips
+#### BAEJ Translation
+```
 # The following is a function to find the greatest common divisor
 gcd:	bne .a0 .z0 cont
 		cop .a1 .v0
