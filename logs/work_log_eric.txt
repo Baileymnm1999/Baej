@@ -1,0 +1,14 @@
+Eric Tu
+CSSE232 - Activity Journal
+
+Monday, January 7, 2019 [20 min]: 
+Discussed implementation strategy for the BAEJ Assembly Language.
+
+Tuesday, January 8, 2019 [50 min (1), 200 min (2)]: 
+Implementing modulus using BAEJ and helped with the summation function. 
+When challenges arose, I discussed certain implementations that were needed to satisfy
+the requirements for the functions.
+Began work on implementing Euclid's algorithm in our language.
+
+Wednesday, January 9, 2019 [120 min]: 
+Finishing translation of relPrime into BAEJ and machine language. Reformatting document.
