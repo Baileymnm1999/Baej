@@ -29,6 +29,16 @@ For example, if we have made only one function call, FCC would be 1. If we wante
 >* Increase FCC to 12 bits and limit to 4096 function calls (easy)
 >* Use a dedicated memory unit to backup entire register file (medium possibly extra credit) 128 bit words
 
+## Machine Code Formats
+**I**          |<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
+​           |<sup>15</sup>                  IMMEDIATE                   <sup>0</sup>|	(2<sup>nd</sup> word)
+
+>I type instructions use the format above. They are multi-word instructions with the first word consisting of a 4 bit op code followed by two 6 bit register addresses. The second word will be the 16 bit immediate value used in the instruction.
+
+**G**        |<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
+
+> G type instructions use the same format as I type as described above. They do not, however, have an immediate and only have one word in their machine code format.
+
 ## Instructions
 
 |Instruction|Type|OP|Usage|Description|Rtl|

@@ -2,4 +2,4 @@ Work log = Bailey Morgan
 
 Monday, December 7, 2019 Met with team, discussed initial design decisions, load store vs stack and instruction design [60 mins]
 
-Tuesday, December 8, 2019 Finalized instructions and register designs, translated programs to asm and to machine code [210 mins]
+Tuesday, December 8, 2019 Finalized instructions and register designs, translated programs to asm and to machine code [240 mins]
