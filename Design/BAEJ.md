@@ -1,4 +1,5 @@
-﻿# BAEJ
+BAEJ
+
 BAEJ is a Reduced Instruction Set Computer Architecture which implements a load store architecture
 
 ## Registers
@@ -165,9 +166,9 @@ gcd(int a, int b)
   return a;
 }
 ```
-### BAEJ Translation
+#### BAEJ Translation
 ```mips
-# The following is a function to find the greatest common divisor
+# Greatest common divisor
 gcd:	bne .a0 .z0 cont
 		cop .a1 .v0
 		ret
@@ -187,10 +188,9 @@ else:	sub .m0 .m1			# Else
 end:	cop .m0 .v0
 		ret
 		
-# The following is a function to find the first relative prime of a number n
-# .m0 stores value of m, .a0 stores value of n
-relP:	ldi .m0 2
-
+# Relative prime
+relP:	ldi .m0 2			# .m0 stores value of m
+							# .a0 stores value of n
 loop:	cop .m0 .a1				
 		cal gcd
 		ldi .t1 1
@@ -201,64 +201,43 @@ loop:	cop .m0 .a1
 done:	cop .m0 .v0
 		ret					# return m
 ```
-##### Machine Code Translation
+#### Machine Code Translation
+##### Greatest Common Divisor
 ```
-# Greatest Common Divisor
-		0110 101101 111111
-		(cont)
-		
-		1000 101110 111011
-		
-		1011 000000 000000
-		
-		1000 101101 110011
-		
-		1000 101110 110100
-		
-		0101 110100 111111
-		(end)
-		
-		1010 110100 110011
-		
-		0101 111010 111111
-		(else)
-		
-		1101 110100 000000
-		
-		0011 0000 0000 0000
-		(cont)
-		
-		1101 110011 110100
-		
-		0011 0000 0000 0000
-		(cont)
-		
-		1000 101101 111011
-		
-		1011 0000 0000 0000
-		
-# Relative Prime
-		0001 110011 000000	
-		0000 000000 000010
-		
-		1000 110011 101110
-		
-		0100 (gcd)
-		
-		0001 010001 000000
-		0000 000000 000001
-		
-		0101 111011 010001
-		(done)
-		
-		1100 010001 000000
-		
-		0011 0000 0000 0000
-		(loop)
-		
-		1000 110011 111011
-		
-		1011 0000 0000 0000
-
-
+0x00	0110 101101 111111	# gcd
+0x02	0000 0000 0000 1100	# address[cont]
+0x04	1000 101110 111011
+0x06	1011 000000 000000
+0x08	1000 101101 110011
+0x0A	1000 101110 110100
+0x0C	0101 110100 111111	# cont
+0x0E	0000 0000 0010 0010	# address[end]
+0x10	1010 110100 110011
+0x12	0101 111010 111111
+0x14	0000 0000 0001 1100	# address[else]
+0x16	1101 110100 000000
+0x18	0011 0000 0000 0000
+0x1A	0000 0000 0000 1100	# address[cont]
+0x1C	1101 110011 110100	# else
+0x1E	0011 0000 0000 0000
+0x20	0000 0000 0000 1100	# address[cont]
+0x22	1000 101101 111011	# end
+0x24	1011 0000 0000 0000
+```
+##### Relative Prime
+```
+0x26	0001 110011 000000	# relP
+0x28	0000 000000 000010
+0x2A	1000 110011 101110	# loop
+0x2C	0100 000000 000000
+0x2E	0000 0000 0000 0000	# address[gcd]
+0x30	0001 010001 000000
+0x32	0000 000000 000001
+0x34	0101 111011 010001
+0x36	0000 0000 0011 1110 # address[done]
+0x38	1100 010001 000000
+0x3A	0011 0000 0000 0000
+0x3C	0000 0000 0010 1010 # address[loop]
+0x3E	1000 110011 111011	# done
+0x40	1011 0000 0000 0000
 ```
