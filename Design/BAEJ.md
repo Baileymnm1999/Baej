@@ -40,7 +40,7 @@ If we continue to run into issues with the proposed plan for f registers as desc
 
 >I type instructions use the format above. They are multi-word instructions with the first word consisting of a 4 bit op code followed by two 6 bit register addresses. The second word will be the 16 bit immediate value used in the instruction.
 
-**G**        |<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
+**G**	|<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
 
 > G type instructions use the same format as I type as described above. They do not, however, have an immediate and only have one word in their machine code format.
 
@@ -67,7 +67,6 @@ If we continue to run into issues with the proposed plan for f registers as desc
 ***optional argument of .rm specifies an accumulator register to operate on (defaults to .m0)**
 
 ## Function Calls
-
 Function calls are made easy with BAEJ. When calling a function the programmer simply places the arguments in registers a0 - a5 and uses the command ```cal <FUNCTION>```. The instruction will jump the program counter to the address of the function while also putting the previous value of the program counter plus 2 into the return address register. The function will then return with ```ret``` which returns to the address in the ra register. The programmer can expect their data in f registers to be retained while they should not expect data in any other register to be retained. After a function returns, returned values will be in the v registers.
 
 ## Common Assembly Language Fragments
@@ -77,11 +76,11 @@ ldi	.f0	addr
 lda	.f0[0] .f1		
 ```
 ##### Machine Code Translation (assuming the value stored in addr is 280)
-```
-0x0		0001000000000000
-0x2		0000000100011000
-0x4 	0000000000000001
-0x6		0000000000000000
+```c
+0x00	0001000000000000
+0x02	0000000100011000
+0x04 	0000000000000001
+0x06	0000000000000000
 ```
 
 ### Sum Values from x (a0) to y (a1) assuming x < y
@@ -100,15 +99,15 @@ loop:
 
 ##### Machine Code Translation (Assuming the address of loop is 0x8)
 ```c 
-0x0		1000101101110011
-0x2		1000101101110100
-0x4 	0001000000000000
-0x6		0000000000000001
-0x8		1100000000110100
-0xA		1100110100110011
-0xC		1010110100101110
-0xE		0110111111111001
-0x01	0000000000001000
+0x00	1000101101110011
+0x02	1000101101110100
+0x04 	0001000000000000
+0x06	0000000000000001
+0x08	1100000000110100
+0x0A	1100110100110011
+0x0C	1010110100101110
+0x0E	0110111111111001
+0x00	0000000000001000
 ```
 
 ### Modulus
@@ -123,9 +122,15 @@ loop:
 	sub	.m0	.m1
 ```
 
-##### Machine Language Translation
-```
-
+##### Machine Language Translation (Assuming the address of loop is at 0x0)
+```c
+0x00	1100101110110011
+0x02	1010101101110011
+0x04	0110111111111001
+0x06	0000000000000000
+0x08	1101101110110011
+0x0A	1000101101110011
+0x0C	1101110011110100
 ```
 
 ### Euclid's Algorithm
@@ -202,7 +207,7 @@ loop:	cop .m0 .a1
 done:	cop .m0 .v0
 		ret					# return m
 ```
-#### Machine Code Translations
+##### Machine Code Translation
 ```
 # Greatest Common Divisor
 		0110 101101 111111
