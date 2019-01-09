@@ -1,0 +1,31 @@
+TEAM JOURNAL - CSSE232-03
+MEMBERS: Alex Dripchak, Joshua Eckels, Baily Morgan, Eric Tu
+
+
+Milestone 1
+
+MEETING 0 - 01/07/2019 - 12:40 pm
+Members Present: Alex, Josh, Bailey
+	(Eric not present due to miscommunication on members present's parts)
+
+We decided to use a load/store architecture to build our processor. Part of the reason was it would be the easiest architecture to use in order to have 16-bit immediates. We could also use an accumulator style for math instructions using a dedicated register. 
+
+MEETING 1 - 01/08/2019 - 2:30 pm
+All members present & on time
+
+Discussed how to construct instructions (ie how to divide bits to opcodes, regs, etc), registers. Decided that we would use more registers in favor of speed as opposed to using the stack. To account for this, we would have 128 function registers that would be represented by the first 16 "f" regs that could be all accessed by using (FCC * 16) + regs. 
+
+
+MEETING 2 - 01/08/2019 - 8:30 pm 
+All members present
+
+Began working on translating Euclid's Algorithm, relPrime, and other small algorithms to demonstrate operations. Also translated our instructions to machine code. 
+
+MEETING 3 - 01/09/2019 - 1:30 pm 
+All members present
+
+Finished Euclid's algorithm and relPrime. Translated the assembly language snippets to machine code. Polished the document. Completed Milestone 1. Pushed everything to git log in Design branch.  
+
+
+
+
