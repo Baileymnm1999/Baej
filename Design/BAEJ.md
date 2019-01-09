@@ -1,4 +1,4 @@
-BAEJ
+# BAEJ
 
 BAEJ is a Reduced Instruction Set Computer Architecture which implements a load store architecture
 
@@ -64,8 +64,13 @@ For example, if we have made only one function call, FCC would be 1. If we wante
 |```orr```|G Type|1111|```orr .rs [.rm]```|Ors rs with the accumulator*|```[rm]|=rs```|
 ***optional argument of .rm specifies an accumulator register to operate on (defaults to .m0)**
 
-## Common Assembly/Machine Language Fragments
-### Loading an address into a register
+
+## Examples
+
+
+### Common Assembly/Machine Language Fragments
+#### Loading an address into a register
+##### Baej Code
 ```c
 ldi	.f0	addr
 lda	.f0[0] .f1		
@@ -78,8 +83,9 @@ lda	.f0[0] .f1
 0x06	0000000000000000
 ```
 
-### Sum Values from x (a0) to y (a1) assuming x < y
 
+#### Sum Values from x (a0) to y (a1) assuming x < y
+##### Baej Code
 ```c
 	cop	.a0 .m0
 	cop .a0 .m1
@@ -105,8 +111,9 @@ loop:
 0x00	0000000000001000
 ```
 
-### Modulus
 
+### Modulus
+##### Baej Code
 ```c
 loop: 
 	add	.a1
@@ -128,8 +135,9 @@ loop:
 0x0C	1101110011110100
 ```
 
+
 ### Euclid's Algorithm
-The following is an implementation of Euclid's algorithm in C which we converted to BAEJ
+#### C Code
 ```c
 // Find m that is relatively prime to n.
 int
