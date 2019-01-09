@@ -141,5 +141,20 @@ else:	sub .m0 .m1			# Else
 		
 end:	cop .a0 .v0
 		ret
+		
+# The following is a function to find the first relative prime of a number n
+# .m0 stores value of m
+# .a0 stores value of n
+relP:	ldi .m0 2
+
+loop:	cop .m0 .a1
+		cal gcd
+		ldi .t1 1
+		beq .v0 .t1 done
+		add .t1
+		bop loop
+
+done:	cop .m0 .v0
+		ret
 ```
 
