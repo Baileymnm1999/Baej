@@ -30,12 +30,14 @@ For example, if we have made only one function call, FCC would be 1. If we wante
 >* Use a dedicated memory unit to backup entire register file (medium possibly extra credit) 128 bit words
 
 ## Machine Code Formats
-**I**          |<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
-​           |<sup>15</sup>                  IMMEDIATE                   <sup>0</sup>|	(2<sup>nd</sup> word)
+**I**	|<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
+
+
+​	|<sup>15</sup>                  IMMEDIATE                   <sup>0</sup>|	(2<sup>nd</sup> word)
 
 >I type instructions use the format above. They are multi-word instructions with the first word consisting of a 4 bit op code followed by two 6 bit register addresses. The second word will be the 16 bit immediate value used in the instruction.
 
-**G**        |<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
+**G**	|<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
 
 > G type instructions use the same format as I type as described above. They do not, however, have an immediate and only have one word in their machine code format.
 
@@ -69,10 +71,10 @@ lda	.f0[0] .f1
 ```
 ##### Machine Code Translation (assuming the value stored in addr is 280)
 ```c
-0x0		0001000000000000
-0x2		0000000100011000
-0x4 	0000000000000001
-0x6		0000000000000000
+0x00	0001000000000000
+0x02	0000000100011000
+0x04 	0000000000000001
+0x06	0000000000000000
 ```
 
 ### Sum Values from x (a0) to y (a1) assuming x < y
@@ -91,15 +93,15 @@ loop:
 
 ##### Machine Code Translation (Assuming the address of loop is 0x8)
 ```c 
-0x0		1000101101110011
-0x2		1000101101110100
-0x4 	0001000000000000
-0x6		0000000000000001
-0x8		1100000000110100
-0xA		1100110100110011
-0xC		1010110100101110
-0xE		0110111111111001
-0x01	0000000000001000
+0x00	1000101101110011
+0x02	1000101101110100
+0x04 	0001000000000000
+0x06	0000000000000001
+0x08	1100000000110100
+0x0A	1100110100110011
+0x0C	1010110100101110
+0x0E	0110111111111001
+0x00	0000000000001000
 ```
 
 ### Modulus
@@ -116,13 +118,13 @@ loop:
 
 ##### Machine Language Translation (Assuming the address of loop is at 0x0)
 ```c
-0x0		1100101110110011
-0x2		1010101101110011
-0x4		0110111111111001
-0x6		0000000000000000
-0x8		1101101110110011
-0xA		1000101101110011
-0xC		1101110011110100
+0x00	1100101110110011
+0x02	1010101101110011
+0x04	0110111111111001
+0x06	0000000000000000
+0x08	1101101110110011
+0x0A	1000101101110011
+0x0C	1101110011110100
 ```
 
 ### Euclid's Algorithm
@@ -163,7 +165,7 @@ gcd(int a, int b)
   return a;
 }
 ```
-#### BAEJ Translation
+### BAEJ Translation
 ```mips
 # The following is a function to find the greatest common divisor
 gcd:	bne .a0 .z0 cont
@@ -199,7 +201,7 @@ loop:	cop .m0 .a1
 done:	cop .m0 .v0
 		ret					# return m
 ```
-#### Machine Code Translations
+##### Machine Code Translation
 ```
 # Greatest Common Divisor
 		0110 101101 111111
