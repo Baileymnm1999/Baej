@@ -61,7 +61,7 @@ For example, if we have made only one function call, FCC would be 1. If we wante
 |```orr```|G Type|1111|```orr .rs [.rm]```|Ors rs with the accumulator*|```[rm]|=rs```|
 ***optional argument of .rm specifies an accumulator register to operate on (defaults to .m0)**
 
-## Common Assembly Language Fragments
+## Common Assembly/Machine Language Fragments
 ### Loading an address into a register
 ```c
 ldi	.f0	addr
@@ -114,9 +114,15 @@ loop:
 	sub	.m0	.m1
 ```
 
-##### Machine Language Translation
+##### Machine Language Translation (Assuming the address of loop is at 0x0)
 ```c
-
+0x0		1100101110110011
+0x2		1010101101110011
+0x4		0110111111111001
+0x6		0000000000000000
+0x8		1101101110110011
+0xA		1000101101110011
+0xC		1101110011110100
 ```
 
 ### Euclid's Algorithm
