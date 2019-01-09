@@ -50,6 +50,28 @@ For example, if we have made only one function call, FCC would be 1. If we wante
 |```orr```|G Type|1111|```orr .rs [.rm]```|Ors rs with the accumulator*|```[rm]|=rs```|
 ***optional argument of .rm specifies an accumulator register to operate on(defualts to .m0)**
 
+### Common Assembly Language Fragments
+Loading an address into a register
+```c
+
+```
+
+
+### Sum Values from x (a0) to y (a1) assuming x < y
+```c
+	cop	.a0 .m0
+	cop .a0 .m1
+
+loop:
+	addi 1 .m1
+	add  .m1
+	slt	 .m1
+	bne  .z0 .cr loop
+			.
+			.
+			.
+```
+
 ### Euclid's Algorithm
 The following is an implementation of Euclid's algorithm in C which we converted to JAEB
 ```c
