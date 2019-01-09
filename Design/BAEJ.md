@@ -59,31 +59,51 @@ For example, if we have made only one function call, FCC would be 1. If we wante
 |```sub```|G Type|1101|```sub .rs [.rm]```|Subtracts rs from the accumulator*|```[rm]-=rs```|
 |```and```|G Type|1110|```and .rs [.rm]```|Ands rs with the accumulator*|```[rm]^=rs```|
 |```orr```|G Type|1111|```orr .rs [.rm]```|Ors rs with the accumulator*|```[rm]|=rs```|
-***optional argument of .rm specifies an accumulator register to operate on(defualts to .m0)**
+***optional argument of .rm specifies an accumulator register to operate on (defaults to .m0)**
 
-### Common Assembly Language Fragments
-Loading an address into a register
+## Common Assembly Language Fragments
+### Loading an address into a register
 ```c
-
+ldi	.f0	addr
+lda	.f0[0] .f1		
+```
+##### Machine Code Translation (assuming the value stored in addr is 280)
+```c
+0x0		0001000000000000
+0x2		0000000100011000
+0x4 	0000000000000001
+0x6		0000000000000000
 ```
 
-
 ### Sum Values from x (a0) to y (a1) assuming x < y
+
 ```c
 	cop	.a0 .m0
 	cop .a0 .m1
+	ldi	.f0 1
 
 loop:
-	addi 1 .m1
-	add  .m1
-	slt	 .m1
-	bne  .z0 .cr loop
-			.
-			.
-			.
+	add .f0 .m1
+	add	.m1
+	slt	.m1 .a1
+	bne	.z0 .cr loop
+```
+
+##### Machine Code Translation (Assuming the address of loop is 0x8)
+```c 
+0x0		1000101101110011
+0x2		1000101101110100
+0x4 	0001000000000000
+0x6		0000000000000001
+0x8		1100000000110100
+0xA		1100110100110011
+0xC		1010110100101110
+0xE		0110111111111001
+0x01	0000000000001000
 ```
 
 ### Modulus
+
 ```c
 loop: 
 	add	.a1
@@ -94,7 +114,13 @@ loop:
 	sub	.m0	.m1
 ```
 
+##### Machine Language Translation
+```c
+
+```
+
 ### Euclid's Algorithm
+
 The following is an implementation of Euclid's algorithm in C which we converted to JAEB
 ```c
 // Find m that is relatively prime to n.
