@@ -82,6 +82,17 @@ loop:
 			.
 ```
 
+### Modulus
+```c
+loop: 
+	add	.a1
+	slt	.a0	.m0
+	bne	.z0	.cr	loop
+	sub	.a1
+	cop	.a0	.m1
+	sub	.m0	.m1
+```
+
 ### Euclid's Algorithm
 The following is an implementation of Euclid's algorithm in C which we converted to JAEB
 ```c
