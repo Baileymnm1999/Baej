@@ -30,7 +30,12 @@ For example, if we have made only one function call, FCC would be 1. If we wante
 >* Increase FCC to 12 bits and limit to 4096 function calls (easy)
 >* Use a dedicated memory unit to backup entire register file (medium possibly extra credit) 128 bit words
 
+#### Contingency
+
+If we continue to run into issues with the proposed plan for f registers as described above, or hit an impassable roadblock, our contingency plan is to only use 15 registers addressed normally which will be required by functions to be backed up on the stack in memory.
+
 ## Machine Code Formats
+
 **I**	|<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
 
 
@@ -64,6 +69,9 @@ For example, if we have made only one function call, FCC would be 1. If we wante
 |```orr```|G Type|1111|```orr .rs [.rm]```|Ors rs with the accumulator*|```[rm]|=rs```|
 ***optional argument of .rm specifies an accumulator register to operate on (defaults to .m0)**
 
+## Function Calls
+
+Function calls are made easy with BAEJ. When calling a function the programmer simply places the arguments in registers a0 - a5 and uses the command ```cal <FUNCTION>```. The instruction will jump the program counter to the address of the function while also putting the previous value of the program counter plus 2 into the return address register. The function will then return with ```ret``` which returns to the address in the ra register. The programmer can expect their data in f registers to be retained while they should not expect data in any other register to be retained. After a function returns, returned values will be in the v registers.
 
 ## Examples
 
