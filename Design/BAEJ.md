@@ -53,7 +53,7 @@ If we continue to run into issues with the proposed plan for f registers as desc
 |-----------|----|--|-----|-----------|---|
 |```lda```|I Type|0000|```lda .rs[index] .rd```|Loads a value from memory to rd|```rd=Mem[rs+index]```|
 |```ldi```|I Type|0001|```ldi .rd immediate```|Loads an immediate to rd|```rd=immediate```|
-|```str```|I Type|0010|```str .rs .rd[index]```|Stores value in rs to memory|```Mem[rd+index]=rs```|
+|```str```|I Type|0010|```str .rs[index] .rd```|Stores value in rd to memory|```Mem[rs+index]=rd```|
 |```bop```|I Type|0011|```bop immediate```|Changes pc to immediate|```pc=immediate```|
 |```cal```|I Type|0100|```cal immediate```|Changes pc to immediate and sets a return address|```ra=pc+4```<br>```pc=immediate```|
 |```beq```|I Type|0101|```beq .rs .rd immediate```|Changes pc to immediate if rs and rd are equal|```if rs==rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=immediate;```|
@@ -63,7 +63,7 @@ If we continue to run into issues with the proposed plan for f registers as desc
 |```mov```|G Type|1001|```mov .rs .rd```|Copies the value of rs to rd and places a value of 0 into rs|```rd=rs```<br>```rs=0```|
 |```slt```|G Type|1010|```slt .rs .rd```|Sets cr to a value other than 0 if rs is less than rd|```t0=rs<rd?1:0```|
 |```ret```|G Type|1011|```ret```|Sets pc to the value in ra|```pc=ra```|
-|```add```|G Type|1100|```add .rs [.rm]```|Adds rs into the accumulator*|``` |[rm]+=rs```|
+|```add```|G Type|1100|```add .rs [.rm]```|Adds rs into the accumulator*|``` [rm]+=rs```|
 |```sub```|G Type|1101|```sub .rs [.rm]```|Subtracts rs from the accumulator*|```[rm]-=rs```|
 |```and```|G Type|1110|```and .rs [.rm]```|Ands rs with the accumulator*|```[rm]^=rs```|
 |```orr```|G Type|1111|```orr .rs [.rm]```|Ors rs with the accumulator*|```[rm]|=rs```|
