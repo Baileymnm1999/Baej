@@ -1,5 +1,5 @@
 TEAM JOURNAL - CSSE232-03
-MEMBERS: Alex Dripchak, Joshua Eckels, Baily Morgan, Eric Tu
+MEMBERS: Alex Dripchak, Joshua Eckels, Bailey Morgan, Eric Tu
 AUTHOR: Alex Dripchak
 
 
@@ -36,7 +36,12 @@ Put the skeleton of the RTL in the table and mapped out what kind of registers w
 MEETING 2.1 - 01/15/2019 - 5:30 pm
 All members present 
 Finished the RTL write-up for all instructions. Polished them. 
+Recorded a list of components that will be needed for the data path. 
 NOTE: REMEMBER TO REMOVE THE "MOV" INSTR!!!
+
+MEETING 2.2 - 01/16/2019 - 1:30 om
+All members present
+Started describing our components. Added a comparator to the list, ALU now has 3 bit opcodes as we had 5 operations and needed 3 control wires to accomodate this. Developed a "code-tracing thought experiment" in order to test our RTL, easier and quicker to develop than a simluation and less relient on others than a survery from other groups.  
 
 
 
