@@ -13,4 +13,5 @@ Monday, January 14, 2019 [60 min]: Working on RTL for milestone 2. Dividing up i
 
 Tuesday, January 15, 2019 [90 min]: Finished RTL table, discussed shopping list and control signals
 
-Wednesday, January 16, 2019 [60 min]: Finished M2, discussion of each item in shopping list, method for verifying our RTL
+Wednesday, January 16, 2019 [120 min]: Finished M2, discussion of each item in shopping list, method for verifying our RTL.
+					Wrote up description for all of the registers we used in our RTL.
