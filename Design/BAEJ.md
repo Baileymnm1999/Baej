@@ -312,7 +312,7 @@ done:	cop .m0 .v0
             <td>Reg[15:0] = Fcache[FCC]</td>
     </tbody>
 </table>
-### Hardware
+### Hardware Components
 
 - PC Adder
 
@@ -376,3 +376,9 @@ done:	cop .m0 .v0
 - Dual-port Memory
 
   > This component will be a memory unit with the ability to read and write two items at once. It will have four inputs, two address inputs, and two data inputs. It will have two data outputs. The control signals will be MemReadA, MemReadB, MemWriteA, and MemWriteB. With a MemRead control signal high, the data at it's respective address input will be put on on it's respective output bus, and with the signal low, nothing happens. With a MemWrite control signal high, the data on it's respective input bus will be written to the address on it's respective address input.
+
+### Testing our RTL
+
+To verify the RTL for correctness, the RTL underwent....
+1.	Peer review for any optimizations or lacking steps
+2.  A tracing of some simple algorithms to verify that the intended output was received.
