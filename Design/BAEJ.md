@@ -335,10 +335,19 @@ done:	cop .m0 .v0
 
 - ALU 
 
-  The ALU will have two 16 bit input signals and one 3 bit control input signal. The output of the ALU is the result of the specified operation on the two 16 bit input signals. The list of operations that the ALU can perform are ```add``` , ```sub```, ```and```, ```or```, and ```slt``` (this list is tentative). In the RTL, the ALU writes to ALUOut (for memory reference), Register File (for storing the result), and FCC (to increment and decrement the cache pointer for calls) .
+  The ALU will have two 16 bit input signals and one 3 bit control input signal. The output of the ALU is the result of the specified operation on the two 16 bit input signals. The list of operations that the ALU can perform are ```add``` , ```sub```, ```and```, ```orr```, and ```slt``` (this list is tentative). In the RTL, the ALU writes to ALUOut (for memory reference), Register File (for storing the result), and FCC (to increment and decrement the cache pointer) .
 
 - F register cache
 
 - Dual-port Register File
 
 - Dual-port Memory
+
+
+
+### Testing our RTL
+
+To verify the RTL for correctness, the RTL underwent....
+1.	Peer review for any optimizations or lacking steps
+2.  A tracing of some simple algorithms to verify that the intended output was received.
+
