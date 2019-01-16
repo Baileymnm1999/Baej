@@ -1,7 +1,17 @@
 Work log = Bailey Morgan
 
-Monday, December 7, 2019 Met with team, discussed initial design decisions, load store vs stack and instruction design [60 mins]
+Milestone 1
 
-Tuesday, December 8, 2019 Finalized instructions and register designs, translated programs to asm and to machine code [240 mins]
+Monday, December 7, 2019 [60 min] - Met with team, discussed initial design decisions, load store vs stack and instruction design.
 
-Wednesday, December 9, 2019 Finished asm and machine code changes. Final touches on language specification [120 mins]
+Tuesday, December 8, 2019 [240 min] - Finalized instructions and register designs, translated programs to asm and to machine code.
+
+Wednesday, December 9, 2019 [120 min] - Finished asm and machine code changes. Final touches on language specification.
+
+Milestone 2
+
+Monday, January 14, 2019 [60 min] - Developed starting RTL for I types. Broke up instructions into cycles. Started RTL summary charts.
+
+Tuesday, January 15, 2019 [90 min] - Finished RTL summary charts. Listed the needed hardware and logic units.
+
+Wednesday, January 16, 2019 [120 min] -  Finished hardware descriptions and methods for testing RTL description. Completed M2.
