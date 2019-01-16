@@ -337,8 +337,13 @@ done:	cop .m0 .v0
 
   > The ALU will have two 16 bit input signals and one 3 bit control input signal. The output of the ALU is the result of the specified operation on the two 16 bit input signals. The list of operations that the ALU can perform are ```add``` , ```sub```, ```and```, ```or```, and ```slt``` (this list is tentative). In the RTL, the ALU writes to ALUOut (for memory reference), Register File (for storing the result), and FCC (to increment and decrement the cache pointer for calls) .
 
-- F register cache
+- Comparator
 
+  > The comparator will be used in order to determine if two inputs are equal. It does this much quicker than the ALU would as it utilizes a series of 16 xor gates to try and 0 out a number and or's it with 0 at the end after all of the xors and inverts the result, yielding an isEqual result. 
+
+- F Register Cache
+
+  > The F Register Cache is composed of the 128 "f" registers that are on reserve depending on your FCC. In order to keep all "f" registers backed up so the user doesn't have to, when another function is called, depending on FCC, all "f" registers are immediately stored in a cache that has 256 bit words. Two control signals, a Fread and a Fwrite, are necessary. When Fread is high, then we will be taking in a 256 bit bus of the "f" registers and storing them in the cache. When Fwrite is high, we are writing all of the "f" registers from the cache into the 256 bit bus. These words will hold the 16 16-bit "f" registers specific to each allocated slot determined by the FCC.
 - Dual-port Register File
 
   > This component will be a file of 64 16 bit registers. It will take four inputs, two address inputs, and two data inputs. It will have two data outputs. The control signals will be RegReadA, RegReadB, RegWriteA, and RegWriteB. With a RegRead control signal high, the data at it's respective address input will be put on on it's respective output bus, and with the signal low, nothing happens. With a RegWrite control signal high, the data on it's respective input bus will be written to the address on it's respective address input.
