@@ -316,11 +316,11 @@ done:	cop .m0 .v0
 
 - PC Adder
 
-  > This component is a combinational logic component which takes two inputs, one 16 bit input, and one 1 bit input. With the single bit input low, the adder will add 2 to the 16 bit input. With the single bit input high, the adder will add nothing to the 16 bit input. This is the component that will be used to increment the adder.
+  > This component is a combinational logic component which takes two inputs, one 16 bit input, and one 1 bit input (the first wire from the op code). With the single bit input low, the adder will add 2 to the 16 bit input. With the single bit input high, the adder will add nothing to the 16 bit input. This is the component that will be used to increment the adder.
 
 - Address Adder
 
-  > This component is a standard adder which will be used to add the A and ImR registers when addressing memory for load and store instructions.
+  > This component is a standard adder which will be used to add the A and ImR registers when addressing memory for load and store instructions. It will have the two 16 bit inputs and one 16 bit output and no control signals
 
 - Registers
 
@@ -341,4 +341,8 @@ done:	cop .m0 .v0
 
 - Dual-port Register File
 
+  > This component will be a file of 64 16 bit registers. It will take four inputs, two address inputs, and two data inputs. It will have two data outputs. The control signals will be RegReadA, RegReadB, RegWriteA, and RegWriteB. With a RegRead control signal high, the data at it's respective address input will be put on on it's respective output bus, and with the signal low, nothing happens. With a RegWrite control signal high, the data on it's respective input bus will be written to the address on it's respective address input.
+
 - Dual-port Memory
+
+  > This component will be a memory unit with the ability to read and write two items at once. It will have four inputs, two address inputs, and two data inputs. It will have two data outputs. The control signals will be MemReadA, MemReadB, MemWriteA, and MemWriteB. With a MemRead control signal high, the data at it's respective address input will be put on on it's respective output bus, and with the signal low, nothing happens. With a MemWrite control signal high, the data on it's respective input bus will be written to the address on it's respective address input.
