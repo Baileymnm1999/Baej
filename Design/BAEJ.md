@@ -324,14 +324,39 @@ done:	cop .m0 .v0
 
 - Registers
 
+  > A general register component takes in one 16 bit input for writing a value into the register, and has one 16 bit output signal for reading the value out of the register. Registers do not have any control signals.  A general register component implements the following RTL symbols:
+
   - A & B
+
+    > These registers are used for holding data values retrieved out of the register file for use as inputs in the ALU.
+
   - ALUout
+
+    > This register is used for holding the output of the ALU (for lda and ldi).
+
   - FCC
+
+    > The FCC (function call counter) register is used to hold the current count of function calls for use in addressing f-register backups to the f-register cache.
+
   - PC
+
+    > The PC (program counter) register is used to track the current address in memory of a program.
+
   - ra
+
+    > The ra (return address) register gets the address of PC+2 when a function call is made.
+
   - cr
+
+    > The cr (compiler register) is for temporary use by the assembler in functions such as slt.
+
   - IR
+
+    > The IR (instruction register) holds the 16 bits of instruction pulled from instruction memory at the address value stored in PC.
+
   - ImR
+
+    > The ImR (immediate register) holds the 16 bits of data pulled from instruction memory at PC+2. For I-type instructions, these 16 bits are the immediate value associated with the instruction.
 
 - ALU
 
