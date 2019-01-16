@@ -326,37 +326,16 @@ done:	cop .m0 .v0
 
   > A general register component takes in one 16 bit input for writing a value into the register, and has one 16 bit output signal for reading the value out of the register. Registers do not have any control signals.  A general register component implements the following RTL symbols:
 
-  - A & B
-
-    > These registers are used for holding data values retrieved out of the register file for use as inputs in the ALU.
-
-  - ALUout
-
-    > This register is used for holding the output of the ALU (for lda and ldi).
-
-  - FCC
-
-    > The FCC (function call counter) register is used to hold the current count of function calls for use in addressing f-register backups to the f-register cache.
-
-  - PC
-
-    > The PC (program counter) register is used to track the current address in memory of a program.
-
-  - ra
-
-    > The ra (return address) register gets the address of PC+2 when a function call is made.
-
-  - cr
-
-    > The cr (compiler register) is for temporary use by the assembler in functions such as slt.
-
-  - IR
-
-    > The IR (instruction register) holds the 16 bits of instruction pulled from instruction memory at the address value stored in PC.
-
-  - ImR
-
-    > The ImR (immediate register) holds the 16 bits of data pulled from instruction memory at PC+2. For I-type instructions, these 16 bits are the immediate value associated with the instruction.
+  | Registers | Description|
+  | --------- | -----------|
+  | A & B     | These registers are used for holding data values retrieved out of the register file for use as inputs in the ALU. |
+  |ALUout             |This register is used for holding the output of the ALU (for lda and ldi).|
+  |FCC                   |The FCC (function call counter) register is used to hold the current count of function calls for use in addressing f-register backups to the f-register cache.|
+  |PC                     |The PC (program counter) register is used to track the current address in memory of a program.|
+  |ra                      |The ra (return address) register gets the address of PC+2 when a function call is made.|
+  |cr                      |The cr (compiler register) is for temporary use by the assembler in functions such as slt.|
+  |IR                      |The IR (instruction register) holds the 16 bits of instruction pulled from instruction memory at the address value stored in PC.|
+  |ImR                  |The ImR (immediate register) holds the 16 bits of data pulled from instruction memory at PC+2. For I-type instructions, these 16 bits are the immediate value associated with the instruction.|
 
 - ALU 
 
@@ -366,9 +345,10 @@ done:	cop .m0 .v0
 
   > The comparator will be used in order to determine if two inputs are equal. It does this much quicker than the ALU would as it utilizes a series of 16 xor gates to try and 0 out a number and or's it with 0 at the end after all of the xors and inverts the result, yielding an isEqual result. 
 
-- F Register Cache
+- Fcache
 
-  > The F Register Cache is composed of the 128 "f" registers that are on reserve depending on your FCC. In order to keep all "f" registers backed up so the user doesn't have to, when another function is called, depending on FCC, all "f" registers are immediately stored in a cache that has 256 bit words. Two control signals, a Fread and a Fwrite, are necessary. When Fread is high, then we will be taking in a 256 bit bus of the "f" registers and storing them in the cache. When Fwrite is high, we are writing all of the "f" registers from the cache into the 256 bit bus. These words will hold the 16 16-bit "f" registers specific to each allocated slot determined by the FCC.
+  > The Fcache is a storage unit with 256 bit words that is used to automatically back up f registers. When another function is called, all f registers are immediately stored in this cache at the address of FCC. One 256 bit bus from registers 0 -256 and two control signals, a Fread and a Fwrite, are necessary. When Fread is high, then we will be taking in the f registers which are on the bus and storing them in the cache at FCC. When Fwrite is high, we are writing to all of the f registers with the data from the cache using the same 256 bit bus. These words will hold the 16 16-bit f registers specific to each allocated slot determined by the FCC.
+
 - Dual-port Register File
 
   > This component will be a file of 64 16 bit registers. It will take four inputs, two address inputs, and two data inputs. It will have two data outputs. The control signals will be RegReadA, RegReadB, RegWriteA, and RegWriteB. With a RegRead control signal high, the data at it's respective address input will be put on on it's respective output bus, and with the signal low, nothing happens. With a RegWrite control signal high, the data on it's respective input bus will be written to the address on it's respective address input.
