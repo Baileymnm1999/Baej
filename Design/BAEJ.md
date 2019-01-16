@@ -53,17 +53,16 @@ If we continue to run into issues with the proposed plan for f registers as desc
 |-----------|----|--|-----|-----------|---|
 |```lda```|I Type|0000|```lda .rs[index] .rd```|Loads a value from memory to rd|```rd=Mem[rs+index]```|
 |```ldi```|I Type|0001|```ldi .rd immediate```|Loads an immediate to rd|```rd=immediate```|
-|```str```|I Type|0010|```str .rs .rd[index]```|Stores value in rs to memory|```Mem[rd+index]=rs```|
+|```str```|I Type|0010|```str .rs[index] .rd```|Stores value in rd to memory|```Mem[rs+index]=rd```|
 |```bop```|I Type|0011|```bop immediate```|Changes pc to immediate|```pc=immediate```|
 |```cal```|I Type|0100|```cal immediate```|Changes pc to immediate and sets a return address|```ra=pc+4```<br>```pc=immediate```|
 |```beq```|I Type|0101|```beq .rs .rd immediate```|Changes pc to immediate if rs and rd are equal|```if rs==rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=immediate;```|
 |```bne```|I Type|0110|```bne .rs .rd immediate```|Changes pc to immediate if rs and rd aren't equal|```if rs!=rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=immediate;```|
 |```sft```|I Type|0111|```sft .rs .rd immediate```|Shifts value in rs to rd by immediate. Positive shifts left, negative shifts right|```rd=rs<<immediate```|
 |```cop```|G Type|1000|```cop .rs .rd```|Copies the value of rs to rd while retaining the original value of rs|```rd=rs```|
-|```mov```|G Type|1001|```mov .rs .rd```|Copies the value of rs to rd and places a value of 0 into rs|```rd=rs```<br>```rs=0```|
 |```slt```|G Type|1010|```slt .rs .rd```|Sets cr to a value other than 0 if rs is less than rd|```t0=rs<rd?1:0```|
 |```ret```|G Type|1011|```ret```|Sets pc to the value in ra|```pc=ra```|
-|```add```|G Type|1100|```add .rs [.rm]```|Adds rs into the accumulator*|``` |[rm]+=rs```|
+|```add```|G Type|1100|```add .rs [.rm]```|Adds rs into the accumulator*|``` [rm]+=rs```|
 |```sub```|G Type|1101|```sub .rs [.rm]```|Subtracts rs from the accumulator*|```[rm]-=rs```|
 |```and```|G Type|1110|```and .rs [.rm]```|Ands rs with the accumulator*|```[rm]^=rs```|
 |```orr```|G Type|1111|```orr .rs [.rm]```|Ors rs with the accumulator*|```[rm]|=rs```|
@@ -216,37 +215,128 @@ done:	cop .m0 .v0
 ```
 #### Machine Code Translation
 ```
-0x00	gcd:	0110 101101 111111
-0x02			0000 000000 001100	# address[cont]
-0x04			1000 101110 111011
-0x06			1011 000000 000000
-0x08			1000 101101 110011
-0x0A			1000 101110 110100
-0x0C	cont:	0101 110100 111111
-0x0E			0000 000000 100010	# address[end]
-0x10			1010 110100 110011
-0x12			0101 111010 111111
-0x14			0000 000000 011100	# address[else]
-0x16			1101 110100 000000
-0x18			0011 000000 000000
-0x1A			0000 000000 001100	# address[cont]
-0x1C	else:	1101 110011 110100
-0x1E			0011 000000 000000
-0x20			0000 000000 001100	# address[cont]
-0x22	end:	1000 101101 111011
-0x24			1011 000000 000000
-0x26	relP:	0001 110011 000000
-0x28			0000 000000 000010
-0x2A	loop:	1000 110011 101110
-0x2C			0100 000000 000000
-0x2E			0000 000000 000000	# address[gcd]
-0x30			0001 010001 000000
-0x32			0000 000000 000001
-0x34			0101 111011 010001
-0x36			0000 000000 111110	# address[done]
-0x38			1100 010001 000000
+0x00	relP:	0001 110011 000000
+0x02			0000 000000 000010
+0x04	loop:	1000 110011 101110
+0x06			0100 000000 000000
+0x08			0000 000000 011100	# address[gcd]
+0x0A			0001 010001 000000
+0x0C			0000 000000 000001
+0x0E			0101 111011 010001
+0x10			0000 000000 011000	# address[done]
+0x12			1100 010001 000000
+0x14			0011 000000 000000
+0x16			0000 000000 000100	# address[loop]
+0x18	done:	1000 110011 111011
+0x1A			1011 000000 000000
+0x1C	gcd:	0110 101101 111111
+0x1E			0000 000000 101000	# address[cont]
+0x20			1000 101110 111011
+0x22			1011 000000 000000
+0x24			1000 101101 110011
+0x26			1000 101110 110100
+0x28	cont:	0101 110100 111111
+0x2A			0000 000000 111110	# address[end]
+0x2C			1010 110100 110011
+0x2E			0101 111010 111111
+0x30			0000 000000 111000	# address[else]
+0x32			1101 110100 000000
+0x34			0011 000000 000000
+0x36			0000 000000 101000	# address[cont]
+0x38	else:	1101 110011 110100
 0x3A			0011 000000 000000
-0x3C			0000 000000 101010	# address[loop]
-0x3E	done:	1000 110011 111011
+0x3C			0000 000000 101000	# address[cont]
+0x3E	end:	1000 101101 111011
 0x40			1011 000000 000000
+
 ```
+
+
+
+## RTL
+
+#### I Types
+<table>
+    <head>
+    	<th><code>lda</code></th>
+    	<th><code>str</code></th>
+    	<th><code>ldi</code></th>
+    	<th><code>beq/bne</code></th>
+    	<th><code>sft</code></th>
+    	<th><code>bop</code></th>
+    	<th><code>cal</code></th>
+    </head>
+    <tbody>
+        <tr>
+            <td colspan=7>IR = Mem[PC]<br>ImR = Mem[PC+2]<br>PC += 2</td>
+        </tr>
+        <tr>
+            <td colspan=5>PC += 2<br>A = Reg[IR[11:6]]<br>B = Reg[IR[5:0]]</td>
+            <td>PC = ImR</td>
+            <td>ra = PC + 4<br>PC = ImR</td>
+        </tr>
+            <td colspan=2>ALUout = A + ImR</td>
+            <td>if(A==B)<br>PC = ImR</td>
+        	<td>Reg[IR[5:0]] = A << ImR</td>
+            <td>Reg[IR[5:0]] = ImR</td>
+            <td></td>
+            <td>Fcache[FCC] = Reg[15:0]<br>FCC += 1</td>
+        <tr>
+            <td>Reg[IR[5:0]] = Mem[A + ]</td>
+            <td>Mem[A + ImR] = B</td>
+            <td colspan=5></td>
+        </tr>
+    </tbody>
+</table>
+
+#### G Types
+
+<table>
+    <head>
+    	<th><code>cop</code></th>
+    	<th><code>slt</code></th>
+    	<th><code>Other G Types</code></th>
+    	<th><code>ret</code></th>
+    </head>
+    <tbody>
+        <tr>
+            <td colspan=4>IR = Mem[PC]<br>PC += 2</td>
+        </tr>
+        <tr>
+            <td colspan=3>A = Reg[IR[11:6]]<br>B = Reg[IR[5:0]]</td>
+            <td>PC = ra<br>FCC -= 1</td>
+        </tr>
+            <td>Reg[IR[5:0]] = A</td>
+            <td>cr = A < B ? 1 : 0</td>
+        	<td>Reg[IR[5:0]] = A op B</td>
+            <td>Reg[15:0] = Fcache[FCC]</td>
+    </tbody>
+</table>
+### Hardware
+
+- PC Adder
+
+  > This component is a combinational logic component which takes two inputs, one 16 bit input, and one 1 bit input. With the single bit input low, the adder will add 2 to the 16 bit input. With the single bit input high, the adder will add nothing to the 16 bit input. This is the component that will be used to increment the adder.
+
+- Address Adder
+
+  > This component is a standard adder which will be used to add the A and ImR registers when addressing memory for load and store instructions.
+
+- Registers
+
+  - A & B
+  - ALUout
+  - FCC
+  - PC
+  - ra
+  - cr
+  - IR
+  - ImR
+
+- ALU
+
+- F register cache
+
+- Dual-port Register File
+
+- Dual-port Memory
