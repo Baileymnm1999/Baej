@@ -8,3 +8,9 @@ Tuesday, January 8, 2019 [50 min (1), 90 min (2)]: Assigning registers (Function
 			Began work on implementing Euclid's algorithm in our language. Worked on desgin document.
 
 Wednesday, January 9, 2019 [120 min]: Finishing translation of relPrime into BAEJ and machine language. Reformatting document.
+
+Monday, January 14, 2019 [60 min]: Working on RTL for milestone 2. Dividing up instructions into multiple cycles. Excel document made for RTL.
+
+Tuesday, January 15, 2019 [90 min]: Finished RTL table, discussed shopping list and control signals
+
+Wednesday, January 16, 2019 [60 min]: Finished M2, discussion of each item in shopping list, method for verifying our RTL
