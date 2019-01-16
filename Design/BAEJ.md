@@ -312,42 +312,73 @@ done:	cop .m0 .v0
             <td>Reg[15:0] = Fcache[FCC]</td>
     </tbody>
 </table>
-### Hardware
+### Hardware Components
 
 - PC Adder
 
-  > This component is a combinational logic component which takes two inputs, one 16 bit input, and one 1 bit input. With the single bit input low, the adder will add 2 to the 16 bit input. With the single bit input high, the adder will add nothing to the 16 bit input. This is the component that will be used to increment the adder.
+  > This component is a combinational logic component which takes two inputs, one 16 bit input, and one 1 bit input (the first wire from the op code). With the single bit input low, the adder will add 2 to the 16 bit input. With the single bit input high, the adder will add nothing to the 16 bit input. This is the component that will be used to increment the adder.
 
 - Address Adder
 
-  > This component is a standard adder which will be used to add the A and ImR registers when addressing memory for load and store instructions.
+  > This component is a standard adder which will be used to add the A and ImR registers when addressing memory for load and store instructions. It will have the two 16 bit inputs and one 16 bit output and no control signals
 
 - Registers
 
+  > A general register component takes in one 16 bit input for writing a value into the register, and has one 16 bit output signal for reading the value out of the register. Registers do not have any control signals.  A general register component implements the following RTL symbols:
+
   - A & B
+
+    > These registers are used for holding data values retrieved out of the register file for use as inputs in the ALU.
+
   - ALUout
+
+    > This register is used for holding the output of the ALU (for lda and ldi).
+
   - FCC
+
+    > The FCC (function call counter) register is used to hold the current count of function calls for use in addressing f-register backups to the f-register cache.
+
   - PC
+
+    > The PC (program counter) register is used to track the current address in memory of a program.
+
   - ra
+
+    > The ra (return address) register gets the address of PC+2 when a function call is made.
+
   - cr
+
+    > The cr (compiler register) is for temporary use by the assembler in functions such as slt.
+
   - IR
+
+    > The IR (instruction register) holds the 16 bits of instruction pulled from instruction memory at the address value stored in PC.
+
   - ImR
+
+    > The ImR (immediate register) holds the 16 bits of data pulled from instruction memory at PC+2. For I-type instructions, these 16 bits are the immediate value associated with the instruction.
 
 - ALU 
 
-  The ALU will have two 16 bit input signals and one 3 bit control input signal. The output of the ALU is the result of the specified operation on the two 16 bit input signals. The list of operations that the ALU can perform are ```add``` , ```sub```, ```and```, ```orr```, and ```slt``` (this list is tentative). In the RTL, the ALU writes to ALUOut (for memory reference), Register File (for storing the result), and FCC (to increment and decrement the cache pointer) .
+  > The ALU will have two 16 bit input signals and one 3 bit control input signal. The output of the ALU is the result of the specified operation on the two 16 bit input signals. The list of operations that the ALU can perform are ```add``` , ```sub```, ```and```, ```or```, and ```slt``` (this list is tentative). In the RTL, the ALU writes to ALUOut (for memory reference), Register File (for storing the result), and FCC (to increment and decrement the cache pointer for calls) .
 
-- F register cache
+- Comparator
 
+  > The comparator will be used in order to determine if two inputs are equal. It does this much quicker than the ALU would as it utilizes a series of 16 xor gates to try and 0 out a number and or's it with 0 at the end after all of the xors and inverts the result, yielding an isEqual result. 
+
+- F Register Cache
+
+  > The F Register Cache is composed of the 128 "f" registers that are on reserve depending on your FCC. In order to keep all "f" registers backed up so the user doesn't have to, when another function is called, depending on FCC, all "f" registers are immediately stored in a cache that has 256 bit words. Two control signals, a Fread and a Fwrite, are necessary. When Fread is high, then we will be taking in a 256 bit bus of the "f" registers and storing them in the cache. When Fwrite is high, we are writing all of the "f" registers from the cache into the 256 bit bus. These words will hold the 16 16-bit "f" registers specific to each allocated slot determined by the FCC.
 - Dual-port Register File
+
+  > This component will be a file of 64 16 bit registers. It will take four inputs, two address inputs, and two data inputs. It will have two data outputs. The control signals will be RegReadA, RegReadB, RegWriteA, and RegWriteB. With a RegRead control signal high, the data at it's respective address input will be put on on it's respective output bus, and with the signal low, nothing happens. With a RegWrite control signal high, the data on it's respective input bus will be written to the address on it's respective address input.
 
 - Dual-port Memory
 
-
+  > This component will be a memory unit with the ability to read and write two items at once. It will have four inputs, two address inputs, and two data inputs. It will have two data outputs. The control signals will be MemReadA, MemReadB, MemWriteA, and MemWriteB. With a MemRead control signal high, the data at it's respective address input will be put on on it's respective output bus, and with the signal low, nothing happens. With a MemWrite control signal high, the data on it's respective input bus will be written to the address on it's respective address input.
 
 ### Testing our RTL
 
 To verify the RTL for correctness, the RTL underwent....
 1.	Peer review for any optimizations or lacking steps
 2.  A tracing of some simple algorithms to verify that the intended output was received.
-
