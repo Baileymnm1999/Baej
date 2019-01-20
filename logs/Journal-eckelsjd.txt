@@ -15,3 +15,6 @@ Tuesday, January 15, 2019 [90 min]: Finished RTL table, discussed shopping list 
 
 Wednesday, January 16, 2019 [120 min]: Finished M2, discussion of each item in shopping list, method for verifying our RTL.
 					Wrote up description for all of the registers we used in our RTL.
+
+Sunday, January 20, 2019 [150 min]: Working on M3. Walked through RTL and drew datapath on whiteboard appropriately. Just a rough draft.
+                                    Needs a lot of work tomorrow. Still need to document all of our changes and new updates.

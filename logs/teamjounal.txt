@@ -45,6 +45,12 @@ Polished up and translate RTL over to our design document. Developed shopping li
 Started describing our components. Added a comparator to the list, ALU now has 3 bit opcodes as we had 5 operations and needed 3 control wires to accomodate this. 
 Developed a "code-tracing thought experiment" in order to test our RTL, easier and quicker to develop than a simluation and less reliant on others than a survery from other groups.
 
+MEETING 3.1 - 01/20/2019 - 2:30pm [150 min]
+All members present (Alex facetime)
+Completed rough draft of datapath after walking through RTL for each instruction. Made changes to RTL based on our datapath.
+We are still in need of documentation for each component and subsystem. Worked on defining and documenting control signals.
+Will use a ROM for control unit. Meeting tomorrow to move a lot of the work from today into the design document.
+
 
 
 
