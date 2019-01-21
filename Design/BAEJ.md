@@ -357,6 +357,33 @@ done:	cop .m0 .v0
 
   > This component will be a memory unit with the ability to read and write two items at once. It will have four inputs, two address inputs, and two data inputs. It will have two data outputs. The control signals will be MemReadA, MemReadB, MemWriteA, and MemWriteB. With a MemRead control signal high, the data at it's respective address input will be put on on it's respective output bus, and with the signal low, nothing happens. With a MemWrite control signal high, the data on it's respective input bus will be written to the address on it's respective address input.
 
+### Testing the Components
+#### Component Unit Testing Methods
+- PC Adder
+
+  > The inputs to the PC adder is the control bit that determines whether or not PC should be written into. The intended outputs are that if the control bit is high, nothing gets written into PC. Otherwise, 2 is added to the PC. The cases that are to be accounted for are when the control bit is high and when it's low.
+
+- Address Adder
+
+  > The inputs to the Address Adder include two 16 bit numbers. The intended output is the addition of both numbers. The different test cases that should be accounted for are overflow, negative and positive numbers, and zero.
+
+- Registers
+
+  > The intended effect of all registers are to hold a value for an indefinite amount of time, which is independent of the given input. 
+
+- ALU 
+
+  > The ALU will have two 16 bit inputs, one 3 bit control input,  and one output, which is the result of the specified operation on the two 16 bit input signals. The list of operations that the ALU can perform . Similar to the address adder, test cases that should be accounted for are overflow, negative and positive numbers, and zero for the ```add``` , ```sub```, ```and```, ```or```, and ```slt```  instructions.
+
+- Comparator
+
+  > The comparator involves 2, 16 bit, inputs and the intended output is a 1 if the two bits are equal and a 0 if the two bits are not equal. Test cases that must be accounted for are when one input is greater than the other, less than the other, and equal to the other. Positive and negative values must also be involved as well.
+
+- F-Cache, Dual-port Register File and Memory
+
+  > These three memory inputs will be tested to see whether the reads and writes are being performed on the intended locations. See integration testing.
+
+
 ### Testing our RTL
 
 To verify the RTL for correctness, the RTL underwent....
