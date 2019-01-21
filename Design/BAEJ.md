@@ -60,7 +60,7 @@ If we continue to run into issues with the proposed plan for f registers as desc
 |```bne```|I Type|0110|```bne .rs .rd immediate```|Changes pc to immediate if rs and rd aren't equal|```if rs!=rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=immediate;```|
 |```sft```|I Type|0111|```sft .rs .rd immediate```|Shifts value in rs to rd by immediate. Positive shifts left, negative shifts right|```rd=rs<<immediate```|
 |```cop```|G Type|1000|```cop .rs .rd```|Copies the value of rs to rd while retaining the original value of rs|```rd=rs```|
-|```slt```|G Type|1010|```slt .rs .rd```|Sets cr to a value other than 0 if rs is less than rd|```t0=rs<rd?1:0```|
+|```slt```|G Type|1010|```slt .rs .rd```|Sets cr to a value other than 0 if rs is less than rd|```cr=rs<rd?1:0```|
 |```ret```|G Type|1011|```ret```|Sets pc to the value in ra|```pc=ra```|
 |```add```|G Type|1100|```add .rs [.rm]```|Adds rs into the accumulator*|``` [rm]+=rs```|
 |```sub```|G Type|1101|```sub .rs [.rm]```|Subtracts rs from the accumulator*|```[rm]-=rs```|
@@ -257,7 +257,7 @@ done:	cop .m0 .v0
 
 #### I Types
 <table>
-    <head>
+    <thead>
     	<th><code>lda</code></th>
     	<th><code>str</code></th>
     	<th><code>ldi</code></th>
@@ -265,7 +265,7 @@ done:	cop .m0 .v0
     	<th><code>sft</code></th>
     	<th><code>bop</code></th>
     	<th><code>cal</code></th>
-    </head>
+    </thead>
     <tbody>
         <tr>
             <td colspan=7>IR = Mem[PC]<br>ImR = Mem[PC+2]<br>PC += 2</td>
@@ -273,31 +273,38 @@ done:	cop .m0 .v0
         <tr>
             <td colspan=5>PC += 2<br>A = Reg[IR[11:6]]<br>B = Reg[IR[5:0]]</td>
             <td>PC = ImR</td>
-            <td>ra = PC + 4<br>PC = ImR</td>
+            <td>ra = PC + 2<br>PC = ImR</td>
         </tr>
             <td colspan=2>ALUout = A + ImR</td>
-            <td>if(A==B)<br>PC = ImR</td>
-        	<td>Reg[IR[5:0]] = A << ImR</td>
             <td>Reg[IR[5:0]] = ImR</td>
+            <td>if(A==B)<br>PC = ImR</td>
+        	<td>ALUout = A << ImR</td>
             <td></td>
             <td>Fcache[FCC] = Reg[15:0]<br>FCC += 1</td>
         <tr>
-            <td>Reg[IR[5:0]] = Mem[A + ]</td>
-            <td>Mem[A + ImR] = B</td>
-            <td colspan=5></td>
+            <td>Memout = Mem[ALUout]</td>
+            <td>Mem[ALUout] = B</td>
+            <td colspan=2></td>
+            <td>Reg[IR[5:0]] = ALUout</td>
+            <td colspan=2></td>
+        </tr>
+        <tr>
+        	<td>Reg[IR[5:0]] = Memout</td>
+        	<td colspan=6></td>
         </tr>
     </tbody>
 </table>
 
+
 #### G Types
 
 <table>
-    <head>
+    <thead>
     	<th><code>cop</code></th>
     	<th><code>slt</code></th>
     	<th><code>Other G Types</code></th>
     	<th><code>ret</code></th>
-    </head>
+    </thead>
     <tbody>
         <tr>
             <td colspan=4>IR = Mem[PC]<br>PC += 2</td>
@@ -306,12 +313,21 @@ done:	cop .m0 .v0
             <td colspan=3>A = Reg[IR[11:6]]<br>B = Reg[IR[5:0]]</td>
             <td>PC = ra<br>FCC -= 1</td>
         </tr>
+        <tr>
             <td>Reg[IR[5:0]] = A</td>
-            <td>cr = A < B ? 1 : 0</td>
-        	<td>Reg[IR[5:0]] = A op B</td>
+            <td>AlessThanB = A < B ? 1 : 0</td>
+        	<td>ALUout = A op B</td>
             <td>Reg[15:0] = Fcache[FCC]</td>
+        </tr>
+        <tr>
+        	<td></td>
+            <td>cr = ALessThan</td>
+            <td>Reg[IR[5:0]] = ALUout</td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
+
 ### Hardware Components
 
 - PC Adder
