@@ -362,3 +362,37 @@ done:	cop .m0 .v0
 To verify the RTL for correctness, the RTL underwent....
 1.	Peer review for any optimizations or lacking steps
 2.  A tracing of some simple algorithms to verify that the intended output was received.
+## Control Signals
+|Signal Name|Bits|Effect when deasserted (0)|Effect when asserted (1)|
+| --- | --- | --- |---|
+|PCsrc|1|PC is set to default value (PC+2) or ImR|PC is set to the value of ra|
+|wPC|1|Nothing|PC gets the value chosen by PCsrc mux |
+|wRa|1|Nothing|Ra gets the value of PC + 2|
+|ImPCsrc|1|ImPCsrc mux chooses PC+2|ImPCsrc mux chooses immediate value (only when comparator is enabled and determines A=B)|
+|MemSrc|1|Address 1 in Mem is pulled from PC + 2|Address 1 in Mem is pulled from ALUout|
+|MemW1|1|Nothing|The value at port w1 is written to the address specified by a1|
+|MemW2|1|Nothing|The value at port w2 is written to the address specified by a2|
+|MemR1|1|Nothing|The value at the address specified by a1 is read to port r1|
+|MemR2|1|Nothing|The value at the address specified by a2 is read to port r2|
+|wCr|1|The reg number specified at reg file port a1 is IR[11:6] (default)|The reg number specified at reg file port a1 is 57 (for compiler register)|
+|RegSrc|2|0 - Value at reg file port w2 comes from ImR; 1 - Value at port w2 comes from MemOut|2 - Value at port w2 comes from ALUout; 3 - Value at port w2 comes from reg A|
+|wImR|1|Nothing|ImR gets the value read from memory at the address specified by a2|
+|bckup|1|Nothing|Registers 15:0 (256 bits) from the reg file are written to the Fcache at the address specified by "a"; FCC is incrememented by 1|
+|rstore|1|Nothing|The 256 bit value at the address specified by "a" in the Fcache is written to registers 15:0 in the reg file; FCC is decremented by 1|
+|RegW1|1|Nothing|The value at port w1 is written to the reg address specified by a1|
+|RegW2|1|Nothing|The value at port w2 is written to the reg address specified by a2|
+|RegR1|1|Nothing|The value at the reg address specified by a1 is read to port r1|
+|RegR2|1|Nothing|The value at the reg address specified by a2 is read to port r2|
+|ALUsrc|1|2nd ALU operand comes from ImR|2nd ALU operand comes from reg B|
+|ALUop|3|See table below|See table below|
+|cmp|1|Nothing|The result of the comparison A=B is sent to the ImPCsrc mux|
+
+### ALUop codes
+|ALUop|Operation|
+|---|---|
+|000|AND|
+|001|OR|
+|010|add|
+|011|shift|
+|100|subtract|
+|101|set on less than (slt)|
