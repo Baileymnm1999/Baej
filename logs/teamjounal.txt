@@ -51,6 +51,7 @@ Completed rough draft of datapath after walking through RTL for each instruction
 We are still in need of documentation for each component and subsystem. Worked on defining and documenting control signals.
 Will use a ROM for control unit. Meeting tomorrow to move a lot of the work from today into the design document.
 
-
-
+MEETING 3.2 - 01/21/2019 - 5:10pm [120 min]: 
+Defining and describing every control signal. Working on ways to perform unit and integration testing on
+our datapath. Started looking at Verilog and how to implement some components. Working on documention on Design document.
 

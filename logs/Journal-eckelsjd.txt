@@ -18,3 +18,6 @@ Wednesday, January 16, 2019 [120 min]: Finished M2, discussion of each item in s
 
 Sunday, January 20, 2019 [150 min]: Working on M3. Walked through RTL and drew datapath on whiteboard appropriately. Just a rough draft.
                                     Needs a lot of work tomorrow. Still need to document all of our changes and new updates.
+
+Monday, January 21, 2019 [150 min]: Working on control signals, bit sizes, purposes, and functionality in our datapath. Writing this up
+                                    in the Design document as a table with complete list and description of all control signals.
