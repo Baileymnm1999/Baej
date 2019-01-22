@@ -256,6 +256,9 @@ done:	cop .m0 .v0
 ## RTL
 
 #### I Types
+
+![I Type RTL](/home/bailey/comparch/3B-dripchar-eckelsjd-morganbm-tuey/Design/images/rtl.png)
+
 <table>
     <thead>
     	<th><code>lda</code></th>
@@ -275,12 +278,14 @@ done:	cop .m0 .v0
             <td>PC = ImR</td>
             <td>ra = PC + 2<br>PC = ImR</td>
         </tr>
+        <tr>
             <td colspan=2>ALUout = A + ImR</td>
             <td>Reg[IR[5:0]] = ImR</td>
             <td>if(A==B)<br>PC = ImR</td>
-        	<td>ALUout = A << ImR</td>
+            <td>ALUout = A &lt;&lt; ImR</td>
             <td></td>
             <td>Fcache[FCC] = Reg[15:0]<br>FCC += 1</td>
+        </tr>
         <tr>
             <td>Memout = Mem[ALUout]</td>
             <td>Mem[ALUout] = B</td>
@@ -295,8 +300,9 @@ done:	cop .m0 .v0
     </tbody>
 </table>
 
-
 #### G Types
+
+![G Type RTL](/home/bailey/comparch/3B-dripchar-eckelsjd-morganbm-tuey/Design/images/rtl1.png)
 
 <table>
     <thead>
@@ -327,7 +333,6 @@ done:	cop .m0 .v0
         </tr>
     </tbody>
 </table>
-
 ### Hardware Components
 
 - PC Adder
