@@ -22,14 +22,17 @@ Function registers in BAEJ architecture serve as registers which can be safely u
 
 ## Machine Code Formats
 
-**I**	|<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
+**I Types**	
 
+|<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
 
-​	|<sup>15</sup>                  IMMEDIATE                   <sup>0</sup>|	(2<sup>nd</sup> word)
+|<sup>15</sup>                  IMMEDIATE                   <sup>0</sup>|	(2<sup>nd</sup> word)
 
 >I type instructions use the format above. They are multi-word instructions with the first word consisting of a 4 bit op code followed by two 6 bit register addresses. The second word will be the 16 bit immediate value used in the instruction.
 
-**G**	|<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
+**G Types**	
+
+|<sup>15</sup> OPCODE <sup>12</sup>|<sup>11</sup>    RS    <sup>6</sup>|<sup>5</sup>    RD    <sup>0</sup>|	(1<sup>st</sup> word)
 
 > G type instructions use the same format as I type as described above. They do not, however, have an immediate and only have one word in their machine code format.
 
@@ -322,8 +325,37 @@ done:	cop .m0 .v0
 </table>
 
 ### Testing our RTL
-- Peer review for any optimizations or lacking steps
-- A tracing of some simple algorithms to verify that the intended output was received.
+Java will be used to simulate the RTL, such that variables will represent registers, a Java Map will represent the register and storage files (with addresses mapped to their respective values), and multiplication will represent bit shifting. For example, an implementation of lda, according to our RTL, will be implemented using the following Java code.
+
+```
+ int IR;
+ int IMR;
+ int PC;
+ int ALUout;
+ int Memout;
+ int A;
+ int B;
+ 
+ HashMap<Integer, Integer> Mem;
+ HashMap<Integer, Integer> Reg;
+ 
+ public void lda () {
+     IR = Mem.get(PC);
+     IMR = Mem.get(PC + 2);
+     PC += 2;
+     // -----------------------
+     PC += 2;
+     A = Reg.get(IR >> 6 & 0b00111111); // IR[11:6];
+     B = Reg.get(IR >> 0 & 0b00111111); // IR[5:0];
+     // -----------------------
+     ALUout = A + IMR;
+     // -----------------------
+     Memout = Mem.get(ALUout);
+     Reg.put(Memout, Reg.get(IR & 0b00111111)); // IR[5:0];
+ }
+```
+
+A similar implementation will be done for other instructions. Once the instruction set is complete, if the RTL is correct, the executed simulation should be able to comfortably solve Relative Prime.
 
 ## Hardware Components
 
