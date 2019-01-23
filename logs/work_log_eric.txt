@@ -12,3 +12,24 @@ Began work on implementing Euclid's algorithm in our language.
 
 Wednesday, January 9, 2019 [120 min]: 
 Finishing translation of relPrime into BAEJ and machine language. Reformatting document.
+
+01/14/2019 - 5:10 pm [60 min]
+Helped write the skeleton of the RTL table.
+
+01/15/2019 - 5:30 pm [90 min]
+ 
+Helped finish the RTL write-up for all instructions. Reviewed the instructions. 
+
+01/16/2019 - 1:30pm [120 min]
+Wrote out the hardware component spec for the ALU. Reformated and reviewed the document.
+
+01/20/2019 - 2:30pm [150 min]
+Helped draw up a rough draft of datapath via RTL.
+Discussed implementation method of backing of registers.
+
+01/21/2019 - 5:10pm [120 min]: 
+Wrote up a rough draft of component unit testing methods.
+
+01/22/2019 - 7:00 pm [270 min]:
+Drew up and named subsystems for integration testing. Peer reviewed.
+Rewrote methods of testing the RTL.
