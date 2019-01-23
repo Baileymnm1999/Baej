@@ -15,5 +15,12 @@ Milestone 2
 
 1/16/2019 -  Helped write up the components, specifically the comparator and the F cache. Designed a test to use in order to make sure the RTL is  correct, then exectured said test to look for errors. [2 hours]
 
+Milestone 3
+
+1/20/2019 - Helped make the datapath [2.5 hours]
+
+1/21/2019 - Started working on Verilog components, wrote test bench for comparator [2 hours]
+
+1/22/2019 - Went over document with team, developed components in Verilog, helped teammates learn Verilog and develop other components + tests [4.5 hours]
  
 

@@ -15,3 +15,12 @@ Monday, January 14, 2019 [60 min] - Developed starting RTL for I types. Broke up
 Tuesday, January 15, 2019 [90 min] - Finished RTL summary charts. Listed the needed hardware and logic units.
 
 Wednesday, January 16, 2019 [120 min] -  Finished hardware descriptions and methods for testing RTL description. Completed M2.
+
+Milestone 3
+
+Sunday, January 20, 2019 [150 min] - Worked on M3, developed datapath using rtl. Traced many instructions to verify they worked.
+
+Monday, January 21, 2019 [180 min] - Created datapath svg and Makefile to convert both datapath diagram and design documents to pdfs. Touched up things in the data path.
+
+Tuesday, January 21, 2019 [340 min] - Finished up datapath design and pdf conversions. Updated components list and created unit test plans and Integration test plans. Worked on subcomponents with Eric.
+
