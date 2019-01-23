@@ -325,6 +325,11 @@ done:	cop .m0 .v0
 </table>
 
 ### Testing our RTL
+#### Code Tracing
+The first the we did when writing RTL to verify is a code tracing exercise. Before the RTL is accepted we trace the logic and values through our RTL. If it gives expected results we then can move on to below for further testing if needed.
+
+#### Simulation
+
 Java will be used to simulate the RTL, such that variables will represent registers, a Java Map will represent the register and storage files (with addresses mapped to their respective values), and multiplication will represent bit shifting. For example, an implementation of lda, according to our RTL, will be implemented using the following Java code.
 
 ```
