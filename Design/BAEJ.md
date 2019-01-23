@@ -18,6 +18,8 @@ BAEJ is a Reduced Instruction Set Computer Architecture which implements a load 
 |.z0       |63|Register always holding the value 0|
 
 ### Function Registers
+Function registers in BAEJ architecture serve as the 'extra' memory necessary for backing up register values during function calls. In order to reduce the requirements imposed on the user, backing up and restoring the first 16 registers in our register file (.f0- .15) happens automatically to an internal memory unit, called the Fcache, upon function calls and returns. For the user to make a function call, they simply need to move all of their values that they expect to be saved into the F registers. Upon return from the function call, the user's values will be safely returned to the F registers via the Fcache. 
+
 Function registers are magic! You are able to use them (.f0 - .f15) without worry of loosing the data after a function call. The best part? You don't even need to back them up to a stack... or anywhere! Thanks to some nifty magic.
 **How does the magic work?** The 16 function registers available to you anywhere are actually part of a larger register file consisting of 128 registers. To address all 128 of these registers we have designed a 3 bit register that is called the function call counter (FCC). The FCC stores the count of how many function calls have been made without returning. By using the following formula we can get the next 16 registers in the larger file.
 
