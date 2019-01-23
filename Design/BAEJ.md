@@ -243,7 +243,7 @@ done:	cop .m0 .v0
 
 #### I Types
 
-![I Type RTL](/home/bailey/comparch/3B-dripchar-eckelsjd-morganbm-tuey/Design/images/rtl.png)
+![I Type RTL](./images/rtl.png)
 
 <table>
     <thead>
@@ -289,7 +289,7 @@ done:	cop .m0 .v0
 
 #### G Types
 
-![G Type RTL](/home/bailey/comparch/3B-dripchar-eckelsjd-morganbm-tuey/Design/images/rtl1.png)
+![G Type RTL](./images/rtl1.png)
 
 <table>
     <thead>
@@ -321,106 +321,178 @@ done:	cop .m0 .v0
     </tbody>
 </table>
 
-### Hardware Components
-
-- Adder ( X 2 )
-
-  > A combinational logic component that takes two 16 bit inputs and performs an addition on the two inputs, return the result into the output. One is used for the PC and the other is for the FCC.
-
-- Registers
-
-  > Component that takes in one 16 bit input that writes into the register. The 16 bit value can then be read out of one 16 bit output signal. A general register component implements the following RTL symbols:
-
-  | Registers | Description|
-  | --------- | -----------|
-  | A & B     | Used for holding data values retrieved out of the register file for use as inputs in the ALU. |
-  |ALUout             |Used for holding the output of the ALU (for lda and ldi).|
-  |FCC (function call counter)                   |Used to hold the current count of function calls for use in addressing f-register backups to the f-register cache.|
-  |PC (program counter)                     |Used to track the current address in memory of a program.|
-  |ra (return address)                      |Gets the address of PC+2 when a function call is made.|
-  |cr (compiler register)                      |Used by the assembler in functions such as slt.|
-  |IR (instruction register)                      |Holds the 16 bits of instruction pulled from instruction memory at the address value stored in PC.|
-  |ImR (immediate register)                  |Holds the 16 bits of data pulled from instruction memory at PC+2. For I-type instructions, these 16 bits are the immediate value associated with the instruction.|
-
-- ALU 
-
-  > The ALU will have two 16 bit input signals and one 3 bit control input signal. The output of the ALU is the result of the specified operation on the two 16 bit input signals. The list of operations that the ALU can perform are ```add``` , ```sub```, ```and```, ```or```, and ```slt``` (this list is tentative). In the RTL, the ALU writes to ALUOut (for memory reference), Register File (for storing the result), and FCC (to increment and decrement the cache pointer for calls) .
-
-- Comparator
-
-  > The comparator will be used in order to determine if two inputs are equal. It does this much quicker than the ALU would as it utilizes a series of 16 xor gates to try and 0 out a number and or's it with 0 at the end after all of the xors and inverts the result, yielding an isEqual result. 
-
-- Fcache
-
-  > The Fcache is a storage unit with 256 bit words that is used to automatically back up f registers. When another function is called, all f registers are immediately stored in this cache at the address of FCC. One 256 bit bus from registers 0 -256 and two control signals, a Fread and a Fwrite, are necessary. When Fread is high, then we will be taking in the f registers which are on the bus and storing them in the cache at FCC. When Fwrite is high, we are writing to all of the f registers with the data from the cache using the same 256 bit bus. These words will hold the 16 16-bit f registers specific to each allocated slot determined by the FCC.
-
-- Dual-port Register File
-
-  > This component will be a file of 64 16 bit registers. It will take four inputs, two address inputs, and two data inputs. It will have two data outputs. The control signals will be RegReadA, RegReadB, RegWriteA, and RegWriteB. With a RegRead control signal high, the data at it's respective address input will be put on on it's respective output bus, and with the signal low, nothing happens. With a RegWrite control signal high, the data on it's respective input bus will be written to the address on it's respective address input.
-
-- Dual-port Memory
-
-  > This component will be a memory unit with the ability to read and write two items at once. It will have four inputs, two address inputs, and two data inputs. It will have two data outputs. The control signals will be MemReadA, MemReadB, MemWriteA, and MemWriteB. With a MemRead control signal high, the data at it's respective address input will be put on on it's respective output bus, and with the signal low, nothing happens. With a MemWrite control signal high, the data on it's respective input bus will be written to the address on it's respective address input.
-
-### Testing the Components
-#### Component Unit Testing Methods
-- PC Adder and Address Adder
-
-  > The inputs to both of these adders include two 16 bit numbers. The intended output is the addition of both numbers. The different test cases that should be accounted for are overflow, negative and positive numbers, and zero.
-
-- Registers
-
-  > The intended effect of all registers are to hold a value for an indefinite amount of time, which is independent of the given input. 
-
-- ALU 
-
-  > The ALU will have two 16 bit inputs, one 3 bit control input,  and one output, which is the result of the specified operation on the two 16 bit input signals. The list of operations that the ALU can perform . Similar to the address adder, test cases that should be accounted for are overflow, negative and positive numbers, and zero for the ```add``` , ```sub```, ```and```, ```or```, and ```slt```  instructions.
-
-- Comparator
-
-  > The comparator involves 2, 16 bit, inputs and the intended output is a 1 if the two bits are equal and a 0 if the two bits are not equal. Test cases that must be accounted for are when one input is greater than the other, less than the other, and equal to the other. Positive and negative values must also be involved as well.
-
-- F-Cache, Dual-port Register File and Memory
-
-  > These three memory inputs will be tested to see whether the reads and writes are being performed on the intended locations. See integration testing.
-
-
 ### Testing our RTL
+- Peer review for any optimizations or lacking steps
+- A tracing of some simple algorithms to verify that the intended output was received.
 
-To verify the RTL for correctness, the RTL underwent....
-1.	Peer review for any optimizations or lacking steps
-2.  A tracing of some simple algorithms to verify that the intended output was received.
+## Hardware Components
+
+#### Adder
+
+| Items                       | Descriptions                                                 |
+| --------------------------- | ------------------------------------------------------------ |
+| **Inputs**                  | A[15:0], B[15:0]                                             |
+| **Outputs**                 | C[15:0]                                                      |
+| **Control Signals**         | None                                                         |
+| **Functionality**           | Outputs A+B onto C                                           |
+| **Hardware Implementation** | Series of half adders chain with carry outs to carry ins     |
+| **Unit Tests**              | A loop in verilog that inputs all permutations of two 16 bit integers and verifies the output is the correct number you get when the inputs are added |
+
+#### Single bit Multiplexer
+
+| Items                       | Descriptions                                                 |
+| --------------------------- | ------------------------------------------------------------ |
+| **Inputs**                  | A[15:0], B[15:0]                                             |
+| **Outputs**                 | C[15:0]                                                      |
+| **Control Signals**         | Option                                                       |
+| **Functionality**           | Will constantly put the value of A or B specified by the Option control bit onto C |
+| **Hardware Implementation** | Combinational logic to correctly choose the input to put on C |
+| **Unit Tests**              | A loop in verilog which puts every permutation of two 16 bit integers and a single control bit on A, B, and Option and tests that the output is whats expected |
+
+#### Two bit Multiplexer
+
+| Items                       | Descriptions                                                 |
+| --------------------------- | ------------------------------------------------------------ |
+| **Inputs**                  | A[15:0], B[15:0], C[15:0], D[15:0]                           |
+| **Outputs**                 | C[15:0]                                                      |
+| **Control Signals**         | Option[1:0]                                                  |
+| **Functionality**           | Will constantly put the value of A or B specified by the Option control bit onto C |
+| **Hardware Implementation** | Combinational logic to correctly choose the input to put on C |
+| **Unit Tests**              | A loop in verilog which puts every permutation of four 16 bit integers and a two bit control signal on A, B, C, D, and Option and tests that the output is whats expected |
+
+#### Register
+
+| Items                       | Descriptions                                                 |
+| --------------------------- | ------------------------------------------------------------ |
+| **Inputs**                  | A[15:0]                                                      |
+| **Outputs**                 | B[15:0]                                                      |
+| **Control Signals**         | Write, Read                                                  |
+| **Functionality**           | Stores value on A in latches on a Write signal, puts stored value on B on Read signal |
+| **Hardware Implementation** | Series of individual latches with Write and Read signals distributed to them |
+| **Unit Tests**              | A loop in verilog that writes each value possible in a 16 bit integer and then reads them to ensure they are correct each iteration |
+
+#### ALU
+
+| Items                       | Descriptions                                                 | ALU op | Operation     |
+| --------------------------- | ------------------------------------------------------------ | ------ | ------------- |
+| **Inputs**                  | A[15:0], B[15:0]                                             | 000    | AND           |
+| **Outputs**                 | A<B, C[15:0]                                                 | 001    | OR            |
+| **Control Signals**         | Operation[2:0]                                               | 010    | ADD           |
+| **Functionality**           | Takes the mathematical operation specified by Operation and preforms in on operand A and B, puts result on A<B or C depending on operation | 011    | SUBTRACT      |
+| **Hardware Implementation** | A decoder used to interpret the control signal and combination logic unit for each of the operations availible | 100    | SHIFT         |
+| **Unit Tests**              | A loop in verilog which inputs all permutations of two 16 bit integers and available operation codes and verifies with the output that the operation was preformed correctly on the inputs | 101    | SET LESS THAN |
+
+#### Comparator
+
+| Items                       | Descriptions                                                 |
+| --------------------------- | ------------------------------------------------------------ |
+| **Inputs**                  | A[15:0], B[15:0]                                             |
+| **Outputs**                 | C                                                            |
+| **Control Signals**         | Compare                                                      |
+| **Functionality**           | Whenever the compare signal is high, outputs a 1 on C if A == B and a 0 otherwise. |
+| **Hardware Implementation** | A tree of xor gates linking the bits of the inputs together down to a single bit which is inverted with an inverter gate |
+| **Unit Tests**              | A loop in verilog which inputs all permutations of two 16 bit integers and the Compare control signal and determines if the output is correct |
+
+#### Fcache
+
+| Items                       | Descriptions                                                 |
+| --------------------------- | ------------------------------------------------------------ |
+| **Inputs**                  | A[255:0], B[15:0]                                            |
+| **Outputs**                 | A[155:0]                                                     |
+| **Control Signals**         | Write, Read                                                  |
+| **Functionality**           | When the Write signal is high, takes the value on A and stored it in address B, when the Read signal is high, puts the value at B on A |
+| **Hardware Implementation** | Static storage implemented using a register-file like structure. A decoder is used to decode the address to send the correct Write/Read signals to the correct address |
+| **Unit Tests**              | A loop in verilog which goes through each address and writes all possible 256 bit values while reading them each iteration to ensure they are correct. |
+
+#### Register File
+
+| Items                       | Descriptions                                                 |
+| --------------------------- | ------------------------------------------------------------ |
+| **Inputs**                  | A1[15:0], A2[15:0], W1[15:0], W2[15:0], F[255:0]             |
+| **Outputs**                 | R1[15:0], R2[15:0], F[255:0]                                 |
+| **Control Signals**         | Write1, Write2, Read1, Read2, Backup, Restore                |
+| **Functionality**           | With a Write signal high, takes the respective value (W1 or W2) and stores it in the respective address (A1 or A2). With a Read signal high, takes the value at the respective address and puts it onto the respective output (R1 or R2). When Backup is high, puts the values in registers 0 to 15 on F, when Restore is high, stores the values on F into registers 0 to 15. |
+| **Hardware Implementation** | Static storage implemented using a series of registers. A decoder is used to decode addresses and send the Write/Read signals to the correct register(s). |
+| **Unit Tests**              | A loop in verilog which goes through each address and writes all possible 16 bit values while reading them each iteration to ensure they are correct. |
+
+#### Memory Unit
+
+| Items                       | Descriptions                                                 |
+| --------------------------- | ------------------------------------------------------------ |
+| **Inputs**                  | A1[15:0], A2[15:0], W1[15:0], W2[15:0]                       |
+| **Outputs**                 | R1[15:0], R2[15:0]                                           |
+| **Control Signals**         | Write1, Write2, Read1, Read2                                 |
+| **Functionality**           | With a Write signal high, takes the respective value (W1 or W2) and stores it in the respective address (A1 or A2). With a Read signal high, takes the value at the respective address and puts it onto the respective output (R1 or R2) |
+| **Hardware Implementation** | Memory unit using static storage and two decoders to implement the dual port functionality or sending the correct values and control signals to the correct registers. |
+| **Unit Tests**              | A loop in verilog which goes through each address and writes all possible 16 bit values while reading them each iteration to ensure they are correct. |
+
+#### Control Unit
+
+| Items                       | Descriptions                                                 |
+| --------------------------- | ------------------------------------------------------------ |
+| **Inputs**                  | A[3:0]                                                       |
+| **Outputs**                 | B[23:0]                                                      |
+| **Control Signals**         | Reset                                                        |
+| **Functionality**           | Given an op-code (or address) the unit outputs a value on B corresponding to the control signals needed by the instruction |
+| **Hardware Implementation** | Combinational logic to correctly choose the input to put on C |
+| **Unit Tests**              | A loop in verilog which puts every permutation of the op-codes and Reset control bit on A and Reset, then tests that the output control signals is whats expected |
+
+## Integrating and Testing the Components
+
+### Integration Plan
+
+| Subsystem                        | Composition                                                  |
+| -------------------------------- | ------------------------------------------------------------ |
+| **Program Counting System**      | Register (x2), Single bit Multiplexer (x2), Adder, Or-gate   |
+| **Memory Management System**     | Memory Unit, Single bit Multiplexer, Register (x3)           |
+| **Register Management System**   | Register File, Single bit Multiplexer, Two bit Multiplexer, Register (x2) |
+| **Fcache Backup System**         | Fcache, Single bit Multiplexer (x2), Adder, Register, Or-gate |
+| **Arithmetic and Logic System**  | ALU, Single bit Multiplexer, Register (x2)                   |
+| **Program Management System**    | Program Counting System, Memory Management System            |
+| **Data Management System**       | Register Management System, Fcache Backup System             |
+| **Instruction Execution System** | Data Management System, Arithmetic and Logic System          |
+| **Datapath**                     | Program Management System, Instruction Execution System      |
+
+### Datapath Block Diagram with Subsystems
+
+![Datapath and subsystems](./images/Integration_Testing_Subsystems/layer_1.png)
+
+### Test Plans
+
+| Subsystem                              | Test Plan                                                    |
+| -------------------------------------- | ------------------------------------------------------------ |
+| **Program Counting System** (PCS)      | Run the system through a few clock cycles to test that it correctly increments by two each time. Also ensure that we can write pc + 2 to ra. Once this is verified, inject addresses from a set of addresses, and from register ra, to test branching functionality. |
+| **Memory Management System **(MMS)     | Input values into a sequential block of memory then read from the same block, verifying that each read gives the output registers the correct values that were written. |
+| **Register Management System** (RMS)   | Input values into registers from all permutations of the input ports, then read from registers with known values verifying that each read gives the output registers the correct values. |
+| **Fcache Backup System** (FBS)         | Conduct multiple Backups of known values to a sequential block in the Fcache memory, then using multiple restores, read back the same block verifying the output is what was written. |
+| **Arithmetic and Logic System** (ALS)  | Conduct all possible ALU operations on a wide range of input values using all possible input methods (i.e. different ALUsrc signals to the multiplexer). Test each operation for correct output values. |
+| **Program Management System** (PMS)    | Hard-code values into a sequential block of memory then allow the program counter to increment through memory and verify that the correct values which were written to memory are written to the output registers. |
+| **Data Management System** (DMS)       | Repeatedly write values to registers 0 - 15 using many permutations of input methods. Each time all 16 registers are filled, send a backup control signal. Do this many times then conduct the same number of restores, ensuring values are correct along the way. |
+| **Instruction Execution System** (IES) | Give this system the control signals needed for basic instructions which don't require memory such as arithmetic operations and moving values around in the register file. Include many different input values with each set of control signals and verify that the output is whats expected. |
+| **Datapath**                           | Develop a set of test cases for each instruction and run them through the system and verify that the results are as expected. After these test have passed we can implement simple code blocks and algorithms to test more complex processes. |
+
 ## Control Signals
+
 |Signal Name|Bits|Effect when deasserted (0)|Effect when asserted (1)|
 | --- | --- | --- |---|
 |PCsrc|1|PC is set to default value (PC+2) or ImR|PC is set to the value of ra|
-|wPC|1|Nothing|PC gets the value chosen by PCsrc mux |
-|wRa|1|Nothing|Ra gets the value of PC + 2|
+|writePC|1|Nothing|PC gets the value chosen by PCsrc mux |
+|writeRa|1|Nothing|Ra gets the value of PC + 2|
 |ImPCsrc|1|ImPCsrc mux chooses PC+2|ImPCsrc mux chooses immediate value (only when comparator is enabled and determines A=B)|
 |MemSrc|1|Address 1 in Mem is pulled from PC + 2|Address 1 in Mem is pulled from ALUout|
 |MemW1|1|Nothing|The value at port w1 is written to the address specified by a1|
 |MemW2|1|Nothing|The value at port w2 is written to the address specified by a2|
 |MemR1|1|Nothing|The value at the address specified by a1 is read to port r1|
 |MemR2|1|Nothing|The value at the address specified by a2 is read to port r2|
-|wCr|1|The reg number specified at reg file port a1 is IR[11:6] (default)|The reg number specified at reg file port a1 is 57 (for compiler register)|
+|writeCr|1|The reg number specified at reg file port a1 is IR[11:6] (default)|The reg number specified at reg file port a1 is 57 (for compiler register)|
 |RegSrc|2|0 - Value at reg file port w2 comes from ImR; 1 - Value at port w2 comes from MemOut|2 - Value at port w2 comes from ALUout; 3 - Value at port w2 comes from reg A|
-|wImR|1|Nothing|ImR gets the value read from memory at the address specified by a2|
-|bckup|1|Nothing|Registers 15:0 (256 bits) from the reg file are written to the Fcache at the address specified by "a"; FCC is incrememented by 1|
-|rstore|1|Nothing|The 256 bit value at the address specified by "a" in the Fcache is written to registers 15:0 in the reg file; FCC is decremented by 1|
+|writeImR|1|Nothing|ImR gets the value read from memory at the address specified by a2|
+|backup|1|Nothing|Registers 15:0 (256 bits) from the reg file are written to the Fcache at the address specified by "a"; FCC is incrememented by 1|
+|restore|1|Nothing|The 256 bit value at the address specified by "a" in the Fcache is written to registers 15:0 in the reg file; FCC is decremented by 1|
 |RegW1|1|Nothing|The value at port w1 is written to the reg address specified by a1|
 |RegW2|1|Nothing|The value at port w2 is written to the reg address specified by a2|
 |RegR1|1|Nothing|The value at the reg address specified by a1 is read to port r1|
 |RegR2|1|Nothing|The value at the reg address specified by a2 is read to port r2|
 |ALUsrc|1|2nd ALU operand comes from ImR|2nd ALU operand comes from reg B|
-|ALUop|3|See table below|See table below|
+|ALUop|3|SEE ALU IN COMPONENTS|SEE ALU IN COMPONENTS|
 |cmp|1|Nothing|The result of the comparison A=B is sent to the ImPCsrc mux|
-
-### ALUop codes
-|ALUop|Operation|
-|---|---|
-|000|AND|
-|001|OR|
-|010|add|
-|011|shift|
-|100|subtract|
-|101|set on less than (slt)|
