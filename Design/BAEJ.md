@@ -382,13 +382,9 @@ done:	cop .m0 .v0
 
 ### Testing the Components
 #### Component Unit Testing Methods
-- PC Adder
+- PC Adder and Address Adder
 
-  > The inputs to the PC adder is the control bit that determines whether or not PC should be written into. The intended outputs are that if the control bit is high, nothing gets written into PC. Otherwise, 2 is added to the PC. The cases that are to be accounted for are when the control bit is high and when it's low.
-
-- Address Adder
-
-  > The inputs to the Address Adder include two 16 bit numbers. The intended output is the addition of both numbers. The different test cases that should be accounted for are overflow, negative and positive numbers, and zero.
+  > The inputs to both of these adders include two 16 bit numbers. The intended output is the addition of both numbers. The different test cases that should be accounted for are overflow, negative and positive numbers, and zero.
 
 - Registers
 
