@@ -337,28 +337,24 @@ done:	cop .m0 .v0
 
 ### Hardware Components
 
-- PC Adder
+- Adder ( X 2 )
 
-  > This component is a combinational logic component which takes two inputs, one 16 bit input, and one 1 bit input (the first wire from the op code). With the single bit input low, the adder will add 2 to the 16 bit input. With the single bit input high, the adder will add nothing to the 16 bit input. This is the component that will be used to increment the adder.
-
-- Address Adder
-
-  > This component is a standard adder which will be used to add the A and ImR registers when addressing memory for load and store instructions. It will have the two 16 bit inputs and one 16 bit output and no control signals
+  > A combinational logic component that takes two 16 bit inputs and performs an addition on the two inputs, return the result into the output. One is used for the PC and the other is for the FCC.
 
 - Registers
 
-  > A general register component takes in one 16 bit input for writing a value into the register, and has one 16 bit output signal for reading the value out of the register. Registers do not have any control signals.  A general register component implements the following RTL symbols:
+  > Component that takes in one 16 bit input that writes into the register. The 16 bit value can then be read out of one 16 bit output signal. A general register component implements the following RTL symbols:
 
   | Registers | Description|
   | --------- | -----------|
-  | A & B     | These registers are used for holding data values retrieved out of the register file for use as inputs in the ALU. |
-  |ALUout             |This register is used for holding the output of the ALU (for lda and ldi).|
-  |FCC                   |The FCC (function call counter) register is used to hold the current count of function calls for use in addressing f-register backups to the f-register cache.|
-  |PC                     |The PC (program counter) register is used to track the current address in memory of a program.|
-  |ra                      |The ra (return address) register gets the address of PC+2 when a function call is made.|
-  |cr                      |The cr (compiler register) is for temporary use by the assembler in functions such as slt.|
-  |IR                      |The IR (instruction register) holds the 16 bits of instruction pulled from instruction memory at the address value stored in PC.|
-  |ImR                  |The ImR (immediate register) holds the 16 bits of data pulled from instruction memory at PC+2. For I-type instructions, these 16 bits are the immediate value associated with the instruction.|
+  | A & B     | Used for holding data values retrieved out of the register file for use as inputs in the ALU. |
+  |ALUout             |Used for holding the output of the ALU (for lda and ldi).|
+  |FCC (function call counter)                   |Used to hold the current count of function calls for use in addressing f-register backups to the f-register cache.|
+  |PC (program counter)                     |Used to track the current address in memory of a program.|
+  |ra (return address)                      |Gets the address of PC+2 when a function call is made.|
+  |cr (compiler register)                      |Used by the assembler in functions such as slt.|
+  |IR (instruction register)                      |Holds the 16 bits of instruction pulled from instruction memory at the address value stored in PC.|
+  |ImR (immediate register)                  |Holds the 16 bits of data pulled from instruction memory at PC+2. For I-type instructions, these 16 bits are the immediate value associated with the instruction.|
 
 - ALU 
 
