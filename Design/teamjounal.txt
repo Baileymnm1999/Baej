@@ -64,3 +64,9 @@ MEETING 4.1 - 01/27/2019 - 6:00 pm [180 min]:
 Members present: Bailey, Alex, Eric
 Completed the finite state machine for the datapath control signals. Described different
 testing methods for the finite state machine.
+
+MEETING 4.2 - 01/28/2019 - 6:00 pm [300 min]:
+All members present
+Implemented most of the components in VHDL, except for memory, which still has some
+reading problems. Planned to meet tomorrow to write up integration plans.
+
