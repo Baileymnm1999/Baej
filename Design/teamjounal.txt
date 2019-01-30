@@ -74,4 +74,7 @@ All members present
 Implemented most of the components in VHDL, except for memory, which still has some
 reading problems. Planned to meet tomorrow to write up integration plans.
 
-
+MEETING 4.3 - 01/30/2019 - 3:00 pm [300 min]:
+All members present
+Finished implementing register file and memory unit, along with their unit tests. Implemented some integration between the components
+and finalized the multicycle FSM.
