@@ -45,6 +45,8 @@ Polished up and translate RTL over to our design document. Developed shopping li
 Started describing our components. Added a comparator to the list, ALU now has 3 bit opcodes as we had 5 operations and needed 3 control wires to accomodate this. 
 Developed a "code-tracing thought experiment" in order to test our RTL, easier and quicker to develop than a simluation and less reliant on others than a survery from other groups.
 
+Milestone 3
+
 MEETING 3.1 - 01/20/2019 - 2:30pm [150 min]
 All members present (Alex facetime)
 Completed rough draft of datapath after walking through RTL for each instruction. Made changes to RTL based on our datapath.
@@ -54,4 +56,8 @@ Will use a ROM for control unit. Meeting tomorrow to move a lot of the work from
 MEETING 3.2 - 01/21/2019 - 5:10pm [120 min]: 
 Defining and describing every control signal. Working on ways to perform unit and integration testing on
 our datapath. Started looking at Verilog and how to implement some components. Working on documention on Design document.
+
+MEETING 3.3 - 01/22/2019 - 7:00pm [310 min]: 
+Updated datapath to reflect control unit, subsystems, and integration plan. Wrote/planned all unit and integrations tests. Wrote verilog modules and test benches for comparator, adder, and mux.
+Updated list of hardware components, and reformatted into tables. Updated RTL, including plan for a simulation to verify RTL. Updated design document.
 
