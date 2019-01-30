@@ -54,10 +54,24 @@ We are still in need of documentation for each component and subsystem. Worked o
 Will use a ROM for control unit. Meeting tomorrow to move a lot of the work from today into the design document.
 
 MEETING 3.2 - 01/21/2019 - 5:10pm [120 min]: 
+All members present
 Defining and describing every control signal. Working on ways to perform unit and integration testing on
 our datapath. Started looking at Verilog and how to implement some components. Working on documention on Design document.
 
 MEETING 3.3 - 01/22/2019 - 7:00pm [310 min]: 
 Updated datapath to reflect control unit, subsystems, and integration plan. Wrote/planned all unit and integrations tests. Wrote verilog modules and test benches for comparator, adder, and mux.
 Updated list of hardware components, and reformatted into tables. Updated RTL, including plan for a simulation to verify RTL. Updated design document.
+
+Milestone 4
+
+MEETING 4.1 - 01/27/2019 - 6:00 pm [180 min]:
+Members present: Bailey, Alex, Eric
+Completed the finite state machine for the datapath control signals. Described different
+testing methods for the finite state machine.
+
+MEETING 4.2 - 01/28/2019 - 6:00 pm [300 min]:
+All members present
+Implemented most of the components in VHDL, except for memory, which still has some
+reading problems. Planned to meet tomorrow to write up integration plans.
+
 
