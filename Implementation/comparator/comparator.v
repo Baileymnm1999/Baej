@@ -20,10 +20,24 @@
 module comparator(
     input [15:0] A,
     input [15:0] B,
-	 input ControlSignal,
-    output [15:0] R
+	 input cmpEq,
+	 input cmpNq,
+	 input clk,
+    output reg [15:0] R
     ); 
 
-		assign R = (A == B) && ControlSignal;
+	 always @(posedge clk) begin
+		
+		if(cmpEq) begin
+			assign R = (A == B);
+		end
+		if(cmpNq) begin
+			assign R = (A != B);
+		end
+		
+	end
+		
+		
+		
 				
 endmodule
