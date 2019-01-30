@@ -23,7 +23,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 module mem_unit_tb;
-
 	// Inputs
 	reg [15:0] DataIn_1;
 	reg [15:0] DataIn_2;
@@ -34,6 +33,8 @@ module mem_unit_tb;
 	reg ReadEna_1;
 	reg ReadEna_2;
 	reg CLK;
+	
+	reg testVal;
 
 	// Outputs
 	wire [15:0] DataOut_1;
@@ -65,61 +66,34 @@ module mem_unit_tb;
 		ReadEna_1 = 1;
 		ReadEna_2 = 1;
 		CLK = 0;
+		testVal = 100;
 
 		// Wait 100 ns for global reset to finish
 		#100;
       
-		// Write address_1 values to addresses
-		repeat (500) begin
-			$display("Data out = %h. Address = %h.\n", DataOut_1, Address_1);
-			DataIn_1 <= Address_1;
-			repeat (2) begin
+		// Write address_1 into all 2^16 addresses
+		$display("Port1");
+		repeat (16) begin // Should be 2 ^ 16
+			testVal = 100;
+			repeat (16) begin
+				DataIn_1 <= testVal;
+		   
 				#5;
 				CLK = ~CLK; 
+				#5;
+				CLK = ~CLK; 
+				
+				if (DataOut_1 == testVal)
+					$display("address = %h; actual = %h; expected = %h PASSED \n", Address_1, DataOut_1, testVal);
+				else
+					$display("address = %h; actual = %h; expected = %h FAILED \n", Address_1, DataOut_1, testVal);
+					
+				testVal = testVal - 1;
 			end
 			Address_1 = Address_1 + 1;
 		end
 		
-		#50
-		
-		// Write address_2 values to addresses
-		repeat (500) begin
-			$display("Data out = %h. Address = %h.\n", DataOut_2, Address_2);
-			DataIn_2 <= Address_2;
-			repeat (2) begin
-				#5;
-				CLK = ~CLK; 
-			end
-			Address_2 = Address_2 + 1;
-		end
-		
-		#50
-		
-		Address_1 = 0;
-		Address_2 = 0;
-		// Read values from address 1
-		repeat (500) begin
-			$display("Data out = %h. Address = %h.\n", DataOut_1, Address_1);
-			Address_1 = Address_1 + 1;
-			repeat (2) begin
-				#5;
-				CLK = ~CLK; 
-			end
-		end
-		
-		#50
-		// Read values from address 2
-		repeat (500) begin
-			$display("Data out = %h. Address = %h.\n", DataOut_2, Address_2);
-			Address_2 = Address_2 + 1;
-			repeat (2) begin
-				#5;
-				CLK = ~CLK; 
-			end
-		end
-		// Add stimulus here
-
-	end
-      
+		// TODO: Do the exact same thing, but for Address 2
+   end
 endmodule
 

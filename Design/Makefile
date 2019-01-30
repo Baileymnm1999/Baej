@@ -1,4 +1,4 @@
-all: designdoc datapath
+all: designdoc 
 
 designdoc: BAEJ.md
 	@echo "MAKING DESIGN DOCUMENT (BAEJ.pdf)..."

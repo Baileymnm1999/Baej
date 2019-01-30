@@ -1,5 +1,5 @@
 ISim log file
-Running: C:\Users\tuey\Documents\f\mem\mem_unit_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/tuey/Documents/f/mem/mem_unit_tb_isim_beh.wdb 
+Running: C:\Users\tuey\Desktop\CSSE232\project\3B-dripchar-eckelsjd-morganbm-tuey\Implementation\two_port_mem-needs_debugging\mem_unit_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/tuey/Desktop/CSSE232/project/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/two_port_mem-needs_debugging/mem_unit_tb_isim_beh.wdb 
 ISim P.20131013 (signature 0x7708f090)
 ----------------------------------------------------------------------
 INFO:Security:50 - The XILINXD_LICENSE_FILE environment variable is set to '2100@ise.csse.rose-hulman.edu'.
@@ -20,185 +20,184 @@ Time resolution is 1 ps
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-Data out = xxxx. Address = 0000.
+Port1
+address = 0000; actual = xxxx; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0001.
+address = 0000; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0002.
+address = 0000; actual = 0000; expected = 0 PASSED 
 
-Data out = xxxx. Address = 0003.
+address = 0000; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0004.
+address = 0000; actual = 0000; expected = 0 PASSED 
 
-Data out = xxxx. Address = 0005.
+address = 0000; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0006.
+address = 0000; actual = 0000; expected = 0 PASSED 
 
-Data out = xxxx. Address = 0007.
+address = 0000; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0008.
+address = 0000; actual = 0000; expected = 0 PASSED 
 
-Data out = xxxx. Address = 0009.
+address = 0000; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 000a.
+address = 0000; actual = 0000; expected = 0 PASSED 
 
-Data out = xxxx. Address = 000b.
+address = 0000; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 000c.
+address = 0000; actual = 0000; expected = 0 PASSED 
 
-Data out = xxxx. Address = 000d.
+address = 0000; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 000e.
+address = 0000; actual = 0000; expected = 0 PASSED 
 
-Data out = xxxx. Address = 000f.
+address = 0000; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0010.
+address = 0001; actual = xxxx; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0011.
+address = 0001; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0012.
+address = 0001; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0013.
+address = 0001; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0014.
+address = 0001; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0015.
+address = 0001; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0016.
+address = 0001; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0017.
+address = 0001; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0018.
+address = 0001; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0019.
+address = 0001; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 001a.
+address = 0001; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 001b.
+address = 0001; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 001c.
+address = 0001; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 001d.
+address = 0001; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 001e.
+address = 0001; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 001f.
+address = 0001; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0020.
+address = 0002; actual = xxxx; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0021.
+address = 0002; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0022.
+address = 0002; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0023.
+address = 0002; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0024.
+address = 0002; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0025.
+address = 0002; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0026.
+address = 0002; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0027.
+address = 0002; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0028.
+address = 0002; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0029.
+address = 0002; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 002a.
+address = 0002; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 002b.
+address = 0002; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 002c.
+address = 0002; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 002d.
+address = 0002; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 002e.
+address = 0002; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 002f.
+address = 0002; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0030.
+address = 0003; actual = xxxx; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0031.
+address = 0003; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0032.
+address = 0003; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0033.
+address = 0003; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0034.
+address = 0003; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0035.
+address = 0003; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0036.
+address = 0003; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0037.
+address = 0003; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0038.
+address = 0003; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0039.
+address = 0003; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 003a.
+address = 0003; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 003b.
+address = 0003; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 003c.
+address = 0003; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 003d.
+address = 0003; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 003e.
+address = 0003; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 003f.
+address = 0003; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0040.
+address = 0004; actual = xxxx; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0041.
+address = 0004; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0042.
+address = 0004; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0043.
+address = 0004; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0044.
+address = 0004; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0045.
+address = 0004; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0046.
+address = 0004; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0047.
+address = 0004; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0048.
+address = 0004; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0049.
+address = 0004; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 004a.
+address = 0004; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 004b.
+address = 0004; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 004c.
+address = 0004; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 004d.
+address = 0004; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 004e.
+address = 0004; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 004f.
+address = 0004; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0050.
+address = 0005; actual = xxxx; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0051.
+address = 0005; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0052.
+address = 0005; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0053.
+address = 0005; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0054.
+address = 0005; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0055.
+address = 0005; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0056.
+address = 0005; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0057.
+address = 0005; actual = 0000; expected = 1 FAILED 
 
-Data out = xxxx. Address = 0058.
+address = 0005; actual = 0001; expected = 0 FAILED 
 
-Data out = xxxx. Address = 0059.
-
-Data out = xxxx. Address = 005a.
+address = 0005; actual = 0000; expected = 1 FAILED 
 
