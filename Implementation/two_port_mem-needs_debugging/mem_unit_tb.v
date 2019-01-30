@@ -4,9 +4,9 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   22:10:45 01/28/2019
+// Create Date:   18:21:45 01/30/2019
 // Design Name:   amemory16x1k
-// Module Name:   C:/Users/tuey/Documents/f/mem/mem_unit_tb.v
+// Module Name:   C:/Users/tuey/Desktop/CSSE232/project/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/two_port_mem-needs_debugging/mem_unit_tb.v
 // Project Name:  mem
 // Target Device:  
 // Tool versions:  
@@ -23,77 +23,92 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 module mem_unit_tb;
+
 	// Inputs
-	reg [15:0] DataIn_1;
-	reg [15:0] DataIn_2;
-	reg [15:0] Address_1;
-	reg [15:0] Address_2;
-	reg WriteEna_1;
-	reg WriteEna_2;
-	reg ReadEna_1;
-	reg ReadEna_2;
-	reg CLK;
-	
-	reg testVal;
+	reg [15:0] W1;
+	reg [15:0] W2;
+	reg [15:0] A1;
+	reg [15:0] A2;
+	reg Write1;
+	reg Write2;
+	reg Read1;
+	reg Read2;
+	reg clk;
 
 	// Outputs
-	wire [15:0] DataOut_1;
-	wire [15:0] DataOut_2;
+	wire [15:0] R1;
+	wire [15:0] R2;
 
 	// Instantiate the Unit Under Test (UUT)
 	amemory16x1k uut (
-		.DataIn_1(DataIn_1), 
-		.DataIn_2(DataIn_2), 
-		.DataOut_1(DataOut_1), 
-		.DataOut_2(DataOut_2), 
-		.Address_1(Address_1), 
-		.Address_2(Address_2), 
-		.WriteEna_1(WriteEna_1), 
-		.WriteEna_2(WriteEna_2), 
-		.ReadEna_1(ReadEna_1), 
-		.ReadEna_2(ReadEna_2), 
-		.CLK(CLK)
+		.W1(W1), 
+		.W2(W2), 
+		.R1(R1), 
+		.R2(R2), 
+		.A1(A1), 
+		.A2(A2), 
+		.Write1(Write1), 
+		.Write2(Write2), 
+		.Read1(Read1), 
+		.Read2(Read2), 
+		.clk(clk)
 	);
 
 	initial begin
 		// Initialize Inputs
-		DataIn_1 = 0;
-		DataIn_2 = 0;
-		Address_1 = 0;
-		Address_2 = 0;
-		WriteEna_1 = 1;
-		WriteEna_2 = 1;
-		ReadEna_1 = 1;
-		ReadEna_2 = 1;
-		CLK = 0;
-		testVal = 100;
+		W1 = 0;
+		W2 = 0;
+		A1 = 0;
+		A2 = 1000;
+		Write1 = 0;
+		Write2 = 0;
+		Read1 = 0;
+		Read2 = 0;
+		clk = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
-      
-		// Write address_1 into all 2^16 addresses
+		// Write all 16 bit values into each address
 		$display("Port1");
-		repeat (16) begin // Should be 2 ^ 16
-			testVal = 100;
-			repeat (16) begin
-				DataIn_1 <= testVal;
-		   
-				#5;
-				CLK = ~CLK; 
-				#5;
-				CLK = ~CLK; 
+		repeat (30) begin // Should be 2 ^ 16
+			W1 = 100;
+			W2 = 0;
+			#1;
+			
+			repeat (30) begin
+				Write1 = 1;
+				Write2 = 1;
+				#1;
+			
+				Write1 = 0;
+				Write2 = 0;
+				#1;
 				
-				if (DataOut_1 == testVal)
-					$display("address = %h; actual = %h; expected = %h PASSED \n", Address_1, DataOut_1, testVal);
+				Read1 = 1;
+				Read2 = 1;
+				#1;
+				if (R1 == W1)
+					$display("address = %d; actual = %d; expected = %d PASSED \n", A1, R1, W1);
 				else
-					$display("address = %h; actual = %h; expected = %h FAILED \n", Address_1, DataOut_1, testVal);
-					
-				testVal = testVal - 1;
+					$display("address = %d; actual = %d; expected = %d FAILED \n", A1, R1, W1);
+				if (R2 == W2)
+					$display("address = %d; actual = %d; expected = %d PASSED \n", A2, R2, W2);
+				else
+					$display("address = %d; actual = %d; expected = %d FAILED \n", A2, R2, W2);
+				Read1 = 0;
+				Read2 = 0;
+				
+				W1 = W1 - 1;
+				W2 = W2 + 1;
+				#1;
 			end
-			Address_1 = Address_1 + 1;
+			A1 = A1 + 1;
+			A2 = A2 - 1;
+			#1;
 		end
 		
 		// TODO: Do the exact same thing, but for Address 2
    end
+   always clk = #0.5 ~clk;
 endmodule
 

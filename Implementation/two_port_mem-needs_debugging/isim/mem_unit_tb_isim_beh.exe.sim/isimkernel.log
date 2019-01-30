@@ -2,4 +2,4 @@ Command line:
    mem_unit_tb_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  49629
+     -socket  50011

@@ -11,17 +11,17 @@
 //              to load programs and data into.
 //
 /*********************************************************/
-module amemory16x1k(DataIn_1,
-						  DataIn_2,
-						  DataOut_1,
-                    DataOut_2,
-                    Address_1,
-						  Address_2,
-						  WriteEna_1,
-						  WriteEna_2,
-						  ReadEna_1,
-						  ReadEna_2,
-                    CLK);
+module amemory16x1k(W1,
+						  W2,
+						  R1,
+                    R2,
+                    A1,
+						  A2,
+						  Write1,
+						  Write2,
+						  Read1,
+						  Read2,
+                    clk);
    
    // Definitions
 `define MEM_DEPTH 65535
@@ -30,41 +30,41 @@ module amemory16x1k(DataIn_1,
 
    // Inputs
    
-   input [`MEM_WIDTH-1:0] DataIn_1;
-	input [`MEM_WIDTH-1:0] DataIn_2;
-	input [`ADDR_SIZE-1:0] Address_1;
-	input [`MEM_WIDTH-1:0] Address_2;
+   input [`MEM_WIDTH-1:0] W1;
+	input [`MEM_WIDTH-1:0] W2;
+	input [`ADDR_SIZE-1:0] A1;
+	input [`MEM_WIDTH-1:0] A2;
 	
-   input                  CLK;
+   input                 clk;
 
    // Outputs
-   output reg [`MEM_WIDTH-1:0] DataOut_1;
-	output reg [`MEM_WIDTH-1:0] DataOut_2;
+   output reg [`MEM_WIDTH-1:0] R1;
+	output reg [`MEM_WIDTH-1:0] R2;
 
    // Signals
-	input						  WriteEna_1;
-	input						  WriteEna_2;
-   input						  ReadEna_1;
-	input						  ReadEna_2;
+	input						  Write1;
+	input						  Write2;
+   input						  Read1;
+	input						  Read2;
 
    // The memory
    reg [`MEM_WIDTH-1:0] mem [`MEM_DEPTH-1:0];
 
 
    // Operations
-   always @ (posedge CLK)
+   always @ (posedge clk)
      begin
-	    if (WriteEna_1)
-          mem[Address_1] <= DataIn_1;
+	    if (Write1)
+          mem[A1] <= W1;
 		
-		 if (WriteEna_2)
-			 mem[Address_2] <= DataIn_2;
+		 if (Write2)
+			 mem[A2] <= W2;
 			 
-		 if (ReadEna_1)
-			 DataOut_1 <= mem[Address_1];
+		 if (Read1)
+			 R1 <= mem[A1];
      
-		 if (ReadEna_2)
-			 DataOut_2 <= mem[Address_2];
+		 if (Read2)
+			 R2 <= mem[A2];
 	  end
    
 endmodule
