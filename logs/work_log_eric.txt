@@ -33,3 +33,14 @@ Wrote up a rough draft of component unit testing methods.
 01/22/2019 - 7:00 pm [270 min]:
 Drew up and named subsystems for integration testing. Peer reviewed.
 Rewrote methods of testing the RTL.
+
+**Milestone 4**
+01/27/2019 - 6:00 pm [180 min]:
+Drafted the finite state machine for the datapath control signals. Described different
+testing methods for the finite state machine with Alex.
+
+01/28/2019 - 6:00 pm [240 min]:
+Implemented the memory unit. Memory unit test still has bugs.
+
+01/30/2019 - 3:00 pm [300 min]:
+Finished implementing memory unit, along with its unit tests.
