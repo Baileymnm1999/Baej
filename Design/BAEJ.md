@@ -40,9 +40,9 @@ Function registers in BAEJ architecture serve as registers which can be safely u
 
 |Instruction|Type|OP|Usage|Description|Rtl|
 |-----------|----|--|-----|-----------|---|
-|```lda```|I Type|0000|```lda .rs[index] .rd```|Loads a value from memory to rd|```rd=Mem[rs+index]```|
+|```lda```|I Type|0000|```lda .rs[immediate] .rd```|Loads a value from memory to rd|```rd=Mem[rs+immediate]```|
 |```ldi```|I Type|0001|```ldi .rd immediate```|Loads an immediate to rd|```rd=immediate```|
-|```str```|I Type|0010|```str .rs[index] .rd```|Stores value in rd to memory|```Mem[rs+index]=rd```|
+|```str```|I Type|0010|```str .rs[immediate] .rd```|Stores value in rd to memory|```Mem[rs+immediate]=rd```|
 |```bop```|I Type|0011|```bop immediate```|Changes pc to immediate|```pc=immediate```|
 |```cal```|I Type|0100|```cal immediate```|Changes pc to immediate and sets a return address|```ra=pc+4```<br>```pc=immediate```|
 |```beq```|I Type|0101|```beq .rs .rd immediate```|Changes pc to immediate if rs and rd are equal|```if rs==rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=immediate;```|
@@ -260,19 +260,19 @@ done:	cop .m0 .v0
     </thead>
     <tbody>
         <tr>
-            <td colspan=7>IR = Mem[PC]<br>ImR = Mem[PC+2]<br>PC += 2</td>
+            <td colspan=7>IR = Mem[PC]<br>ImR = Mem[Wire(pc+1)]<br>PC += 1</td>
         </tr>
         <tr>
-            <td colspan=5>PC += 2<br>A = Reg[IR[11:6]]<br>B = Reg[IR[5:0]]</td>
+            <td colspan=5>PC += 1<br>A = Reg[IR[11:6]]<br>B = Reg[IR[5:0]]</td>
             <td>PC = ImR</td>
-            <td>ra = PC + 2<br>PC = ImR</td>
+            <td>ra = PC + 1<br>PC = ImR</td>
         </tr>
         <tr>
             <td colspan=2>ALUout = A + ImR</td>
             <td>Reg[IR[5:0]] = ImR</td>
             <td>if(A==B)<br>PC = ImR</td>
             <td>ALUout = A &lt;&lt; ImR</td>
-            <td></td>
+            <td>Cycle Delay</td>
             <td>Fcache[FCC] = Reg[15:0]<br>FCC += 1</td>
         </tr>
         <tr>
@@ -290,6 +290,8 @@ done:	cop .m0 .v0
 </table>
 
 
+
+
 #### G Types
 
 ![G Type RTL](./images/rtl1.png)
@@ -303,7 +305,7 @@ done:	cop .m0 .v0
     </thead>
     <tbody>
         <tr>
-            <td colspan=4>IR = Mem[PC]<br>PC += 2</td>
+            <td colspan=4>IR = Mem[PC]<br>PC += 1</td>
         </tr>
         <tr>
             <td colspan=3>A = Reg[IR[11:6]]<br>B = Reg[IR[5:0]]</td>
@@ -317,12 +319,14 @@ done:	cop .m0 .v0
         </tr>
         <tr>
         	<td></td>
-            <td>cr = ALessThan</td>
+            <td>cr = ALessThanB</td>
             <td>Reg[IR[5:0]] = ALUout</td>
             <td></td>
         </tr>
     </tbody>
 </table>
+
+
 
 ### Testing our RTL
 #### Code Tracing
@@ -369,33 +373,33 @@ A similar implementation will be done for other instructions. Once the instructi
 | Items                       | Descriptions                                                 |
 | --------------------------- | ------------------------------------------------------------ |
 | **Inputs**                  | A[15:0], B[15:0]                                             |
-| **Outputs**                 | C[15:0]                                                      |
+| **Outputs**                 | R[15:0]                                                      |
 | **Control Signals**         | None                                                         |
-| **Functionality**           | Outputs A+B onto C                                           |
-| **Hardware Implementation** | Series of half adders chain with carry outs to carry ins     |
-| **Unit Tests**              | A loop in verilog that inputs all permutations of two 16 bit integers and verifies the output is the correct number you get when the inputs are added |
+| **Functionality**           | Outputs A+B onto R                                           |
+| **Hardware Implementation** | In Verilog, assign A+B to the output R                       |
+| **Unit Tests**              | Input all permutations of two integers from -20 to 20 and verifies the output is the correct number you get when the inputs are added |
 
 #### Single bit Multiplexer
 
 | Items                       | Descriptions                                                 |
 | --------------------------- | ------------------------------------------------------------ |
 | **Inputs**                  | A[15:0], B[15:0]                                             |
-| **Outputs**                 | C[15:0]                                                      |
-| **Control Signals**         | Option                                                       |
-| **Functionality**           | Will constantly put the value of A or B specified by the Option control bit onto C |
-| **Hardware Implementation** | Combinational logic to correctly choose the input to put on C |
-| **Unit Tests**              | A loop in verilog which puts every permutation of two 16 bit integers and a single control bit on A, B, and Option and tests that the output is whats expected |
+| **Outputs**                 | R[15:0]                                                      |
+| **Control Signals**         | S                                                            |
+| **Functionality**           | Will constantly put the value of A or B specified by the S control bit onto R |
+| **Hardware Implementation** | Verilog switch case, which assigns A to R given a low signal for S, otherwise, assigns B to R |
+| **Unit Tests**              | Put all permutations of -10 to 10 on A and B and attempts to select A then B while testing that the correct output is on R |
 
 #### Two bit Multiplexer
 
 | Items                       | Descriptions                                                 |
 | --------------------------- | ------------------------------------------------------------ |
 | **Inputs**                  | A[15:0], B[15:0], C[15:0], D[15:0]                           |
-| **Outputs**                 | C[15:0]                                                      |
-| **Control Signals**         | Option[1:0]                                                  |
-| **Functionality**           | Will constantly put the value of A or B specified by the Option control bit onto C |
-| **Hardware Implementation** | Combinational logic to correctly choose the input to put on C |
-| **Unit Tests**              | A loop in verilog which puts every permutation of four 16 bit integers and a two bit control signal on A, B, C, D, and Option and tests that the output is whats expected |
+| **Outputs**                 | R[15:0]                                                      |
+| **Control Signals**         | S[1:0]                                                       |
+| **Functionality**           | Will constantly put the value of A, B, C, D specified by the S control bit onto R |
+| **Hardware Implementation** | Verilog switch case, which given 0, 1, 2, or 3, assigns A, B, C, or D to R respectively. |
+| **Unit Tests**              | Put all permutations of 4 numbers each from -10 to 10 on A, B, C, and D and attempts to select A, then B, then C, and finally D while testing that the correct output is on R |
 
 #### Register
 
@@ -405,52 +409,52 @@ A similar implementation will be done for other instructions. Once the instructi
 | **Outputs**                 | B[15:0]                                                      |
 | **Control Signals**         | Write, Read                                                  |
 | **Functionality**           | Stores value on A in latches on a Write signal, puts stored value on B on Read signal |
-| **Hardware Implementation** | Series of individual latches with Write and Read signals distributed to them |
-| **Unit Tests**              | A loop in verilog that writes each value possible in a 16 bit integer and then reads them to ensure they are correct each iteration |
+| **Hardware Implementation** | Module wrapper around a reg value in Verilog which manages read and write control signals to the reg value. |
+| **Unit Tests**              | A Loop in Verilog for each permutation of control signals write and read that assigns values -10 to 10 to input A, then tests to make sure that the output is as expected. |
 
 #### ALU
 
 | Items                       | Descriptions                                                 | ALU op | Operation     |
 | --------------------------- | ------------------------------------------------------------ | ------ | ------------- |
 | **Inputs**                  | A[15:0], B[15:0]                                             | 000    | AND           |
-| **Outputs**                 | A<B, C[15:0]                                                 | 001    | OR            |
+| **Outputs**                 | A<B, R[15:0]                                                 | 001    | OR            |
 | **Control Signals**         | Operation[2:0]                                               | 010    | ADD           |
-| **Functionality**           | Takes the mathematical operation specified by Operation and preforms in on operand A and B, puts result on A<B or C depending on operation | 011    | SUBTRACT      |
-| **Hardware Implementation** | A decoder used to interpret the control signal and combination logic unit for each of the operations availible | 100    | SHIFT         |
-| **Unit Tests**              | A loop in verilog which inputs all permutations of two 16 bit integers and available operation codes and verifies with the output that the operation was preformed correctly on the inputs | 101    | SET LESS THAN |
+| **Functionality**           | Takes the mathematical operation specified by Operation and preforms in on operand A and B, puts result on A<B or R depending on operation | 011    | SUBTRACT      |
+| **Hardware Implementation** | Verilog switch case that assigns the result of the appropriate operation on A and B to R based off of the op code | 100    | SHIFT         |
+| **Unit Tests**              | A loop in Verilog for each op code which inputs all permutations of two inputs from -20 to 20 and verifies with the output that the operation was preformed correctly on the inputs | 101    | SET LESS THAN |
 
 #### Comparator
 
 | Items                       | Descriptions                                                 |
 | --------------------------- | ------------------------------------------------------------ |
 | **Inputs**                  | A[15:0], B[15:0]                                             |
-| **Outputs**                 | C                                                            |
-| **Control Signals**         | Compare                                                      |
-| **Functionality**           | Whenever the compare signal is high, outputs a 1 on C if A == B and a 0 otherwise. |
-| **Hardware Implementation** | A tree of xor gates linking the bits of the inputs together down to a single bit which is inverted with an inverter gate |
-| **Unit Tests**              | A loop in verilog which inputs all permutations of two 16 bit integers and the Compare control signal and determines if the output is correct |
+| **Outputs**                 | R                                                            |
+| **Control Signals**         | Cmpeq, Cmpne                                                 |
+| **Functionality**           | Whenever the cmpeq signal is high, outputs a 1 on R if A == B, when cmpne is high, outputs a 1 on R if A != B, otherwise a 0 is output on R. |
+| **Hardware Implementation** | Verilog module which assigns A==B if cmpeq is high, A!=B if cmpne is high, otherwise 0 to R |
+| **Unit Tests**              | A loop in verilog which inputs a range of values A and B and checks the output for each control signal ensuring it is what should be expected. |
 
 #### Fcache
 
 | Items                       | Descriptions                                                 |
 | --------------------------- | ------------------------------------------------------------ |
-| **Inputs**                  | A[255:0], B[15:0]                                            |
-| **Outputs**                 | A[155:0]                                                     |
+| **Inputs**                  | dataIn[255:0], B[15:0]                                       |
+| **Outputs**                 | dataOut[255:0]                                               |
 | **Control Signals**         | Write, Read                                                  |
-| **Functionality**           | When the Write signal is high, takes the value on A and stored it in address B, when the Read signal is high, puts the value at B on A |
-| **Hardware Implementation** | Static storage implemented using a register-file like structure. A decoder is used to decode the address to send the correct Write/Read signals to the correct address |
-| **Unit Tests**              | A loop in verilog which goes through each address and writes all possible 256 bit values while reading them each iteration to ensure they are correct. |
+| **Functionality**           | When the Write signal is high, takes the value on dataIn and stored it in address B, when the Read signal is high, puts the value at B on dataOut |
+| **Hardware Implementation** | Static storage implemented using a register-file like structure. Use the verilog register file provided on the course website altering it to 256 bit words. In verilog, write a module which wraps the register file to allow for a bus serving as both input and output. |
+| **Unit Tests**              | A loop in verilog which goes through a large range of addresses and writes many different 256 bit values while reading them each iteration to ensure they are correct. |
 
 #### Register File
 
 | Items                       | Descriptions                                                 |
 | --------------------------- | ------------------------------------------------------------ |
-| **Inputs**                  | A1[15:0], A2[15:0], W1[15:0], W2[15:0], F[255:0]             |
-| **Outputs**                 | R1[15:0], R2[15:0], F[255:0]                                 |
+| **Inputs**                  | A1[15:0], A2[15:0], W1[15:0], W2[15:0], Fin[255:0]           |
+| **Outputs**                 | R1[15:0], R2[15:0], Fout[255:0]                              |
 | **Control Signals**         | Write1, Write2, Read1, Read2, Backup, Restore                |
-| **Functionality**           | With a Write signal high, takes the respective value (W1 or W2) and stores it in the respective address (A1 or A2). With a Read signal high, takes the value at the respective address and puts it onto the respective output (R1 or R2). When Backup is high, puts the values in registers 0 to 15 on F, when Restore is high, stores the values on F into registers 0 to 15. |
-| **Hardware Implementation** | Static storage implemented using a series of registers. A decoder is used to decode addresses and send the Write/Read signals to the correct register(s). |
-| **Unit Tests**              | A loop in verilog which goes through each address and writes all possible 16 bit values while reading them each iteration to ensure they are correct. |
+| **Functionality**           | With a Write signal high, takes the respective value (W1 or W2) and stores it in the respective address (A1 or A2). With a Read signal high, takes the value at the respective address and puts it onto the respective output (R1 or R2). When Backup is high, puts the values in registers 0 to 15 on Fout, when Restore is high, stores the values on Fin into registers 0 to 15. |
+| **Hardware Implementation** | Static storage implemented using a series of registers. Use the verilog register file provided on the course website and alter as needed to enable dual port functionality (Multiple inputs and outputs). |
+| **Unit Tests**              | A loop in verilog which goes through a large range of addresses and writes many 16 bit values while reading them each iteration to ensure they are correct. |
 
 #### Memory Unit
 
@@ -460,19 +464,10 @@ A similar implementation will be done for other instructions. Once the instructi
 | **Outputs**                 | R1[15:0], R2[15:0]                                           |
 | **Control Signals**         | Write1, Write2, Read1, Read2                                 |
 | **Functionality**           | With a Write signal high, takes the respective value (W1 or W2) and stores it in the respective address (A1 or A2). With a Read signal high, takes the value at the respective address and puts it onto the respective output (R1 or R2) |
-| **Hardware Implementation** | Memory unit using static storage and two decoders to implement the dual port functionality or sending the correct values and control signals to the correct registers. |
-| **Unit Tests**              | A loop in verilog which goes through each address and writes all possible 16 bit values while reading them each iteration to ensure they are correct. |
+| **Hardware Implementation** | Implemented in verilog using the Memory unit provided on the course website, altering it as needed to enable dual port functionality (Multiple inputs and outputs). |
+| **Unit Tests**              | A loop in verilog which goes through a large range of addresses and writes many 16 bit values while reading them each iteration to ensure they are correct. |
 
-#### Control Unit
 
-| Items                       | Descriptions                                                 |
-| --------------------------- | ------------------------------------------------------------ |
-| **Inputs**                  | A[3:0]                                                       |
-| **Outputs**                 | B[23:0]                                                      |
-| **Control Signals**         | Reset                                                        |
-| **Functionality**           | Given an op-code (or address) the unit outputs a value on B corresponding to the control signals needed by the instruction |
-| **Hardware Implementation** | Combinational logic to correctly choose the input to put on C |
-| **Unit Tests**              | A loop in verilog which puts every permutation of the op-codes and Reset control bit on A and Reset, then tests that the output control signals is whats expected |
 
 ## Integrating and Testing the Components
 
@@ -508,7 +503,20 @@ A similar implementation will be done for other instructions. Once the instructi
 | **Instruction Execution System** (IES) | Give this system the control signals needed for basic instructions which don't require memory such as arithmetic operations and moving values around in the register file. Include many different input values with each set of control signals and verify that the output is whats expected. |
 | **Datapath**                           | Develop a set of test cases for each instruction and run them through the system and verify that the results are as expected. After these test have passed we can implement simple code blocks and algorithms to test more complex processes. |
 
-## Control Signals
+## Control
+
+### Control Unit
+
+| Items                       | Descriptions                                                 |
+| --------------------------- | ------------------------------------------------------------ |
+| **Inputs**                  | A[3:0]                                                       |
+| **Outputs**                 | B[23:0]                                                      |
+| **Control Signals**         | Reset                                                        |
+| **Functionality**           | Given an op-code (or address) the unit outputs a value on B corresponding to the control signals needed by the instruction |
+| **Hardware Implementation** | Implemented as a ROM in verilog which takes in a counter value and op |
+| **Unit Tests**              | A loop in verilog which puts every permutation of the op-codes and Reset control bit on A and Reset, then tests that the output control signals is whats expected |
+
+### Control Signals
 
 |Signal Name|Bits|Effect when deasserted (0)|Effect when asserted (1)|
 | --- | --- | --- |---|
@@ -533,3 +541,4 @@ A similar implementation will be done for other instructions. Once the instructi
 |ALUsrc|1|2nd ALU operand comes from ImR|2nd ALU operand comes from reg B|
 |ALUop|3|SEE ALU IN COMPONENTS|SEE ALU IN COMPONENTS|
 |cmp|1|Nothing|The result of the comparison A=B is sent to the ImPCsrc mux|
+
