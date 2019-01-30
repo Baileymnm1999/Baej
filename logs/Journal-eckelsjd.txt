@@ -21,3 +21,9 @@ Sunday, January 20, 2019 [150 min]: Working on M3. Walked through RTL and drew d
 
 Monday, January 21, 2019 [150 min]: Working on control signals, bit sizes, purposes, and functionality in our datapath. Writing this up
                                     in the Design document as a table with complete list and description of all control signals.
+
+Tuesday, January 22, 2019 [250 min]: Fixing formatting of hardware components in design document. Learning verilog. Created verilog modules for
+                                     16-bit adder, 1-bit mux, and comparator (including test benches for each).
+
+Monday, January 28, 2019 [330 min]: Finished implementations and extensive test benches on 1-bit mux, 2-bit mux, adder, and ALU.
+				    ALU still has some bugs in it. Need to do regs as well.
