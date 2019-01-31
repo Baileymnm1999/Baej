@@ -531,3 +531,7 @@ A similar implementation will be done for other instructions. Once the instructi
 |ALUop|3|SEE ALU IN COMPONENTS|SEE ALU IN COMPONENTS|
 |cmp|1|Nothing|The result of the comparison A=B is sent to the ImPCsrc mux|
 
+### FSM Diagram
+
+![G Type RTL](./images/FSM.png)
+
