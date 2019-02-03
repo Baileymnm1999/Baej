@@ -31,3 +31,5 @@ Milestone 4
 1/27/2019 - Finished control state machine, wrote-up control unit test plan [3 hours]
 
 1/28/2019 - Finished making a register file and test cases [4 hours]
+
+1/30/2019 - Finished rewriting some tests for comparator, helped make the memory unit [2 hours]
