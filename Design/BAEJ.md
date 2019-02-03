@@ -401,17 +401,6 @@ A similar implementation will be done for other instructions. Once the instructi
 | **Hardware Implementation** | Verilog switch case, which given 0, 1, 2, or 3, assigns A, B, C, or D to R respectively. |
 | **Unit Tests**              | Put all permutations of 4 numbers each from -10 to 10 on A, B, C, and D and attempts to select A, then B, then C, and finally D while testing that the correct output is on R |
 
-#### Register
-
-| Items                       | Descriptions                                                 |
-| --------------------------- | ------------------------------------------------------------ |
-| **Inputs**                  | A[15:0]                                                      |
-| **Outputs**                 | B[15:0]                                                      |
-| **Control Signals**         | Write, Read                                                  |
-| **Functionality**           | Stores value on A in latches on a Write signal, puts stored value on B on Read signal |
-| **Hardware Implementation** | Module wrapper around a reg value in Verilog which manages read and write control signals to the reg value. |
-| **Unit Tests**              | A Loop in Verilog for each permutation of control signals write and read that assigns values -10 to 10 to input A, then tests to make sure that the output is as expected. |
-
 #### ALU
 
 | Items                       | Descriptions                                                 | ALU op | Operation     |
@@ -493,7 +482,7 @@ A similar implementation will be done for other instructions. Once the instructi
 
 | Subsystem                              | Test Plan                                                    |
 | -------------------------------------- | ------------------------------------------------------------ |
-| **Program Counting System** (PCS)      | Run the system through a few clock cycles to test that it correctly increments by two each time. Also ensure that we can write pc + 2 to ra. Once this is verified, inject addresses from a set of addresses, and from register ra, to test branching functionality. |
+| **Program Counting System** (PCS)      | Run the system through a few clock cycles to test that it correctly increments by one each time. Also ensure that we can write pc + 1 to ra. Once this is verified, inject addresses from a set of addresses, and from register ra, to test branching functionality. |
 | **Memory Management System **(MMS)     | Input values into a sequential block of memory then read from the same block, verifying that each read gives the output registers the correct values that were written. |
 | **Register Management System** (RMS)   | Input values into registers from all permutations of the input ports, then read from registers with known values verifying that each read gives the output registers the correct values. |
 | **Fcache Backup System** (FBS)         | Conduct multiple Backups of known values to a sequential block in the Fcache memory, then using multiple restores, read back the same block verifying the output is what was written. |
@@ -542,4 +531,11 @@ A similar implementation will be done for other instructions. Once the instructi
 |ALUop|3|SEE ALU IN COMPONENTS|SEE ALU IN COMPONENTS|
 |cmp|1|Nothing|The result of the comparison A=B is sent to the ImPCsrc mux|
 
+<<<<<<< HEAD
 ### Finite State Machine 
+=======
+### FSM Diagram
+
+![G Type RTL](./images/FSM.png)
+
+>>>>>>> e8086b3ecf3ac7679ac1d0cded8af59199666065

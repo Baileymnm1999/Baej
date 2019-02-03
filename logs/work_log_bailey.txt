@@ -24,3 +24,11 @@ Monday, January 21, 2019 [180 min] - Created datapath svg and Makefile to conver
 
 Tuesday, January 21, 2019 [340 min] - Finished up datapath design and pdf conversions. Updated components list and created unit test plans and Integration test plans. Worked on subcomponents with Eric.
 
+Milestone 4
+
+Sunday, January 27, 2019 [180 min] - Worked on finite state machine design. Updated rtl and component descriptions based off of feedback
+
+Monday, January 28, 2019 [300 min] - Finished Fcache and helped Alex with reg file, and Josh with alu. Made updates to the design doc.
+
+Wednesday, January 30, 2019 [330 min] - Finished all parts and went over tests with everyone to make sure they were extensive enough. Made sure they also matched what was described in the design doc. Created PCS integration and wrote testbench with Eric.
+
