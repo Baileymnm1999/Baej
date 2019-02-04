@@ -1,13 +1,14 @@
-#M4
-##3B
+# M4
+## 3B
 
-##Design document:
+## Design document:
+
 - Control unit spec
 I reviewed your beq instruction: Changes pc to immediate if rs and rd are equal  
 
 RTL:
 Appears to be correct.
- 
+
 Datapath:  
 Datapath cannot do PC+1! Fix this. Otherwise, seems ok.
 
@@ -23,7 +24,8 @@ Test all permutations for a FSM? I don't think this is a good test.
 Mostly seems to be ok. You have so many control signals. Is there any way to simplify them so you have a more manageable number?
 - Any changes to RTL or integration ?
 
-##Partial implementation:
+## Partial implementation:
+
 - All parts (except control)  
 Most seem to be done.  
 - All test-benches
@@ -33,7 +35,8 @@ Only one integration step?
 - Most of the integration tests  
 Only one done.
 
-##Other:
+## Other:
+
 - Team journal ✓  
 - Individual journals  
 Josh only worked once?  
