@@ -2,14 +2,14 @@ Command line:
    mem_unit_tb_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  50011
+     -socket  55013
 
-Wed Jan 30 18:41:00 2019
+Sun Feb 03 13:21:16 2019
 
 
- Elaboration Time: 0.1875 sec
+ Elaboration Time: 0.09375 sec
 
- Current Memory Usage: 6142.87 Meg
+ Current Memory Usage: 5828.6 Meg
 
  Total Signals          : 24
  Total Nets             : 114
@@ -19,10 +19,11 @@ Wed Jan 30 18:41:00 2019
  Total Processes        : 20
  Total Traceable Variables  : 30
  Total Scalar Nets and Variables : 1048855
+Total Line Count : 65
 
- Total Simulation Time: 0.78125 sec
+ Total Simulation Time: 0.703125 sec
 
- Current Memory Usage: 5513.68 Meg
+ Current Memory Usage: 5828.57 Meg
 
-Wed Jan 30 18:47:49 2019
+Sun Feb 03 13:21:57 2019
 

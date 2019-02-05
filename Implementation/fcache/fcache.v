@@ -2,7 +2,6 @@
 
 module fcache
   (input clk,
-   input read,
    input write,
    input [15:0] addr,
    input [255:0] wData,
