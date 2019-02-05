@@ -27,3 +27,9 @@ Tuesday, January 22, 2019 [250 min]: Fixing formatting of hardware components in
 
 Monday, January 28, 2019 [330 min]: Finished implementations and extensive test benches on 1-bit mux, 2-bit mux, adder, and ALU.
 				    ALU still has some bugs in it. Need to do regs as well.
+
+Wednesday, January 30, 2019 [60 min]: ALU bugs fixed. Decided we don't need actual reg hardware; they can just be instantiated whenever we need them.
+
+Sunday, February 3, 2019 [90 min]: Worked on control unit. Planned out the rest of our design; split up who will be working on which integration system.
+				   Realized issue with backing up Ra.
+
