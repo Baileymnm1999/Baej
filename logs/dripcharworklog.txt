@@ -33,3 +33,9 @@ Milestone 4
 1/28/2019 - Finished making a register file and test cases [4 hours]
 
 1/30/2019 - Finished rewriting some tests for comparator, helped make the memory unit [2 hours]
+
+Milestone 5
+
+2/3/2019 - Discussed current issues ie $ra reg not getting backed up, had the regFile handle input/output [1 hour]
+
+2/4/2019 - Worked on the control unit w/ Josh. [1 hour] 

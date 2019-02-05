@@ -24,6 +24,7 @@ module regfile16b64(
     input [15:0] w1,
     input [15:0] w2,
     input [255:0] fcIn,
+	 input [15:0] ioIn,
 	 input w1Control,
     input w2Control,
     input r1Control,
@@ -32,6 +33,7 @@ module regfile16b64(
 	 input clk,
     output reg [15:0] r1,
     output reg [15:0] r2,
+	 output reg [15:0] ioOut,
     output [255:0] fcOut
     );
 	 
@@ -47,6 +49,9 @@ module regfile16b64(
 	 end
 	 
 	 always @(posedge clk) begin
+	 
+	 regFile[15] = ioIn;
+	 ioOut = regFile[16];
 	 
 	 if(r1Control) r1 = regFile[a1];
 	 if(r2Control) r2 = regFile[a2];
