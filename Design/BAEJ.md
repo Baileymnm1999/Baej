@@ -6,8 +6,10 @@ BAEJ is a Reduced Instruction Set Computer Architecture which implements a load 
 
 |Registers | Address | Use |
 | --- | --- | --- |
-|.f0 - .f15|0-15|General purpose 'function registers' where data is not lost after a function call|
-|.t0 - .t28|16-44|General purpose 'temporary registers' where data may be overridden during a function call|
+|.f0 - .f14|0-14|General purpose 'function registers' where data is not lost after a function call|
+|.ip|15|Register file mapped 16 bit input port|
+|.op | 16 | Register file mapped 16 bit output port |
+|.t0 - .t27|17-44|General purpose 'temporary registers' where data may be overridden during a function call|
 |.a0 - .a5 |45-50|Argument registers for function calls|
 |.m0 - .m5 |51-56|Accumulator register on which default mathematical operations are committed|
 |.cr       |57|Compiler register|
@@ -350,10 +352,10 @@ Java will be used to simulate the RTL, such that variables will represent regist
  
  public void lda () {
      IR = Mem.get(PC);
-     IMR = Mem.get(PC + 2);
-     PC += 2;
+     IMR = Mem.get(PC + 1);
+     PC += 1;
      // -----------------------
-     PC += 2;
+     PC += 1;
      A = Reg.get(IR >> 6 & 0b00111111); // IR[11:6];
      B = Reg.get(IR >> 0 & 0b00111111); // IR[5:0];
      // -----------------------
@@ -440,7 +442,7 @@ A similar implementation will be done for other instructions. Once the instructi
 | --------------------------- | ------------------------------------------------------------ |
 | **Inputs**                  | A1[15:0], A2[15:0], W1[15:0], W2[15:0], Fin[255:0]           |
 | **Outputs**                 | R1[15:0], R2[15:0], Fout[255:0]                              |
-| **Control Signals**         | Write1, Write2, Read1, Read2, Backup, Restore                |
+| **Control Signals**         | Write1, Write2, Read1, Read2, ioIn, ioOut, Backup, Restore   |
 | **Functionality**           | With a Write signal high, takes the respective value (W1 or W2) and stores it in the respective address (A1 or A2). With a Read signal high, takes the value at the respective address and puts it onto the respective output (R1 or R2). When Backup is high, puts the values in registers 0 to 15 on Fout, when Restore is high, stores the values on Fin into registers 0 to 15. |
 | **Hardware Implementation** | Static storage implemented using a series of registers. Use the verilog register file provided on the course website and alter as needed to enable dual port functionality (Multiple inputs and outputs). |
 | **Unit Tests**              | A loop in verilog which goes through a large range of addresses and writes many 16 bit values while reading them each iteration to ensure they are correct. |
@@ -509,17 +511,17 @@ A similar implementation will be done for other instructions. Once the instructi
 
 |Signal Name|Bits|Effect when deasserted (0)|Effect when asserted (1)|
 | --- | --- | --- |---|
-|PCsrc|1|PC is set to default value (PC+2) or ImR|PC is set to the value of ra|
+|PCsrc|1|PC is set to default value (PC+1) or ImR|PC is set to the value of ra|
 |writePC|1|Nothing|PC gets the value chosen by PCsrc mux |
-|writeRa|1|Nothing|Ra gets the value of PC + 2|
-|ImPCsrc|1|ImPCsrc mux chooses PC+2|ImPCsrc mux chooses immediate value (only when comparator is enabled and determines A=B)|
-|MemSrc|1|Address 1 in Mem is pulled from PC + 2|Address 1 in Mem is pulled from ALUout|
+|writeRA|1|Nothing|Ra gets the value of PC + 1|
+|ImRPC|1|ImRPC mux chooses PC+1|ImRPC mux chooses immediate value (only when comparator is enabled and determines A=B)|
+|Memsrc|1|Address 1 in Mem is pulled from PC + 1|Address 1 in Mem is pulled from ALUout|
 |MemW1|1|Nothing|The value at port w1 is written to the address specified by a1|
 |MemW2|1|Nothing|The value at port w2 is written to the address specified by a2|
 |MemR1|1|Nothing|The value at the address specified by a1 is read to port r1|
 |MemR2|1|Nothing|The value at the address specified by a2 is read to port r2|
-|writeCr|1|The reg number specified at reg file port a1 is IR[11:6] (default)|The reg number specified at reg file port a1 is 57 (for compiler register)|
-|RegSrc|2|0 - Value at reg file port w2 comes from ImR; 1 - Value at port w2 comes from MemOut|2 - Value at port w2 comes from ALUout; 3 - Value at port w2 comes from reg A|
+|writeCR|1|The reg number specified at reg file port a1 is IR[11:6] (default)|The reg number specified at reg file port a1 is 57 (for compiler register)|
+|Regsrc|2|0 - Value at reg file port w2 comes from ImR; 1 - Value at port w2 comes from MemOut|2 - Value at port w2 comes from ALUout; 3 - Value at port w2 comes from reg A|
 |writeImR|1|Nothing|ImR gets the value read from memory at the address specified by a2|
 |backup|1|Nothing|Registers 15:0 (256 bits) from the reg file are written to the Fcache at the address specified by "a"; FCC is incrememented by 1|
 |restore|1|Nothing|The 256 bit value at the address specified by "a" in the Fcache is written to registers 15:0 in the reg file; FCC is decremented by 1|
