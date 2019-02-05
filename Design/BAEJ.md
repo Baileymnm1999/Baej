@@ -500,7 +500,7 @@ A similar implementation will be done for other instructions. Once the instructi
 | --------------------------- | ------------------------------------------------------------ |
 | **Inputs**                  | A[3:0]                                                       |
 | **Outputs**                 | B[23:0]                                                      |
-| **Control Signals**         | Reset                                                        |
+| **Control Signals**         | Reset (Author's notes)                                       |
 | **Functionality**           | Given an op-code (or address) the unit outputs a value on B corresponding to the control signals needed by the instruction |
 | **Hardware Implementation** | Implemented as a ROM in verilog which takes in a counter value and op |
 | **Unit Tests**              | A loop in verilog which puts every permutation of the op-codes and Reset control bit on A and Reset, then tests that the output control signals is whats expected |
@@ -529,13 +529,9 @@ A similar implementation will be done for other instructions. Once the instructi
 |RegR2|1|Nothing|The value at the reg address specified by a2 is read to port r2|
 |ALUsrc|1|2nd ALU operand comes from ImR|2nd ALU operand comes from reg B|
 |ALUop|3|SEE ALU IN COMPONENTS|SEE ALU IN COMPONENTS|
-|cmp|1|Nothing|The result of the comparison A=B is sent to the ImPCsrc mux|
+|cmpeq|1|Nothing|The result of the comparison A=B is sent to the ImPCsrc mux|
+|cmpne|1|Nothing|The result of the comparison A!=B is sent to the ImPCsrc mux|
 
-<<<<<<< HEAD
-### Finite State Machine 
-=======
 ### FSM Diagram
 
 ![G Type RTL](./images/FSM.png)
-
->>>>>>> e8086b3ecf3ac7679ac1d0cded8af59199666065
