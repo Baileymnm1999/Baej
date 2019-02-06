@@ -17,357 +17,37 @@ This is a Full version of ISim.
 Time resolution is 1 ps
 # onerror resume
 # wave add /
-# run 1000 ns
+# run 500ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
 TEST START ----------------
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
+Expected =                                                                             1 dataOut =                                                                             x FAILED 
 
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
+Expected =                                                                             2 dataOut =                                                                             2 PASSED 
 
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
+Expected =                                                                             3 dataOut =                                                                             3 PASSED 
 
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
+Expected =                                                                             4 dataOut =                                                                             4 PASSED 
 
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
+Expected =                                                                             5 dataOut =                                                                             5 PASSED 
 
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
+Expected =                                                                             6 dataOut =                                                                             6 PASSED 
 
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
+Expected =                                                                             7 dataOut =                                                                             7 PASSED 
 
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
+Expected =                                                                             8 dataOut =                                                                             8 PASSED 
 
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
+Expected =                                                                             9 dataOut =                                                                             9 PASSED 
 
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
+Expected =                                                                            10 dataOut =                                                                            10 PASSED 
 
-dataIn =                                                                             5 dataOut =                                                                             0 FAILED 
+Expected =                                                                            11 dataOut =                                                                            11 PASSED 
 
-dataIn =                                                                             4 dataOut =                                                                             0 FAILED 
+Expected =                                                                            12 dataOut =                                                                            12 PASSED 
 
-dataIn =                                                                             3 dataOut =                                                                             0 FAILED 
+Expected =                                                                            13 dataOut =                                                                            13 PASSED 
 
-dataIn =                                                                             2 dataOut =                                                                             0 FAILED 
+Expected =                                                                            14 dataOut =                                                                            14 PASSED 
 
-dataIn =                                                                             1 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             5 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             4 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             3 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             2 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             1 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             5 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             4 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             3 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             2 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             1 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             5 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             4 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             3 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             2 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             1 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             5 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             4 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             3 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             2 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             1 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             5 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             4 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             3 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             2 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             1 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             5 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             4 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             3 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             2 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             1 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             5 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             4 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             3 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             2 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             1 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             5 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             4 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             3 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             2 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             1 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             5 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             4 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             3 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             2 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             1 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             5 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             4 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             3 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             2 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             1 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            15 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            14 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            13 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            12 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            11 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                            10 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             9 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             8 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             7 dataOut =                                                                             0 FAILED 
-
-dataIn =                                                                             6 dataOut =                                                                             0 FAILED 
+Expected =                                                                            15 dataOut =                                                                            15 PASSED 
 

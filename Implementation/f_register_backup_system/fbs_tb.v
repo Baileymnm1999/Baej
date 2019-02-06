@@ -34,6 +34,8 @@ module fbs_tb;
 	wire [255:0] dataOut;
 	wire restoreOut;
 
+  // Counters (for the test)
+  reg [255:0] expectedRestoreValue;
 	// Instantiate the Unit Under Test (UUT)
 	fbs uut (
 		.clk(clk), 
@@ -51,35 +53,34 @@ module fbs_tb;
 		restore = 0;
 		dataIn = 0;
 
+    expectedRestoreValue = 1;
 		// Wait 100 ns for global reset to finish
 		#100;
         
 		$display("TEST START ----------------");
-		repeat (15) begin // Should be 2 ^ 16
-			dataIn = 15;
-			#1;		
-			repeat (15) begin
-				// let some data in
-        backup = 1;
-				#1;
-        backup = 0;
-				#1;
-				
-        // let some data out
-				restore = 1;
-				#1;
-				if (dataIn == dataOut)
-					$display("dataIn = %d dataOut = %d PASSED \n", dataIn, dataOut);
-				else
-					$display("dataIn = %d dataOut = %d FAILED \n", dataIn, dataOut);
-				#1;
-        restore = 0;
-				
-				dataIn = dataIn - 1;
-				#1;
-			end
-			#1;
-		end
+    dataIn = 15;
+    repeat (15) begin
+      // let some data in
+      #1;
+      backup = 1;
+      #1;
+      backup = 0;
+      dataIn = dataIn - 1;
+    end
+    repeat (15) begin
+      // let some data out
+      restore = 1;
+      if (expectedRestoreValue == dataOut)
+        $display("Expected = %d dataOut = %d PASSED \n", expectedRestoreValue, dataOut);
+      else
+        $display("Expected = %d dataOut = %d FAILED \n", expectedRestoreValue, dataOut);
+      #1;
+      restore = 0;
+      #1;
+      
+      expectedRestoreValue = expectedRestoreValue + 1;
+    end
+
 	end
   always clk = #0.5 ~clk;
 endmodule

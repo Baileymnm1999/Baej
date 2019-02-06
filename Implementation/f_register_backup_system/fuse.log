@@ -10,7 +10,6 @@ Analyzing Verilog file "C:/Users/tuey/Desktop/CSSE232/project/3B-dripchar-eckels
 Analyzing Verilog file "C:/Users/tuey/Desktop/CSSE232/project/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/f_register_backup_system/fbs_tb.v" into library work
 Analyzing Verilog file "C:/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
 Starting static elaboration
-WARNING:HDLCompiler:329 - "C:/Users/tuey/Desktop/CSSE232/project/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/f_register_backup_system/fbs.v" Line 62: Target <fcache_R> of concurrent assignment or output port connection should be a net type.
 Completed static elaboration
 Compiling module adder_16_bit
 Compiling module mux_1_bit
@@ -19,7 +18,8 @@ Compiling module fbs
 Compiling module fbs_tb
 Compiling module glbl
 Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
 Compiled 6 Verilog Units
 Built simulation executable C:/Users/tuey/Desktop/CSSE232/project/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/f_register_backup_system/fbs_tb_isim_beh.exe
-Fuse Memory Usage: 27616 KB
-Fuse CPU Usage: 296 ms
+Fuse Memory Usage: 27496 KB
+Fuse CPU Usage: 437 ms

@@ -29,7 +29,7 @@ module fbs(
 );
 
   reg [15:0] FCCreg, add1, sub1;
-  reg [255:0] fcache_R; // Result of fcache read
+  wire [255:0] fcache_R; // Result of fcache read
 
   wire [15:0] IorD_R, fccAdder_R, fcacheSrc_R;
   adder_16_bit fccAdder(
@@ -40,16 +40,16 @@ module fbs(
 
   // Controls FCC inc or dec
   mux_1_bit IorD(
-    .A(add1),
-    .B(sub1),
+    .A(sub1),
+    .B(add1),
     .S(backup),
     .R(IorD_R)
     );
   
   // Controls FCC + 1 or FCC
   mux_1_bit fcacheSrc (
-    .A(FCCreg),
-    .B(fccAdder_R),
+    .A(fccAdder_R),
+    .B(FCCreg),
     .S(backup),
     .R(fcacheSrc_R)
   );
@@ -69,7 +69,6 @@ module fbs(
     FCCreg = 0;
     add1 = 1;
     sub1 = -1;
-    fcache_R = 0;
 	end
 
   always @(posedge clk) begin
