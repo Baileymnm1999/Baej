@@ -78,3 +78,16 @@ MEETING 4.3 - 01/30/2019 - 3:00 pm [300 min]:
 All members present
 Finished implementing register file and memory unit, along with their unit tests. Implemented some integration between the components
 and finalized the multicycle FSM.
+
+Milestone 5
+
+MEETING 5.1 - 02/03/1029 - 1:00 pm [90 min]:
+All members present
+Formulated and discussed our plans for the week. Discussed a few issues with the data path that needed to be fixed and what solutions we
+wanted to go with. Divided integration work up and assign parts to everyone to have done by Wednesday. Alex whooped Eric in smash.
+
+MEETING 5.2 - 02/05/2019 - 6:00 pm [150 min]:
+Members present: Josh (60 min), Alex, Bailey
+Worked on integrating our systems. Control unit finished along with PMS and ALS. Still need FBS and RMS. Updates the design document
+to reflect changes.
+
