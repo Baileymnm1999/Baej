@@ -86,7 +86,11 @@ All members present
 Formulated and discussed our plans for the week. Discussed a few issues with the data path that needed to be fixed and what solutions we
 wanted to go with. Divided integration work up and assign parts to everyone to have done by Wednesday. Alex whooped Eric in smash.
 
-MEETING 5.2 - 02/05/2019 - 6:00 pm [150 min]:
+MEETING 5.2 - 02/04/2019 - 10:50 pm [50 min]
+Members present: Josh, Alex
+Created base code for the control unit.
+
+MEETING 5.3 - 02/05/2019 - 6:00 pm [150 min]:
 Members present: Josh (60 min), Alex, Bailey
 Worked on integrating our systems. Control unit finished along with PMS and ALS. Still need FBS and RMS. Updates the design document
 to reflect changes.
