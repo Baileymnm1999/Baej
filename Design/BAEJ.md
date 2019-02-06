@@ -431,8 +431,8 @@ A similar implementation will be done for other instructions. Once the instructi
 | --------------------------- | ------------------------------------------------------------ |
 | **Inputs**                  | dataIn[255:0], B[15:0]                                       |
 | **Outputs**                 | dataOut[255:0]                                               |
-| **Control Signals**         | Write, Read                                                  |
-| **Functionality**           | When the Write signal is high, takes the value on dataIn and stored it in address B, when the Read signal is high, puts the value at B on dataOut |
+| **Control Signals**         | Write                                                        |
+| **Functionality**           | When the Write signal is high, takes the value on dataIn and stored it in address B. The Fcache always puts the value at B on dataOut. |
 | **Hardware Implementation** | Static storage implemented using a register-file like structure. Use the verilog register file provided on the course website altering it to 256 bit words. In verilog, write a module which wraps the register file to allow for a bus serving as both input and output. |
 | **Unit Tests**              | A loop in verilog which goes through a large range of addresses and writes many different 256 bit values while reading them each iteration to ensure they are correct. |
 
@@ -442,8 +442,8 @@ A similar implementation will be done for other instructions. Once the instructi
 | --------------------------- | ------------------------------------------------------------ |
 | **Inputs**                  | A1[15:0], A2[15:0], W1[15:0], W2[15:0], Fin[255:0]           |
 | **Outputs**                 | R1[15:0], R2[15:0], Fout[255:0]                              |
-| **Control Signals**         | Write1, Write2, Read1, Read2, ioIn, ioOut, Backup, Restore   |
-| **Functionality**           | With a Write signal high, takes the respective value (W1 or W2) and stores it in the respective address (A1 or A2). With a Read signal high, takes the value at the respective address and puts it onto the respective output (R1 or R2). When Backup is high, puts the values in registers 0 to 15 on Fout, when Restore is high, stores the values on Fin into registers 0 to 15. |
+| **Control Signals**         | Write1, Write2, Read1, Read2, ioIn, ioOut, Restore           |
+| **Functionality**           | With a Write signal high, takes the respective value (W1 or W2) and stores it in the respective address (A1 or A2). With a Read signal high, takes the value at the respective address and puts it onto the respective output (R1 or R2). The register file always puts the values in registers 0 to 15 on Fout, when Restore is high, stores the values on Fin into registers 0 to 15. |
 | **Hardware Implementation** | Static storage implemented using a series of registers. Use the verilog register file provided on the course website and alter as needed to enable dual port functionality (Multiple inputs and outputs). |
 | **Unit Tests**              | A loop in verilog which goes through a large range of addresses and writes many 16 bit values while reading them each iteration to ensure they are correct. |
 

@@ -3,23 +3,33 @@
 
 module pcs(
 	 input clk,
+	 input restore,
     input writePC,
     input writeRA,
     input PCsrc,
     input ImRPC,
     input conditionalBop,
+	 input [15:0] RArestore,
     input [15:0] ImR,
     output [15:0] PC,
-    output [15:0] PC_1
+    output [15:0] PC_1,
+	 output [15:0] RA
     );
 	 
-	 wire[15:0] PC_1wire, PCsrcWire, PCsrcOpt0, PCsrcOpt1;
+	 wire[15:0] PC_1wire, PCsrcWire, RAwire, PCsrcOpt0, PCsrcOpt1;
 	 reg[15:0] PCreg, RAreg, add1;
 	 
 adder_16_bit pcAdder(
 	.A(PCreg),
 	.B(add1),
 	.R(PC_1wire)
+	);
+	
+mux_1_bit RAsrcMux (
+	.A(PC_1wire),
+	.B(RArestore),
+	.S(restore),
+	.R(RAwire)
 	);
 
 mux_1_bit PCsrcMux(
@@ -38,6 +48,7 @@ mux_1_bit ImRMux(
 	
 	assign PC = PCreg;
 	assign PC_1 = PC_1wire;
+	assign RA = RAreg;
 	
 	initial begin
 		PCreg = 0;
@@ -47,7 +58,7 @@ mux_1_bit ImRMux(
 	
 	always @(posedge clk) begin
 		if (writePC) PCreg = PCsrcWire;
-		if (writeRA) RAreg = PC_1wire;
+		if (writeRA) RAreg = RAwire;
 		
 	end
 		
