@@ -26,7 +26,6 @@ module fcache_tb_0;
 
 	// Inputs
 	reg clk;
-	reg read;
 	reg write;
 	reg [15:0] addr;
 	reg [255:0] wData;
@@ -37,7 +36,6 @@ module fcache_tb_0;
 	// Instantiate the Unit Under Test (UUT)
 	fcache uut (
 		.clk(clk), 
-		.read(read), 
 		.write(write), 
 		.addr(addr), 
 		.wData(wData), 
@@ -47,7 +45,6 @@ module fcache_tb_0;
 	initial begin
 		// Initialize Inputs
 		clk = 0;
-		read = 0;
 		write = 0;
 		addr = 0;
 		wData = 0;
@@ -57,14 +54,13 @@ module fcache_tb_0;
 
 		    
 		// Add stimulus here
-		repeat (2**16) begin
+		// repeat (2**16) begin
+		repeat (30) begin
 			wData = 2**255;
 			repeat (5) begin
 				write = 1;
 				#1
 				write = 0;
-				#1
-				read = 1;
 				#1
 				$write("@%d wrote%d, read%d", addr, wData, rData);
 				if(rData == wData) begin
@@ -72,7 +68,6 @@ module fcache_tb_0;
 				end else begin
 					$display("FAIL");
 				end
-				read = 0;
 				#1
 				wData = wData - 1;
 			end
