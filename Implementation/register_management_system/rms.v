@@ -1,22 +1,26 @@
 `timescale 1ns / 1ps
 
 module rms(
-    input [15:0] instr,
-    input [15:0] data,
+    input [15:0] IR_in,
+    input [15:0] ImR_in,
+    input [15:0] memOut_in,
     input writeImR,
     input AltB,
-    input writeCR,
+    input writeCR, // controls mux_1_bit
+    input RegSrc, // controls mux_2_bit
     input RegR1,
     input RegR2,
     input RegW1,
     input RegW2,
+    
     input restore,
     input [239:0] fcIn,
-    input [15:0] ALUout,
+    input [15:0] ALUout_in,
     input cmpne,
     input cmpeq,
-	 input [15:0] ioIn,
-	 output [15:0] ioOut,
+	  input [15:0] ioIn,
+
+	  output [15:0] ioOut,
     output [3:0] op,
     output [239:0] fcOut,
     output [15:0] A,
@@ -26,11 +30,11 @@ module rms(
     );
 	 
 	 reg [15:0] IR, ImR, Memout, A_reg, B_reg;
-	 wire [15:0] instr_wire, imm_wire, memout_wire, writeCR_mux_wire, regsrc_mux_wire, r1_wire, r2_wire, A_wire, B_wire;
+	 wire [15:0] imm_wire, memout_wire, writeCR_mux_wire, regsrc_mux_wire, r1_wire, r2_wire, A_wire, B_wire;
 	 
 regfile16b64 regfile(
 	.a1(writeCR_mux_wire),
-	.a2(instr_wire),
+	.a2(IR_in [5:0]),
 	.w1(AltB),
 	.w2(regsrc_mux_wire),
 	.fcIn(fcIn),
@@ -46,7 +50,27 @@ regfile16b64 regfile(
 	.ioOut(ioOut),
 	.fcOut(fcOut)
 	);
-	 
+	
+mux_1_bit reg_a1_src (
+	.A(IR_in [11:6]),
+	.B(57),
+	.S(writeCR),
+	.R(writeCR_mux_wire)
+	);
+
+mux_2_bit reg_w2_src (
+  .A(ImR_in),
+  .B(memOut_in),
+  .C(ALUout_in),
+  .D(A_wire),
+  .S(RegSrc),
+  .R(regsrc_mux_wire)
+);
+
+always @(posedge clk) begin 
+
+end
+
 //	 input [15:0] A,
 //    input [15:0] B,
 //    input [15:0] Imm,
