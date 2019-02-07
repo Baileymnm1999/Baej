@@ -15,5 +15,5 @@ Compiling module glbl
 Time Resolution for simulation is 1ps.
 Compiled 3 Verilog Units
 Built simulation executable C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/control_unit/control_unit_tb_isim_beh.exe
-Fuse Memory Usage: 28452 KB
-Fuse CPU Usage: 343 ms
+Fuse Memory Usage: 28428 KB
+Fuse CPU Usage: 405 ms
