@@ -2,27 +2,27 @@ Command line:
    fcache_tb_0_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  60297
+     -socket  55035
 
-Mon Jan 28 20:21:24 2019
+Tue Feb 05 22:41:53 2019
 
 
- Elaboration Time: 0.03 sec
+ Elaboration Time: 0.25 sec
 
- Current Memory Usage: 213.504 Meg
+ Current Memory Usage: 5997.22 Meg
 
- Total Signals          : 20
- Total Nets             : 544
- Total Signal Drivers   : 11
+ Total Signals          : 19
+ Total Nets             : 543
+ Total Signal Drivers   : 10
  Total Blocks           : 3
  Total Primitive Blocks : 2
- Total Processes        : 15
- Total Traceable Variables  : 24
- Total Scalar Nets and Variables : 16778115
+ Total Processes        : 14
+ Total Traceable Variables  : 23
+ Total Scalar Nets and Variables : 16778113
 
- Total Simulation Time: 1731.61 sec
+ Total Simulation Time: 38.2656 sec
 
- Current Memory Usage: 289.006 Meg
+ Current Memory Usage: 5997.18 Meg
 
-Mon Jan 28 22:14:52 2019
+Tue Feb 05 22:42:32 2019
 
