@@ -38,3 +38,4 @@ Tuesday, February 5, 2019 [50 min]: Realized issues with control unit. Needs to 
 
 Wednesday, February 6, 2019 [200 min]: Multicycle control unit finished. Test bench completed and extensive. Working on Arithmetic logic implementation system.
 
+Wednesday, February 6, 2019 [120 min]: Meeting number 2 today. Finished ALS integration system with extensive testing. Unclocked ALU (causing a cycle delay).

@@ -11,12 +11,12 @@ module arithmetic_logic_system(
     output [15:0] ALUout
     );
 
-	 wire [15:0] mux_out, alu_out, a_ltb;
+	 wire [15:0] mux_out, alu_out;
+	 wire a_ltb;
 	 reg [15:0] ALUout_reg;
 	 reg AltB_reg;
 	 
 alu_16_bit alu(
-	.clk(clk),
 	.A(A),
 	.B(mux_out),
 	.op(ALUop),
