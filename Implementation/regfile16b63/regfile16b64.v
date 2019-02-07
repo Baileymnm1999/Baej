@@ -23,7 +23,7 @@ module regfile16b64(
     input [15:0] a2,
     input [15:0] w1,
     input [15:0] w2,
-    input [255:0] fcIn,
+    input [239:0] fcIn,
 	 input [15:0] ioIn,
 	 input w1Control,
     input w2Control,
@@ -34,7 +34,7 @@ module regfile16b64(
     output reg [15:0] r1,
     output reg [15:0] r2,
 	 output reg [15:0] ioOut,
-    output [255:0] fcOut
+    output [239:0] fcOut
     );
 	 
 	 
@@ -74,7 +74,6 @@ module regfile16b64(
 		regFile[12] <= fcIn[207:192];
 		regFile[13] <= fcIn[223:208];
 		regFile[14] <= fcIn[239:224];
-		regFile[15] <= fcIn[255:240];
 	 end
 	end
 	
@@ -94,7 +93,6 @@ module regfile16b64(
 	assign fcOut[207:192] = regFile[12];
 	assign fcOut[223:208] = regFile[13];
 	assign fcOut[239:224] = regFile[14];
-	assign fcOut[255:240] = regFile[15];
 
 
 endmodule

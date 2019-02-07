@@ -29,7 +29,7 @@ module regfile16b64_tb_0;
 	reg [15:0] a2;
 	reg [15:0] w1;
 	reg [15:0] w2;
-	reg [255:0] fcIn;
+	reg [239:0] fcIn;
 	reg w1Control;
 	reg w2Control;
 	reg r1Control;
@@ -40,7 +40,7 @@ module regfile16b64_tb_0;
 	// Outputs
 	wire [15:0] r1;
 	wire [15:0] r2;
-	wire [255:0] fcOut;
+	wire [239:0] fcOut;
 
 	// Instantiate the Unit Under Test (UUT)
 	regfile16b64 uut (
