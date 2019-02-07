@@ -1,26 +1,24 @@
 `timescale 1ns / 1ps
 
 module rms(
-    input [15:0] IR_in,
-    input [15:0] ImR_in,
-    input [15:0] memOut_in,
-    input writeImR,
+	 input clk,
+    input [15:0] IR,
+    input [15:0] ImR,
+    input [15:0] w2_1,
+	 input [15:0] w2_2,
     input AltB,
     input writeCR, // controls mux_1_bit
-    input RegSrc, // controls mux_2_bit
+    input [1:0] Regsrc, // controls mux_2_bit
     input RegR1,
     input RegR2,
     input RegW1,
     input RegW2,
-    
     input restore,
     input [239:0] fcIn,
-    input [15:0] ALUout_in,
+	 input [15:0] ioIn,
     input cmpne,
     input cmpeq,
-	  input [15:0] ioIn,
-
-	  output [15:0] ioOut,
+	 output [15:0] ioOut,
     output [3:0] op,
     output [239:0] fcOut,
     output [15:0] A,
@@ -29,13 +27,15 @@ module rms(
     output cmp_result
     );
 	 
-	 reg [15:0] IR, ImR, Memout, A_reg, B_reg;
-	 wire [15:0] imm_wire, memout_wire, writeCR_mux_wire, regsrc_mux_wire, r1_wire, r2_wire, A_wire, B_wire;
+	 wire [15:0] writeCR_mux_wire, regsrc_mux_wire, A_wire, B_wire;
+	 wire [14:0] zero_15 = 0;
+	 wire [9:0] zero_10 = 0;
+	 wire [15:0] const_cr = 57;
 	 
 regfile16b64 regfile(
 	.a1(writeCR_mux_wire),
-	.a2(IR_in [5:0]),
-	.w1(AltB),
+	.a2({zero_10, IR[5:0]}),
+	.w1({zero_15, AltB}),
 	.w2(regsrc_mux_wire),
 	.fcIn(fcIn),
 	.ioIn(ioIn),
@@ -52,64 +52,31 @@ regfile16b64 regfile(
 	);
 	
 mux_1_bit reg_a1_src (
-	.A(IR_in [11:6]),
-	.B(57),
+	.A({zero_10, IR[11:6]}),
+	.B(const_cr),
 	.S(writeCR),
 	.R(writeCR_mux_wire)
 	);
 
 mux_2_bit reg_w2_src (
-  .A(ImR_in),
-  .B(memOut_in),
-  .C(ALUout_in),
+  .A(ImR),
+  .B(w2_1),
+  .C(w2_2),
   .D(A_wire),
-  .S(RegSrc),
+  .S(Regsrc),
   .R(regsrc_mux_wire)
 );
 
-always @(posedge clk) begin 
+comparator comp(
+  .A(A_wire),
+  .B(B_wire),
+  .cmpEq(cmpeq),
+  .cmpNq(cmpne),
+  .R(cmp_result)
+  );
 
-end
-
-//	 input [15:0] A,
-//    input [15:0] B,
-//    input [15:0] Imm,
-//    input ALUsrc,
-//    input [2:0] ALUop,
-//	 input clk,
-//    output AltB,
-//    output [15:0] ALUout
-//    );
-//
-//	 wire [15:0] mux_out, alu_out;
-//	 wire a_ltb;
-//	 reg [15:0] ALUout_reg;
-//	 reg AltB_reg;
-//	 
-//alu_16_bit alu(
-//	.A(A),
-//	.B(mux_out),
-//	.op(ALUop),
-//	.R(alu_out),
-//	.AltB(a_ltb)
-//	);
-//	
-//mux_1_bit alu_mux(
-//	.A(Imm), 
-//	.B(B),
-//	.S(ALUsrc),
-//	.R(mux_out)
-//	);
-//	
-//	assign ALUout = ALUout_reg;
-//	assign AltB = AltB_reg;
-//	
-//	always @(posedge clk) begin
-//		ALUout_reg = alu_out;
-//		AltB_reg = a_ltb;
-//	end
-
-	 
-
-
+	assign op = IR[15:12];
+	assign A = A_wire;
+	assign B = B_wire;
+	
 endmodule

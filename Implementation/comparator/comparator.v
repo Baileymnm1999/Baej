@@ -22,12 +22,10 @@ module comparator(
     input [15:0] B,
 	 input cmpEq,
 	 input cmpNq,
-	 input clk,
-    output reg [15:0] R
+    output reg R
     ); 
 
-	 always @(posedge clk) begin
-		
+	 always begin	
 		if(cmpEq) begin
 			assign R = (A == B);
 		end
