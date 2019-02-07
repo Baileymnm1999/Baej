@@ -504,7 +504,7 @@ A similar implementation will be done for other instructions. Once the instructi
 | **Outputs**                 | B[23:0]                                                      |
 | **Control Signals**         | Reset (Author's notes)                                       |
 | **Functionality**           | Given an op-code (or address) the unit outputs a value on B corresponding to the control signals needed by the instruction |
-| **Hardware Implementation** | Implemented as a ROM in verilog which takes in a counter value and op |
+| **Hardware Implementation** | Implemented as a state machine in Verilog that sets the current state and next state, and sets control signals depending on the op code and current state. |
 | **Unit Tests**              | A loop in Verilog which puts every permutation of the 4-bit op-codes and Reset control bit on A and Reset, then tests that the output control signals is what is expected |
 
 ### Control Signals
