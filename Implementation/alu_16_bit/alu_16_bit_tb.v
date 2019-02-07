@@ -3,7 +3,6 @@
 module alu_16_bit_tb;
 
 	// Inputs
-	reg clk;
 	reg [15:0] A;
 	reg [15:0] B;
 	reg [2:0] op;
@@ -14,7 +13,6 @@ module alu_16_bit_tb;
 
 	// Instantiate the Unit Under Test (UUT)
 	alu_16_bit uut (
-		.clk(clk),
 		.A(A), 
 		.B(B), 
 		.op(op), 
@@ -27,7 +25,6 @@ module alu_16_bit_tb;
 		A = 0;
 		B = 0;
 		op = 0;
-		clk = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
@@ -175,8 +172,6 @@ module alu_16_bit_tb;
 		end
 		
 	end
-	
-	always clk = #1 ~clk;
       
 endmodule
 

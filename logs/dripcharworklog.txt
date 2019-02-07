@@ -39,3 +39,5 @@ Milestone 5
 2/3/2019 - Discussed current issues ie $ra reg not getting backed up, had the regFile handle input/output [1 hour]
 
 2/4/2019 - Worked on the control unit w/ Josh. [1 hour] 
+
+2/5/2019 - Realize that we monumentally fricked up the control unit, phat rip in the chat. Josh rebuilt it correctly, I helped write the test case. Navigated as Bailey drove implementing the PMS [4 hours]

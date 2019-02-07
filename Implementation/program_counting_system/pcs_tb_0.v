@@ -4,6 +4,7 @@ module pcs_tb_0;
 
 	// Inputs
 	reg clk;
+	reg restore;
 	reg writePC;
 	reg writeRA;
 	reg PCsrc;
@@ -17,7 +18,8 @@ module pcs_tb_0;
 
 	// Instantiate the Unit Under Test (UUT)
 	pcs uut (
-		.clk(clk), 
+		.clk(clk),
+		.restore(restore),
 		.writePC(writePC), 
 		.writeRA(writeRA), 
 		.PCsrc(PCsrc), 
@@ -25,12 +27,14 @@ module pcs_tb_0;
 		.conditionalBop(conditionalBop), 
 		.ImR(ImR), 
 		.PC(PC), 
-		.PC_1(PC_1)
+		.PC_1(PC_1),
+		.RA()
 	);
 
 	initial begin
 		// Initialize Inputs
 		clk = 0;
+		restore = 0;
 		writePC = 0;
 		writeRA = 0;
 		PCsrc = 0;

@@ -20,7 +20,7 @@ BAEJ is a Reduced Instruction Set Computer Architecture which implements a load 
 |.z0       |63|Register always holding the value 0|
 
 ### Function Registers
-Function registers in BAEJ architecture serve as registers which can be safely used during any function without backing up on a stack. In order to reduce the requirements imposed on the user, backing up and restoring the first 16 registers in our register file (.f0- .15) happens automatically to an internal memory unit, called the Fcache, upon function calls and returns. For the user to make a function call, they simply need to move all of their values that they expect to be saved into the F registers. Upon return from the function call, the user's values will be safely returned to the F registers via the Fcache. 
+Function registers in BAEJ architecture serve as registers which can be safely used during any function without backing up on a stack. In order to reduce the requirements imposed on the user, backing up and restoring the first 15 registers in our register file (.f0- .f14) happens automatically to an internal memory unit, called the Fcache, upon function calls and returns. For the user to make a function call, they simply need to move all of their values that they expect to be saved into the F registers. Upon return from the function call, the user's values will be safely returned to the F registers via the Fcache. 
 
 ## Machine Code Formats
 
@@ -46,7 +46,7 @@ Function registers in BAEJ architecture serve as registers which can be safely u
 |```ldi```|I Type|0001|```ldi .rd immediate```|Loads an immediate to rd|```rd=immediate```|
 |```str```|I Type|0010|```str .rs[immediate] .rd```|Stores value in rd to memory|```Mem[rs+immediate]=rd```|
 |```bop```|I Type|0011|```bop immediate```|Changes pc to immediate|```pc=immediate```|
-|```cal```|I Type|0100|```cal immediate```|Changes pc to immediate and sets a return address|```ra=pc+4```<br>```pc=immediate```|
+|```cal```|I Type|0100|```cal immediate```|Changes pc to immediate and sets a return address|```ra=pc+2```<br>```pc=immediate```|
 |```beq```|I Type|0101|```beq .rs .rd immediate```|Changes pc to immediate if rs and rd are equal|```if rs==rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=immediate;```|
 |```bne```|I Type|0110|```bne .rs .rd immediate```|Changes pc to immediate if rs and rd aren't equal|```if rs!=rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=immediate;```|
 |```sft```|I Type|0111|```sft .rs .rd immediate```|Shifts value in rs to rd by immediate. Positive shifts left, negative shifts right|```rd=rs<<immediate```|
@@ -408,11 +408,11 @@ A similar implementation will be done for other instructions. Once the instructi
 | Items                       | Descriptions                                                 | ALU op | Operation     |
 | --------------------------- | ------------------------------------------------------------ | ------ | ------------- |
 | **Inputs**                  | A[15:0], B[15:0]                                             | 000    | AND           |
-| **Outputs**                 | A<B, R[15:0]                                                 | 001    | OR            |
-| **Control Signals**         | Operation[2:0]                                               | 010    | ADD           |
+| **Outputs**                 | A<B (AltB), R[15:0]                                          | 001    | OR            |
+| **Control Signals**         | ALUop[2:0]                                                   | 010    | ADD           |
 | **Functionality**           | Takes the mathematical operation specified by Operation and preforms in on operand A and B, puts result on A<B or R depending on operation | 011    | SUBTRACT      |
 | **Hardware Implementation** | Verilog switch case that assigns the result of the appropriate operation on A and B to R based off of the op code | 100    | SHIFT         |
-| **Unit Tests**              | A loop in Verilog for each op code which inputs all permutations of two inputs from -20 to 20 and verifies with the output that the operation was preformed correctly on the inputs | 101    | SET LESS THAN |
+| **Unit Tests**              | A loop in Verilog for each op code which inputs all permutations of two inputs from -20 to 20 and verifies with the output that the operation was performed correctly on the inputs | 101    | SET LESS THAN |
 
 #### Comparator
 
@@ -431,8 +431,8 @@ A similar implementation will be done for other instructions. Once the instructi
 | --------------------------- | ------------------------------------------------------------ |
 | **Inputs**                  | dataIn[255:0], B[15:0]                                       |
 | **Outputs**                 | dataOut[255:0]                                               |
-| **Control Signals**         | Write, Read                                                  |
-| **Functionality**           | When the Write signal is high, takes the value on dataIn and stored it in address B, when the Read signal is high, puts the value at B on dataOut |
+| **Control Signals**         | Write                                                        |
+| **Functionality**           | When the Write signal is high, takes the value on dataIn and stored it in address B. The Fcache always puts the value at B on dataOut. |
 | **Hardware Implementation** | Static storage implemented using a register-file like structure. Use the verilog register file provided on the course website altering it to 256 bit words. In verilog, write a module which wraps the register file to allow for a bus serving as both input and output. |
 | **Unit Tests**              | A loop in verilog which goes through a large range of addresses and writes many different 256 bit values while reading them each iteration to ensure they are correct. |
 
@@ -442,8 +442,8 @@ A similar implementation will be done for other instructions. Once the instructi
 | --------------------------- | ------------------------------------------------------------ |
 | **Inputs**                  | A1[15:0], A2[15:0], W1[15:0], W2[15:0], Fin[255:0]           |
 | **Outputs**                 | R1[15:0], R2[15:0], Fout[255:0]                              |
-| **Control Signals**         | Write1, Write2, Read1, Read2, ioIn, ioOut, Backup, Restore   |
-| **Functionality**           | With a Write signal high, takes the respective value (W1 or W2) and stores it in the respective address (A1 or A2). With a Read signal high, takes the value at the respective address and puts it onto the respective output (R1 or R2). When Backup is high, puts the values in registers 0 to 15 on Fout, when Restore is high, stores the values on Fin into registers 0 to 15. |
+| **Control Signals**         | Write1, Write2, Read1, Read2, ioIn, ioOut, Restore           |
+| **Functionality**           | With a Write signal high, takes the respective value (W1 or W2) and stores it in the respective address (A1 or A2). With a Read signal high, takes the value at the respective address and puts it onto the respective output (R1 or R2). The register file always puts the values in registers 0 to 15 on Fout, when Restore is high, stores the values on Fin into registers 0 to 15. |
 | **Hardware Implementation** | Static storage implemented using a series of registers. Use the verilog register file provided on the course website and alter as needed to enable dual port functionality (Multiple inputs and outputs). |
 | **Unit Tests**              | A loop in verilog which goes through a large range of addresses and writes many 16 bit values while reading them each iteration to ensure they are correct. |
 
@@ -500,11 +500,11 @@ A similar implementation will be done for other instructions. Once the instructi
 
 | Items                       | Descriptions                                                 |
 | --------------------------- | ------------------------------------------------------------ |
-| **Inputs**                  | A[3:0]                                                       |
-| **Outputs**                 | B[23:0]                                                      |
+| **Inputs**                  | op[3:0]                                                      |
+| **Outputs**                 | B[23:0] (22 unique control signals, 24 bits in all)          |
 | **Control Signals**         | Reset (Author's notes)                                       |
 | **Functionality**           | Given an op-code (or address) the unit outputs a value on B corresponding to the control signals needed by the instruction |
-| **Hardware Implementation** | Implemented as a ROM in verilog which takes in a counter value and op |
+| **Hardware Implementation** | Implemented as a state machine in Verilog that sets the current state and next state, and sets control signals depending on the op code and current state. |
 | **Unit Tests**              | A loop in Verilog which puts every permutation of the 4-bit op-codes and Reset control bit on A and Reset, then tests that the output control signals is what is expected |
 
 ### Control Signals
@@ -521,9 +521,9 @@ A similar implementation will be done for other instructions. Once the instructi
 |MemR1|1|Nothing|The value at the address specified by a1 is read to port r1|
 |MemR2|1|Nothing|The value at the address specified by a2 is read to port r2|
 |writeCR|1|The reg number specified at reg file port a1 is IR[11:6] (default)|The reg number specified at reg file port a1 is 57 (for compiler register)|
-|Regsrc|2|0 - Value at reg file port w2 comes from ImR; 1 - Value at port w2 comes from MemOut|2 - Value at port w2 comes from ALUout; 3 - Value at port w2 comes from reg A|
+|Regsrc|2|0: Value at reg file port w2 comes from ImR; 1: Value at port w2 comes from Memout|2: Value at port w2 comes from ALUout; 3: Value at port w2 comes from reg A|
 |writeImR|1|Nothing|ImR gets the value read from memory at the address specified by a2|
-|backup|1|Nothing|Registers 15:0 (256 bits) from the reg file are written to the Fcache at the address specified by "a"; FCC is incrememented by 1|
+|backup|1|Nothing|Registers 15:0 (256 bits) from the reg file are written to the Fcache at the address specified by "a"; FCC is incremented by 1|
 |restore|1|Nothing|The 256 bit value at the address specified by "a" in the Fcache is written to registers 15:0 in the reg file; FCC is decremented by 1|
 |RegW1|1|Nothing|The value at port w1 is written to the reg address specified by a1|
 |RegW2|1|Nothing|The value at port w2 is written to the reg address specified by a2|
@@ -531,8 +531,8 @@ A similar implementation will be done for other instructions. Once the instructi
 |RegR2|1|Nothing|The value at the reg address specified by a2 is read to port r2|
 |ALUsrc|1|2nd ALU operand comes from ImR|2nd ALU operand comes from reg B|
 |ALUop|3|SEE ALU IN COMPONENTS|SEE ALU IN COMPONENTS|
-|cmpeq|1|Nothing|The result of the comparison A=B is sent to the ImPCsrc mux|
-|cmpne|1|Nothing|The result of the comparison A!=B is sent to the ImPCsrc mux|
+|cmpeq|1|Nothing|The result of the comparison A=B is sent to the ImRPC mux|
+|cmpne|1|Nothing|The result of the comparison A!=B is sent to the ImRPC mux|
 
 ### FSM Diagram
 

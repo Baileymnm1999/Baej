@@ -32,3 +32,8 @@ Monday, January 28, 2019 [300 min] - Finished Fcache and helped Alex with reg fi
 
 Wednesday, January 30, 2019 [330 min] - Finished all parts and went over tests with everyone to make sure they were extensive enough. Made sure they also matched what was described in the design doc. Created PCS integration and wrote testbench with Eric.
 
+Milestone 5
+
+Sunday, Febuary 3, 2019 [90 min] - Met to discuss what we need to do for the rest of the week. Discovered a few issues with our design and discussed fixes. Helped divide and assign integration work
+
+Tuesday, Febuary 5, 2019 [150 min] - Updated PCS, integrated MMS and PMS.
