@@ -92,6 +92,12 @@ Created base code for the control unit.
 
 MEETING 5.3 - 02/05/2019 - 6:00 pm [150 min]:
 Members present: Josh (60 min), Alex, Bailey
-Worked on integrating our systems. Control unit finished along with PMS and ALS. Still need FBS and RMS. Updates the design document
+Worked on integrating our systems. Control unit finished along with PMS and ALS. Still need FBS and RMS. Updated the design document
 to reflect changes.
 
+MEETING 5.4 - 02/06/2019 - 7:00 pm [60 min]:
+All members present. F Register Backup System has been successfuly implemented. 
+ALU System has been successfully implemented.
+
+MEETING 5.5 - 02/07/2019 - 10:00 pm
+The Register Management System is being integrated.
