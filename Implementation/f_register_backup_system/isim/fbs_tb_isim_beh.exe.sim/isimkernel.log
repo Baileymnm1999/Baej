@@ -2,4 +2,9 @@ Command line:
    fbs_tb_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  55235
+     -socket  38205
+
+Wed Feb  6 21:33:56 2019
+
+
+ Elaboration Time: 0.03 sec

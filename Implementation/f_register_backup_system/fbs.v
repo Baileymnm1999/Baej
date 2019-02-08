@@ -25,13 +25,14 @@ module fbs(
   input [255:0] dataIn,
   
   output [255:0] dataOut,
-  output restoreOut
+  output restoreOut,
+  output [15:0] fcc
 );
 
-  reg [15:0] FCCreg, add1, sub1;
-  reg [255:0] fcache_R; // Result of fcache read
+  reg [15:0] FCCreg;
 
   wire [15:0] IorD_R, fccAdder_R, fcacheSrc_R;
+  
   adder_16_bit fccAdder(
     .A(IorD_R),
     .B(FCCreg),
@@ -40,16 +41,16 @@ module fbs(
 
   // Controls FCC inc or dec
   mux_1_bit IorD(
-    .A(add1),
-    .B(sub1),
+    .A(-1),
+    .B(1),
     .S(backup),
     .R(IorD_R)
     );
   
   // Controls FCC + 1 or FCC
   mux_1_bit fcacheSrc (
-    .A(FCCreg),
-    .B(fccAdder_R),
+    .A(fccAdder_R),
+    .B(FCCreg),
     .S(backup),
     .R(fcacheSrc_R)
   );
@@ -59,20 +60,18 @@ module fbs(
     .write(backup),
     .addr(fcacheSrc_R),
     .wData(dataIn),
-    .rData(fcache_R)    
+    .rData(dataOut)    
   );
 
-  assign dataOut = fcache_R;
-  assign restoreOut = restore;
+	assign restoreOut = restore;
+	assign fcc = FCCreg;
 
-  initial begin
+	initial begin
     FCCreg = 0;
-    add1 = 1;
-    sub1 = -1;
-    fcache_R = 0;
 	end
 
-  always @(posedge clk) begin
-		if (backup | restore) FCCreg = fccAdder_R;	
+	always @(posedge clk) begin
+		if(backup | restore) FCCreg <= fccAdder_R;
 	end
+	
 endmodule

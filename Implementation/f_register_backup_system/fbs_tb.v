@@ -33,6 +33,9 @@ module fbs_tb;
 	// Outputs
 	wire [255:0] dataOut;
 	wire restoreOut;
+	
+	// Holder
+	wire [15:0] fcc;
 
 	// Instantiate the Unit Under Test (UUT)
 	fbs uut (
@@ -41,46 +44,43 @@ module fbs_tb;
 		.restore(restore), 
 		.dataIn(dataIn), 
 		.dataOut(dataOut), 
-		.restoreOut(restoreOut)
+		.restoreOut(restoreOut),
+		.fcc(fcc)
 	);
 
 	initial begin
 		// Initialize Inputs
-		clk = 0;
+		clk = 1;
 		backup = 0;
 		restore = 0;
 		dataIn = 0;
 
 		// Wait 100 ns for global reset to finish
-		#100;
-        
-		$display("TEST START ----------------");
-		repeat (15) begin // Should be 2 ^ 16
-			dataIn = 15;
-			#1;		
-			repeat (15) begin
-				// let some data in
-        backup = 1;
-				#1;
-        backup = 0;
-				#1;
-				
-        // let some data out
-				restore = 1;
-				#1;
-				if (dataIn == dataOut)
+		#100.1;
+		
+		repeat (16) begin
+			backup = 1;
+			#1;
+			backup = 0;
+			#0.5;
+			if (dataIn == dataOut)
 					$display("dataIn = %d dataOut = %d PASSED \n", dataIn, dataOut);
-				else
+			else
 					$display("dataIn = %d dataOut = %d FAILED \n", dataIn, dataOut);
-				#1;
-        restore = 0;
-				
-				dataIn = dataIn - 1;
-				#1;
-			end
+			#0.5;
+			dataIn = dataIn + 1;		
+		end
+		
+		restore = 1;
+		backup = 0;
+		repeat (16) begin
 			#1;
 		end
+		
+		
 	end
-  always clk = #0.5 ~clk;
+				
+	always clk = #0.5 ~clk;
+  
 endmodule
 
