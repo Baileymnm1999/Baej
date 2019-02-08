@@ -62,7 +62,7 @@ mux_2_bit reg_w2_src (
   .A(ImR),
   .B(w2_1),
   .C(w2_2),
-  .D(A_wire),
+  .D(A),
   .S(Regsrc),
   .R(regsrc_mux_wire)
 );
@@ -76,5 +76,6 @@ comparator comp(
   );
 
 	assign op = IR[15:12];
+	assign immediate = ImR;
 	
 endmodule

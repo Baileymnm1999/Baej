@@ -1,46 +1,22 @@
 `timescale 1ns / 1ps
 
-////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer:
-//
-// Create Date:   17:18:46 01/30/2019
-// Design Name:   comparator
-// Module Name:   C:/Users/dripchar/Documents/Classes/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/comparator/comparator_tb.v
-// Project Name:  comparator
-// Target Device:  
-// Tool versions:  
-// Description: 
-//
-// Verilog Test Fixture created by ISE for module: comparator
-//
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-////////////////////////////////////////////////////////////////////////////////
-
 module comparator_tb;
 
 	// Inputs
 	reg [15:0] A;
 	reg [15:0] B;
-	reg cmpEq;
-	reg cmpNq;
-	reg clk;
+	reg cmpeq;
+	reg cmpne;
 
 	// Outputs
-	wire [15:0] R;
+	wire R;
 
 	// Instantiate the Unit Under Test (UUT)
 	comparator uut (
 		.A(A), 
 		.B(B), 
-		.cmpEq(cmpEq), 
-		.cmpNq(cmpNq), 
-		.clk(clk),
+		.cmpeq(cmpeq),  
+		.cmpne(cmpne), 
 		.R(R)
 	);
 
@@ -48,17 +24,16 @@ module comparator_tb;
 		// Initialize Inputs
 		A = 0;
 		B = 0;
-		cmpEq = 0;
-		cmpNq = 0;
-		clk = 1; 
+		cmpeq = 0;
+		cmpne = 0; 
 
 		// Wait 100 ns for global reset to finish
 		#100;
 		
 		
 		repeat (32) begin 
-        cmpEq = 1;
-		  cmpNq = 0;
+        cmpne = 0;
+		  cmpeq = 1;
 		  #2;
 		  
 		  	if(R == 1) begin
@@ -76,8 +51,8 @@ module comparator_tb;
 				$display("FAIL");
 			end
 			
-			cmpNq = 1;
-			cmpEq = 0;
+			cmpne = 1;
+			cmpeq = 0;
 			#2;
 			
 			if(R == 1) begin
@@ -97,7 +72,5 @@ module comparator_tb;
 	
 		end
 	end
-	
-	always clk = #0.5 ~clk;
       
 endmodule
