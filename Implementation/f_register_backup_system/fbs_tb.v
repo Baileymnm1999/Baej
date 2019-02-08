@@ -33,6 +33,9 @@ module fbs_tb;
 	// Outputs
 	wire [255:0] dataOut;
 	wire restoreOut;
+	
+	// Holder
+	wire [15:0] fcc;
 
   // Counters (for the test)
   reg [255:0] expectedRestoreValue;
@@ -43,45 +46,42 @@ module fbs_tb;
 		.restore(restore), 
 		.dataIn(dataIn), 
 		.dataOut(dataOut), 
-		.restoreOut(restoreOut)
+		.restoreOut(restoreOut),
+		.fcc(fcc)
 	);
 
 	initial begin
 		// Initialize Inputs
-		clk = 0;
+		clk = 1;
 		backup = 0;
 		restore = 0;
 		dataIn = 0;
 
-    expectedRestoreValue = 1;
-		// Wait 100 ns for global reset to finish
-		#100;
-        
-		$display("TEST START ----------------");
-    dataIn = 15;
-    repeat (15) begin
-      // let some data in
-      #1;
-      backup = 1;
-      #1;
-      backup = 0;
-      dataIn = dataIn - 1;
-    end
-    repeat (15) begin
-      // let some data out
-      restore = 1;
-      if (expectedRestoreValue == dataOut)
-        $display("Expected = %d dataOut = %d PASSED \n", expectedRestoreValue, dataOut);
-      else
-        $display("Expected = %d dataOut = %d FAILED \n", expectedRestoreValue, dataOut);
-      #1;
-      restore = 0;
-      #1;
-      
-      expectedRestoreValue = expectedRestoreValue + 1;
-    end
-
+		#100.1;
+		
+		repeat (16) begin
+			backup = 1;
+			#1;
+			backup = 0;
+			#0.5;
+			if (dataIn == dataOut)
+					$display("dataIn = %d dataOut = %d PASSED \n", dataIn, dataOut);
+			else
+					$display("dataIn = %d dataOut = %d FAILED \n", dataIn, dataOut);
+			#0.5;
+			dataIn = dataIn + 1;		
+		end
+		
+		restore = 1;
+		backup = 0;
+		repeat (16) begin
+			#1;
+		end
+		
+		
 	end
-  always clk = #0.5 ~clk;
+				
+	always clk = #0.5 ~clk;
+  
 endmodule
 
