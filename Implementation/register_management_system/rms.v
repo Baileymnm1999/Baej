@@ -27,7 +27,7 @@ module rms(
     output cmp_result
     );
 	 
-	 wire [15:0] writeCR_mux_wire, regsrc_mux_wire, A_wire, B_wire;
+	 wire [15:0] writeCR_mux_wire, regsrc_mux_wire;
 	 wire [14:0] zero_15 = 0;
 	 wire [9:0] zero_10 = 0;
 	 wire [15:0] const_cr = 57;
@@ -45,8 +45,8 @@ regfile16b64 regfile(
 	.r2Control(RegR2),
 	.restore(restore),
 	.clk(clk),
-	.r1(A_wire),
-	.r2(B_wire),
+	.r1(A),
+	.r2(B),
 	.ioOut(ioOut),
 	.fcOut(fcOut)
 	);
@@ -68,15 +68,13 @@ mux_2_bit reg_w2_src (
 );
 
 comparator comp(
-  .A(A_wire),
-  .B(B_wire),
-  .cmpEq(cmpeq),
-  .cmpNq(cmpne),
+  .A(A),
+  .B(B),
+  .cmpeq(cmpeq),
+  .cmpne(cmpne),
   .R(cmp_result)
   );
 
 	assign op = IR[15:12];
-	assign A = A_wire;
-	assign B = B_wire;
 	
 endmodule
