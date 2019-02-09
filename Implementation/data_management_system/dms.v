@@ -21,7 +21,7 @@ module dms(
     input [15:0] w2_2,
     output [3:0] op,
 	 output [15:0] RAOut,
-    output [15:0] ImR,
+    output [15:0] ImROut,
     output [15:0] ioOut,
     output [15:0] A,
     output [15:0] B,
@@ -51,7 +51,6 @@ rms reg_mgmt_sys (
 	.ioOut(ioOut),
 	.op(op),
 	.fcOut(backup_wire),
-	.immediate(ImR),
 	.A(A),
 	.B(B),
 	.cmp_result(cmp_result)
@@ -64,6 +63,8 @@ fbs fcache_back_sys (
 	.dataIn({RAIn, backup_wire}),
 	.dataOut({RAOut, restore_wire})
 	);
+	
+	assign ImROut = ImR;
 	
 
 endmodule

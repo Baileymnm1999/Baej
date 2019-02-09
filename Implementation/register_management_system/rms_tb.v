@@ -50,7 +50,6 @@ module rms_tb;
 	wire [239:0] fcOut;
 	wire [15:0] A;
 	wire [15:0] B;
-	wire [15:0] immediate;
 	wire cmp_result;
 
 	// Instantiate the Unit Under Test (UUT)
@@ -77,7 +76,6 @@ module rms_tb;
 		.fcOut(fcOut), 
 		.A(A), 
 		.B(B), 
-		.immediate(immediate), 
 		.cmp_result(cmp_result)
 	);
 

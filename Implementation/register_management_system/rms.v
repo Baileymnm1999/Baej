@@ -23,7 +23,6 @@ module rms(
     output [239:0] fcOut,
     output [15:0] A,
     output [15:0] B,
-    output [15:0] immediate,
     output cmp_result
     );
 	 
@@ -76,6 +75,5 @@ comparator comp(
   );
 
 	assign op = IR[15:12];
-	assign immediate = ImR;
 	
 endmodule
