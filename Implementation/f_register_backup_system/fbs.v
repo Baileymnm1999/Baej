@@ -1,32 +1,11 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    11:39:29 02/05/2019 
-// Design Name: 
-// Module Name:    fbs 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
+
 module fbs(
   input clk,
   input backup,
   input restore,
   input [255:0] dataIn,
-  
-  output [255:0] dataOut,
-  output restoreOut,
-  output [15:0] fcc
+  output [255:0] dataOut
 );
 
   reg [15:0] FCCreg;
@@ -62,9 +41,6 @@ module fbs(
     .wData(dataIn),
     .rData(dataOut)    
   );
-
-	assign restoreOut = restore;
-	assign fcc = FCCreg;
 
 	initial begin
     FCCreg = 0;
