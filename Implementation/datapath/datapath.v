@@ -41,7 +41,6 @@ control_unit ctrl (
     .MemR2(MemR2),
     .writeCR(writeCR),
     .Regsrc(Regsrc),
-    .writeImR(),
     .backup(backup),
     .restore(restore),
     .RegW1(RegW1),

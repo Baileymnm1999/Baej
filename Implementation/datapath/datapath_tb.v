@@ -6,7 +6,7 @@ module datapath_tb;
 	reg [15:0] ioIn;
 
 	// Outputs
-	wire [16:0] ioOut;
+	wire [15:0] ioOut;
 
 	// Instantiate the Unit Under Test (UUT)
 	datapath uut (
