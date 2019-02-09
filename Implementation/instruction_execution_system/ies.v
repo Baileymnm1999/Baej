@@ -29,7 +29,7 @@ module ies(
 	 
 	 wire AltB_wire;
 	 
-	 wire [15:0] ALUsrc_0, A_wire, B_wire;
+	 wire [15:0] ALUsrc_0, A_wire;
 
 dms data_mgmt_sys (
     .clk(clk),
@@ -55,13 +55,13 @@ dms data_mgmt_sys (
     .ImROut(ALUsrc_0),
     .ioOut(ioOut),
     .A(A_wire),
-    .B(B_wire),
+    .B(B),
 	 .cmp_result(cmp_result)
 	);
 	
 arithmetic_logic_system meth (
     .A(A_wire),
-    .B(B_wire),
+    .B(B),
     .Imm(ALUsrc_0),
     .ALUsrc(ALUsrc),
     .ALUop(ALUop),
