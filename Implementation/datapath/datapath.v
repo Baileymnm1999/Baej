@@ -2,14 +2,18 @@
 
 module datapath(
     input [15:0] ioIn,
-    output [16:0] ioOut
+    output [15:0] ioOut,
+	 output [4:0] current,
+	 output [4:0] next
     );
 	 
-	 wire clk = 0;
+	 reg clk = 1;
+	 reg Reset = 1;
 	 
 	 // Control wires
-	 wire Reset, PCsrc, writePC, writeRA, ImRPC, backup, restore, ALUsrc, cmpeq, cmpne, cmp_result;
-	 wire [3:0] op, ALUop;	 
+	 wire PCsrc, writePC, writeRA, ImRPC, backup, restore, ALUsrc, cmpeq, cmpne, cmp_result;
+	 wire [3:0] op;
+	 wire [2:0] ALUop;	 
 	 
 	 // Memory control wires
 	 wire Memsrc, MemW1, MemW2, MemR1, MemR2;
@@ -48,8 +52,8 @@ control_unit ctrl (
     .ALUop(ALUop),
     .cmpeq(cmpeq),
 	 .cmpne(cmpne),
-	 .current_state(),
-	 .next_state()
+	 .current_state(current),
+	 .next_state(next)
 	);
 	 
 pms prog_mgmt_sys (
@@ -102,8 +106,7 @@ ies inst_exec_sys (
 	);
 
 	initial begin
-	Reset = 1;
-	#1;
+	#0.5;
 	Reset = 0;	
 	end
 	 

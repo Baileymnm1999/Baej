@@ -62,7 +62,7 @@ module control_unit(
 	always @ (posedge clk, posedge Reset)
 		begin
 			if (Reset)
-				current_state = Fetch;
+				next_state = Fetch;
 			else
 				current_state = next_state;
 		end
@@ -279,7 +279,7 @@ module control_unit(
 							8: next_state = G_decode; //cop
 							9: begin
 									$display("Empty opcode 9"); //empty
-									next_state = Fetch;
+									//next_state = Fetch;
 								end
 							10: next_state = G_decode; //slt
 							11: next_state = I_ret_decode; //ret
@@ -423,7 +423,7 @@ module control_unit(
 				
 				default:
 					begin
-						next_state = Fetch;
+						//next_state = Fetch;
 						$display("Not implementated state");
 					end
 					

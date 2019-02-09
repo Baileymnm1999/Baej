@@ -66,5 +66,14 @@ module amemory16x1k(W1,
 		 if (Read2)
 			 R2 <= mem[A2];
 	  end
+	  
+	  
+	initial begin
+	
+	mem[0] = 16'b0001000000010000; // ldi .op 10
+	mem[1] = 16'b0000000000001010;
+	mem[2] = 16'b1100001111010000; // add .io .op
+	
+	end
    
 endmodule
