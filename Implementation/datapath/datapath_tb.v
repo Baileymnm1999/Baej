@@ -10,13 +10,12 @@ module datapath_tb;
 
 	// Instantiate the Unit Under Test (UUT)
 	datapath uut (
-		.ioIn(5), 
+		.ioIn(60), 
 		.ioOut(ioOut)
 	);
 
 	initial begin
 		// Initialize Inputs
-		ioIn = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;

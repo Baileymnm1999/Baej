@@ -52,7 +52,8 @@ Compiling module datapath
 Compiling module datapath_tb
 Compiling module glbl
 Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
 Compiled 20 Verilog Units
 Built simulation executable C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb_isim_beh.exe
-Fuse Memory Usage: 28564 KB
-Fuse CPU Usage: 656 ms
+Fuse Memory Usage: 28552 KB
+Fuse CPU Usage: 468 ms

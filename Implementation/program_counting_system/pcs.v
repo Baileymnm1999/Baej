@@ -57,7 +57,7 @@ mux_1_bit ImRMux(
 	end
 	
 	always @(posedge clk) begin
-		if (writePC) PCreg = PCsrcWire;
+		if (writePC | conditionalBop) PCreg = PCsrcWire;
 		if (writeRA) RAreg = RAwire;
 		
 	end

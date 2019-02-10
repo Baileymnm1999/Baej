@@ -105,10 +105,10 @@ ies inst_exec_sys (
 	);
 
 	initial begin
-	#0.5;
+	#0.1;
 	Reset = 0;	
 	end
 	 
-	always clk = #0.5 ~clk;
+	always clk = #0.1 ~clk;
 
 endmodule
