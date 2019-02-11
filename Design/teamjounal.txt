@@ -108,7 +108,7 @@ The Register Management System has been implemented. Fixed some bugs that
 were in the original control unit and updated the design document accordingly
 
 MEETING 5.6 - 02/08/2019 - 7:00 pm [180 minutes]
-Members present: Josh, Bailey
+All members present
 The Instruction Execution System and datapath has been implemented. The Instruction
 Execution System is also tested.
 
