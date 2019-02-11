@@ -46,11 +46,11 @@ module control_unit(
 	 parameter		I_sft_ex = 9;
 	 parameter		I_sft_mem = 10;
 	 parameter		I_ret_decode = 11;
-	 parameter		I_ret_ex = 12;
+	 parameter		I_ret_ex = 12; // combined with state 11
 	 parameter		I_bop_decode = 13;
 	 parameter		I_bop_ex = 14;
 	 parameter		I_cal_decode = 15;
-	 parameter		I_cal_ex = 16;
+	 parameter		I_cal_ex = 16; // combined with state 15
 	 parameter		G_decode = 17;
 	 parameter		G_ex = 18;
 	 parameter		G_mem = 19;
