@@ -26,6 +26,7 @@ module control_unit(
     output reg [3:0] ALUop,
     output reg cmpeq,
 	 output reg cmpne,
+	 output reg resetSig,
 	 
 	 // track the state
 	 output reg [4:0] current_state,
@@ -56,6 +57,7 @@ module control_unit(
 	 parameter		G_slt_ex = 20;
 	 parameter		G_slt_mem = 21;
 	 parameter		G_cop_ex = 22;
+	 parameter		reset = 23;
 		
 	//Output signals
 	always @ (current_state) begin
@@ -81,8 +83,15 @@ module control_unit(
 			ALUop = 0;
 			cmpeq = 0;
 			cmpne = 0;
+			resetSig = 0;
 			
 			case (current_state)
+			
+				reset:
+					begin
+						writePC = 1;
+						resetSig = 1;
+					end
 			
 				Fetch:
 					begin
@@ -159,11 +168,8 @@ module control_unit(
 				I_ret_decode:
 					begin
 						writePC = 1;
+						writeRA = 1;
 						PCsrc = 1;
-					end
-					
-				I_ret_ex:
-					begin
 						restore = 1;
 					end
 					
@@ -185,10 +191,6 @@ module control_unit(
 						writeRA = 1;
 						ImRPC = 1;
 						PCsrc = 0;
-					end
-					
-				I_cal_ex:
-					begin
 						backup = 1;
 					end
 					
@@ -245,13 +247,16 @@ module control_unit(
 		end
 	
 	//Current State calculation
-	always @ (posedge clk, op) begin
+	always @ (negedge clk) begin
 		
 			// $display("The current state is %d", current_state);
-			if (Reset) current_state = Fetch;
+			if (Reset) current_state = reset;
 			else begin
 				case (current_state)
-				
+					
+					reset:
+						current_state = Fetch;
+						
 					Fetch:
 						begin
 							case (op)
@@ -358,32 +363,6 @@ module control_unit(
 										//current_state = Fetch;
 									end
 								10: current_state = G_decode; //slt
-								11: current_state = I_ret_ex; //ret
-								12: current_state = G_decode; //add
-								13: current_state = G_decode; //sub
-								14: current_state = G_decode; //and
-								15: current_state = G_decode; //orr
-								//default: $display("Wrong opcode");
-							endcase
-						end
-						
-					I_ret_ex:
-						begin
-							case (op)
-								0: current_state = I_decode; //lda
-								1: current_state = I_decode; //ldi
-								2: current_state = I_decode; //str
-								3: current_state = I_bop_decode; //bop
-								4: current_state = I_cal_decode; //cal
-								5: current_state = I_decode; //beq
-								6: current_state = I_decode; //bne
-								7: current_state = I_decode; //sft
-								8: current_state = G_decode; //cop
-								9: begin
-										$display("Empty opcode 9"); //empty
-										//current_state = Fetch;
-									end
-								10: current_state = G_decode; //slt
 								11: current_state = Fetch; //ret
 								12: current_state = G_decode; //add
 								13: current_state = G_decode; //sub
@@ -426,15 +405,28 @@ module control_unit(
 						
 					I_cal_decode:
 						begin
-							case(op)
-								4: current_state = I_cal_ex;
-								6: current_state = I_decode;
+							case (op)
+								0: current_state = I_decode; //lda
+								1: current_state = I_decode; //ldi
+								2: current_state = I_decode; //str
+								3: current_state = I_bop_decode; //bop
+								4: current_state = Fetch; //cal
+								5: current_state = I_decode; //beq
+								6: current_state = I_decode; //bne
+								7: current_state = I_decode; //sft
+								8: current_state = G_decode; //cop
+								9: begin
+										$display("Empty opcode 9"); //empty
+										//current_state = Fetch;
+									end
+								10: current_state = G_decode; //slt
+								11: current_state = I_ret_decode; //ret
+								12: current_state = G_decode; //add
+								13: current_state = G_decode; //sub
+								14: current_state = G_decode; //and
+								15: current_state = G_decode; //orr
+								//default: $display("Wrong opcode");
 							endcase
-						end
-						
-					I_cal_ex:
-						begin
-							current_state = Fetch;
 						end
 						
 					G_decode:
@@ -480,7 +472,7 @@ module control_unit(
 					
 					default:
 						begin
-							//current_state = Fetch;
+							current_state = Fetch;
 							$display("Not implementated state");
 						end
 						

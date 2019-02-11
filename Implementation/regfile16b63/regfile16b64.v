@@ -44,9 +44,8 @@ module regfile16b64(
 	 
 	 integer i;
 	 initial begin
-		 for(i = 0; i < 63; i = i + 1) begin
-			regFile[i] = 0;
-		 end
+		 for(i = 0; i < 64; i = i + 1)
+			regFile[i] <= 0;
 	 end
 	 
 	 always @(posedge clk) begin
@@ -63,25 +62,25 @@ module regfile16b64(
 		else r2 = regFile[a2];
 	 end
 	 
-	 if(w1Control) regFile[a1] <= w1;
-	 if(w2Control) regFile[a2] <= w2;
+	 if(w1Control) regFile[a1] = w1;
+	 if(w2Control) regFile[a2] = w2;
 	 
 	 if(restore) begin
-		regFile[0] <= fcIn[15:0];
-		regFile[1] <= fcIn[31:16];
-		regFile[2] <= fcIn[47:32];
-		regFile[3] <= fcIn[63:48];
-		regFile[4] <= fcIn[79:64];
-		regFile[5] <= fcIn[95:80];
-		regFile[6] <= fcIn[111:96];
-		regFile[7] <= fcIn[127:112];
-		regFile[8] <= fcIn[143:128];
-		regFile[9] <= fcIn[159:144]; 
-		regFile[10] <= fcIn[175:160];
-		regFile[11] <= fcIn[191:176];
-		regFile[12] <= fcIn[207:192];
-		regFile[13] <= fcIn[223:208];
-		regFile[14] <= fcIn[239:224];
+		regFile[0] = fcIn[15:0];
+		regFile[1] = fcIn[31:16];
+		regFile[2] = fcIn[47:32];
+		regFile[3] = fcIn[63:48];
+		regFile[4] = fcIn[79:64];
+		regFile[5] = fcIn[95:80];
+		regFile[6] = fcIn[111:96];
+		regFile[7] = fcIn[127:112];
+		regFile[8] = fcIn[143:128];
+		regFile[9] = fcIn[159:144]; 
+		regFile[10] = fcIn[175:160];
+		regFile[11] = fcIn[191:176];
+		regFile[12] = fcIn[207:192];
+		regFile[13] = fcIn[223:208];
+		regFile[14] = fcIn[239:224];
 	 end
 	end
 	

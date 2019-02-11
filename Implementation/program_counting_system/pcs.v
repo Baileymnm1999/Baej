@@ -4,6 +4,7 @@
 module pcs(
 	 input clk,
 	 input restore,
+	 input reset,
     input writePC,
     input writeRA,
     input PCsrc,
@@ -32,10 +33,12 @@ mux_1_bit RAsrcMux (
 	.R(RAwire)
 	);
 
-mux_1_bit PCsrcMux(
+mux_2_bit PCsrcMux(
 	.A(PCsrcOpt0),
 	.B(RAreg),
-	.S(PCsrc),
+	.C(0),
+	.D(0),
+	.S({reset, PCsrc}),
 	.R(PCsrcWire)
 	);
 	

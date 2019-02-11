@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
 module datapath(
+	 input reset,
     input [15:0] ioIn,
     output [15:0] ioOut,
 	 output [4:0] current,
@@ -8,10 +9,9 @@ module datapath(
     );
 	 
 	 reg clk = 1;
-	 reg Reset = 1;
 	 
 	 // Control wires
-	 wire PCsrc, writePC, writeRA, ImRPC, backup, restore, ALUsrc, cmpeq, cmpne, cmp_result;
+	 wire PCsrc, writePC, writeRA, ImRPC, backup, restore, ALUsrc, cmpeq, cmpne, cmp_result, resetSig;
 	 wire [3:0] op;
 	 wire [2:0] ALUop;	 
 	 
@@ -29,7 +29,7 @@ module datapath(
 control_unit ctrl (
     .op(op),
 	 .clk(clk),
-	 .Reset(Reset),
+	 .Reset(reset),
     .PCsrc(PCsrc),
     .writePC(writePC),
     .writeRA(writeRA),
@@ -51,6 +51,7 @@ control_unit ctrl (
     .ALUop(ALUop),
     .cmpeq(cmpeq),
 	 .cmpne(cmpne),
+	 .resetSig(resetSig),
 	 .current_state(current),
 	 .next_state(next)
 	);
@@ -58,6 +59,7 @@ control_unit ctrl (
 pms prog_mgmt_sys (
 	 .clk(clk),
 	 .restore(restore),
+	 .reset(resetSig),
     .writePC(writePC),
     .writeRA(writeRA),
     .PCsrc(PCsrc),
@@ -104,11 +106,6 @@ ies inst_exec_sys (
     .RAOut(RArestore)
 	);
 
-	initial begin
-	#0.1;
-	Reset = 0;	
-	end
-	 
 	always clk = #0.1 ~clk;
 
 endmodule

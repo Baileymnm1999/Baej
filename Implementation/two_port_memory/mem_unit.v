@@ -24,7 +24,7 @@ module amemory16x1k(W1,
                     clk);
    
    // Definitions
-`define MEM_DEPTH 65535
+`define MEM_DEPTH 1024//65535
 `define MEM_WIDTH 16
 `define ADDR_SIZE 16
 
@@ -67,14 +67,18 @@ module amemory16x1k(W1,
 			 R2 <= mem[A2];
 	  end
 	  
-	  
+	integer i;
 	initial begin
+	
+	for (i=0;i<`MEM_DEPTH;i=i+1)
+    mem[i] = 0;
 	/*			Add 10 program
 	mem[0] = 16'b0001000000010000; // ldi .op 10
 	mem[1] = 16'b0000000000001010;
 	mem[2] = 16'b1100001111010000; // add .io .op
 	*/
 	
+	/*			RelP */
 	mem[0] = 16'b0001000000010000;//	ldi .op 2
 	mem[1] = 16'b0000000000000010;
 	mem[2] = 16'b0001000000000001;//	ldi .f1 1
@@ -107,6 +111,24 @@ module amemory16x1k(W1,
 	mem[29] = 16'b0000000000010011;	
 	mem[30] = 16'b1000101101111010;//	cop .a0 .v0
 	mem[31] = 16'b1011000000000000;//	ret
+	
+	
+	/*
+	mem[0] = 16'b1000001111101110;//	cop .ip .a1
+	mem[1] = 16'b0001000000101101;//	ldi .a0 1
+	mem[2] = 16'b0000000000000001;//	
+	mem[3] = 16'b0100000000000000;//	cal sum
+	mem[4] = 16'b0000000000000111;//	
+	mem[5] = 16'b0011000000000000;//	bop 14
+	mem[6] = 16'b0000000000001110;//	
+	mem[7] = 16'b1100101110010000;//	add .a1 .op
+	mem[8] = 16'b1101101101101110;//	sub .a0 .a1
+	mem[9] = 16'b0101101110111111;//	beq .a1 .z0 end
+	mem[10] = 16'b0000000000001101;//	
+	mem[11] = 16'b0100000000000000;//	cal sum
+	mem[12] = 16'b0000000000000111;//	
+	mem[13] = 16'b1011000000000000;//	ret
+	*/
 	
 	end
    

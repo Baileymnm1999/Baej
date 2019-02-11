@@ -12,10 +12,10 @@ module mux_2_bit(
 	always @ *
 	 
 	 case (S)
-		0: assign R = A;
-		1: assign R = B;
-		2: assign R = C;
-		3: assign R = D;
+		0: R = A;
+		1: R = B;
+		2: R = C;
+		3: R = D;
 	 endcase
 	 
 endmodule
