@@ -28,12 +28,18 @@ Tuesday, January 22, 2019 [250 min]: Fixing formatting of hardware components in
 Monday, January 28, 2019 [330 min]: Finished implementations and extensive test benches on 1-bit mux, 2-bit mux, adder, and ALU.
 				    ALU still has some bugs in it. Need to do regs as well.
 
+Wednesday, January 30, 2019 [60 min]: ALU bugs fixed. Decided we don't need actual reg hardware; they can just be instantiated whenever we need them.
+
 Sunday, February 3, 2019 [60 min]: Discussed rest of project. Divided up work. Began on control unit. Will begin working on ALU sub-system for integration plan.
 
 Monday, February 4, 2019 [90 min]: Worked with Alex. Finished control unit and test bench. Noticed a lot of inconsistencies in naming conventions.
 
-Wednesday, January 30, 2019 [60 min]: ALU bugs fixed. Decided we don't need actual reg hardware; they can just be instantiated whenever we need them.
+Tuesday, February 5, 2019 [50 min]: Realized issues with control unit. Needs to be implemented as finite state machine.
 
-Sunday, February 3, 2019 [90 min]: Worked on control unit. Planned out the rest of our design; split up who will be working on which integration system.
-				   Realized issue with backing up Ra.
+Wednesday, February 6, 2019 [200 min]: Multicycle control unit finished. Test bench completed and extensive. Working on Arithmetic logic implementation system.
 
+Wednesday, February 6, 2019 [120 min]: Meeting number 2 today. Finished ALS integration system with extensive testing. Unclocked ALU (causing a cycle delay).
+
+Thursday, February 7, 2019 [180 min]: Massive bug fix in the register management system. Comparator was broken lol. Will finish tomorrow.
+
+Friday, February 8, 2019 [120 min]: Register management system is 100% functional with extensive testing. Had to fix bugs in the comparator and the reg file.

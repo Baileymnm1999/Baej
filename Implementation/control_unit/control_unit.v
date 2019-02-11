@@ -16,7 +16,6 @@ module control_unit(
     output reg MemR2,
     output reg writeCR,
     output reg [1:0] Regsrc,
-    output reg writeImR,
     output reg backup,
     output reg restore,
     output reg RegW1,
@@ -32,7 +31,7 @@ module control_unit(
 	 output reg [4:0] current_state,
 	 output reg[4:0] next_state
     );
-	 
+
 	 // state definitions
 	 parameter		Fetch = 0;
 	 parameter		I_decode = 1;
@@ -57,19 +56,9 @@ module control_unit(
 	 parameter		G_slt_ex = 20;
 	 parameter		G_slt_mem = 21;
 	 parameter		G_cop_ex = 22;
-	
-	//register calculation
-	always @ (posedge clk, posedge Reset)
-		begin
-			if (Reset)
-				current_state = Fetch;
-			else
-				current_state = next_state;
-		end
 		
 	//Output signals
-	always @ (current_state)
-		begin
+	always @ (current_state) begin
 			// reset signals
 			PCsrc = 0;
 			writePC = 0;
@@ -82,7 +71,6 @@ module control_unit(
 			MemR2 = 0;
 			writeCR = 0;
 			Regsrc = 0;
-			writeImR = 0;
 			backup = 0;
 			restore = 0;
 			RegW1 = 0;
@@ -103,7 +91,6 @@ module control_unit(
 						Memsrc = 0;
 						MemR1 = 1;
 						MemR2 = 1;
-						writeImR = 1;
 					end
 				
 				I_decode:
@@ -196,7 +183,7 @@ module control_unit(
 					begin
 						writePC = 1;
 						writeRA = 1;
-						ImRPC = 0;
+						ImRPC = 1;
 						PCsrc = 0;
 					end
 					
@@ -257,178 +244,248 @@ module control_unit(
 			
 		end
 	
-	//Next State calculation
-	always @ (current_state, next_state, op)
-		begin
+	//Current State calculation
+	always @ (posedge clk, op) begin
 		
 			// $display("The current state is %d", current_state);
-			
-			case (current_state)
-			
-				Fetch:
-					begin
-						case (op)
-							0: next_state = I_decode; //lda
-							1: next_state = I_decode; //ldi
-							2: next_state = I_decode; //str
-							3: next_state = I_bop_decode; //bop
-							4: next_state = I_cal_decode; //cal
-							5: next_state = I_decode; //beq
-							6: next_state = I_decode; //bne
-							7: next_state = I_decode; //sft
-							8: next_state = G_decode; //cop
-							9: begin
-									$display("Empty opcode 9"); //empty
-									next_state = Fetch;
-								end
-							10: next_state = G_decode; //slt
-							11: next_state = I_ret_decode; //ret
-							12: next_state = G_decode; //add
-							13: next_state = G_decode; //sub
-							14: next_state = G_decode; //and
-							15: next_state = G_decode; //orr
-							//default: $display("Wrong opcode");
-						endcase
-					end	
+			if (Reset) current_state = Fetch;
+			else begin
+				case (current_state)
 				
-				I_decode:
-					begin
-						case (op)
-							0: next_state = I_str_ex; //lda
-							1: next_state = I_ldi_ex; //ldi
-							2: next_state = I_str_ex; //str
-							5: next_state = I_beq_ex; //beq
-							6: next_state = I_bne_ex; //bne
-							7: next_state = I_sft_ex; //sft
-							default: $display("Wrong opcode");
-						endcase
-					end
-				
-				I_str_ex:
-					begin
-						case (op)
-							0: next_state = I_lda_mem; //lda
-							2: next_state = I_str_mem; //str
-							default: $display("Wrong opcode");
-						endcase
-					end
-				
-				I_str_mem:
-					begin
-						next_state = Fetch;
-					end
-				
-				I_lda_mem:
-					begin
-						next_state = I_lda_wb;
-					end
-				
-				I_lda_wb:
-					begin
-						next_state = Fetch;
-					end
+					Fetch:
+						begin
+							case (op)
+								0: current_state = I_decode; //lda
+								1: current_state = I_decode; //ldi
+								2: current_state = I_decode; //str
+								3: current_state = I_bop_decode; //bop
+								4: current_state = I_cal_decode; //cal
+								5: current_state = I_decode; //beq
+								6: current_state = I_decode; //bne
+								7: current_state = I_decode; //sft
+								8: current_state = G_decode; //cop
+								9: begin
+										$display("Empty opcode 9"); //empty
+										//current_state = Fetch;
+									end
+								10: current_state = G_decode; //slt
+								11: current_state = I_ret_decode; //ret
+								12: current_state = G_decode; //add
+								13: current_state = G_decode; //sub
+								14: current_state = G_decode; //and
+								15: current_state = G_decode; //orr
+								//default: $display("Wrong opcode");
+							endcase
+						end	
 					
-				I_ldi_ex:
-					begin
-						next_state = Fetch;
-					end
+					I_decode:
+						begin
+							case (op)
+								0: current_state = I_str_ex; //lda
+								1: current_state = I_ldi_ex; //ldi
+								2: current_state = I_str_ex; //str
+								5: current_state = I_beq_ex; //beq
+								6: current_state = I_bne_ex; //bne
+								7: current_state = I_sft_ex; //sft
+								11: current_state = I_ret_decode;
+								default: current_state = G_decode;
+							endcase
+						end
+					
+					I_str_ex:
+						begin
+							case (op)
+								0: current_state = I_lda_mem; //lda
+								2: current_state = I_str_mem; //str
+								default: $display("Wrong opcode");
+							endcase
+						end
+					
+					I_str_mem:
+						begin
+							current_state = Fetch;
+						end
+					
+					I_lda_mem:
+						begin
+							current_state = I_lda_wb;
+						end
+					
+					I_lda_wb:
+						begin
+							current_state = Fetch;
+						end
 						
-				I_beq_ex:
-					begin
-						next_state = Fetch;
-					end
+					I_ldi_ex:
+						begin
+							current_state = Fetch;
+						end
+							
+					I_beq_ex:
+						begin
+							current_state = Fetch;
+						end
+						
+					I_bne_ex:
+						begin
+							current_state = Fetch;
+						end
+						
+					I_sft_ex:
+						begin
+							current_state = I_sft_mem;
+						end
+						
+					I_sft_mem:
+						begin
+							current_state = Fetch;
+						end
+						
+					I_ret_decode:
+						begin
+							case (op)
+								0: current_state = I_decode; //lda
+								1: current_state = I_decode; //ldi
+								2: current_state = I_decode; //str
+								3: current_state = I_bop_decode; //bop
+								4: current_state = I_cal_decode; //cal
+								5: current_state = I_decode; //beq
+								6: current_state = I_decode; //bne
+								7: current_state = I_decode; //sft
+								8: current_state = G_decode; //cop
+								9: begin
+										$display("Empty opcode 9"); //empty
+										//current_state = Fetch;
+									end
+								10: current_state = G_decode; //slt
+								11: current_state = I_ret_ex; //ret
+								12: current_state = G_decode; //add
+								13: current_state = G_decode; //sub
+								14: current_state = G_decode; //and
+								15: current_state = G_decode; //orr
+								//default: $display("Wrong opcode");
+							endcase
+						end
+						
+					I_ret_ex:
+						begin
+							case (op)
+								0: current_state = I_decode; //lda
+								1: current_state = I_decode; //ldi
+								2: current_state = I_decode; //str
+								3: current_state = I_bop_decode; //bop
+								4: current_state = I_cal_decode; //cal
+								5: current_state = I_decode; //beq
+								6: current_state = I_decode; //bne
+								7: current_state = I_decode; //sft
+								8: current_state = G_decode; //cop
+								9: begin
+										$display("Empty opcode 9"); //empty
+										//current_state = Fetch;
+									end
+								10: current_state = G_decode; //slt
+								11: current_state = Fetch; //ret
+								12: current_state = G_decode; //add
+								13: current_state = G_decode; //sub
+								14: current_state = G_decode; //and
+								15: current_state = G_decode; //orr
+								//default: $display("Wrong opcode");
+							endcase
+						end
+						
+					I_bop_decode:
+						begin
+							current_state = I_bop_ex;
+						end
+						
+					I_bop_ex:
+						begin
+							case (op)
+								0: current_state = I_decode; //lda
+								1: current_state = I_decode; //ldi
+								2: current_state = I_decode; //str
+								3: current_state = Fetch; //bop
+								4: current_state = I_cal_decode; //cal
+								5: current_state = I_decode; //beq
+								6: current_state = I_decode; //bne
+								7: current_state = I_decode; //sft
+								8: current_state = G_decode; //cop
+								9: begin
+										$display("Empty opcode 9"); //empty
+										//current_state = Fetch;
+									end
+								10: current_state = G_decode; //slt
+								11: current_state = I_ret_decode; //ret
+								12: current_state = G_decode; //add
+								13: current_state = G_decode; //sub
+								14: current_state = G_decode; //and
+								15: current_state = G_decode; //orr
+								//default: $display("Wrong opcode");
+							endcase
+						end
+						
+					I_cal_decode:
+						begin
+							case(op)
+								4: current_state = I_cal_ex;
+								6: current_state = I_decode;
+							endcase
+						end
+						
+					I_cal_ex:
+						begin
+							current_state = Fetch;
+						end
+						
+					G_decode:
+						begin
+							case (op)
+								8: current_state = G_cop_ex; //cop
+								10: current_state = G_slt_ex; //slt
+								12: current_state = G_ex; //add
+								13: current_state = G_ex; //sub
+								14: current_state = G_ex; //and
+								15: current_state = G_ex; //orr
+								3: current_state = I_bop_decode;
+								4: current_state = I_cal_decode;
+								11: current_state = I_ret_decode;
+								default: current_state = I_decode;
+							endcase
+						end
+						
+					G_ex:
+						begin
+							current_state = G_mem;
+						end
+						
+					G_mem:
+						begin
+							current_state = Fetch;
+						end
+						
+					G_slt_ex:
+						begin
+							current_state = G_slt_mem;
+						end
+						
+					G_slt_mem:
+						begin
+							current_state = Fetch;
+						end
+						
+					G_cop_ex:
+						begin
+							current_state = Fetch;
+						end
 					
-				I_bne_ex:
-					begin
-						next_state = Fetch;
-					end
-					
-				I_sft_ex:
-					begin
-						next_state = I_sft_mem;
-					end
-					
-				I_sft_mem:
-					begin
-						next_state = Fetch;
-					end
-					
-				I_ret_decode:
-					begin
-						next_state = I_ret_ex;
-					end
-					
-				I_ret_ex:
-					begin
-						next_state = Fetch;
-					end
-					
-				I_bop_decode:
-					begin
-						next_state = I_bop_ex;
-					end
-					
-				I_bop_ex:
-					begin
-						next_state = Fetch;
-					end
-					
-				I_cal_decode:
-					begin
-						next_state = I_cal_ex;
-					end
-					
-				I_cal_ex:
-					begin
-						next_state = Fetch;
-					end
-					
-				G_decode:
-					begin
-						case (op)
-							8: next_state = G_cop_ex; //cop
-							10: next_state = G_slt_ex; //slt
-							12: next_state = G_ex; //add
-							13: next_state = G_ex; //sub
-							14: next_state = G_ex; //and
-							15: next_state = G_ex; //orr
-							default: $display("Wrong opcode");
-						endcase
-					end
-					
-				G_ex:
-					begin
-						next_state = G_mem;
-					end
-					
-				G_mem:
-					begin
-						next_state = Fetch;
-					end
-					
-				G_slt_ex:
-					begin
-						next_state = G_slt_mem;
-					end
-					
-				G_slt_mem:
-					begin
-						next_state = Fetch;
-					end
-					
-				G_cop_ex:
-					begin
-						next_state = Fetch;
-					end
-				
-				default:
-					begin
-						next_state = Fetch;
-						$display("Not implementated state");
-					end
-					
-			endcase
-			
+					default:
+						begin
+							//current_state = Fetch;
+							$display("Not implementated state");
+						end
+						
+				endcase
+			end			
 		end
 
 endmodule

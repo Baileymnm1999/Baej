@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb_isim_beh.exe" -prj "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb_beh.prj" "work.datapath_tb" "work.glbl" 

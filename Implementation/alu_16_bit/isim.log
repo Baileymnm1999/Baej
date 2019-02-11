@@ -1,5 +1,5 @@
 ISim log file
-Running: C:\Users\dripchar\Documents\Classes\CSSE232\3B-dripchar-eckelsjd-morganbm-tuey\Implementation\alu_16_bit\alu_16_bit_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/dripchar/Documents/Classes/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/alu_16_bit/alu_16_bit_tb_isim_beh.wdb 
+Running: C:\Users\eckelsjd\Documents\RHIT\sophomore\winter\CSSE232\3B-dripchar-eckelsjd-morganbm-tuey\Implementation\alu_16_bit\alu_16_bit_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/alu_16_bit/alu_16_bit_tb_isim_beh.wdb 
 ISim P.20131013 (signature 0x7708f090)
 ----------------------------------------------------------------------
 INFO:Security:50 - The XILINXD_LICENSE_FILE environment variable is set to '2100@ise.csse.rose-hulman.edu'.
