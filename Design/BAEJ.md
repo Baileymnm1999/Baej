@@ -38,28 +38,32 @@ Function registers serve as registers which can be safely used during any functi
 
 ## Instructions
 
-|Instruction|Type|OP|Usage|Description|Rtl|
+**IM stands for immediate*
+
+**Optional argument of .rm specifies an accumulator register to operate on (defaults to .m0)*
+
+|Instr|Type|OP|Usage|Description|Rtl|
 |-----------|----|--|-----|-----------|---|
-|```lda```|I Type|0000|```lda .rs[immediate] .rd```|Loads a value from memory to rd|```rd=Mem[rs+immediate]```|
-|```ldi```|I Type|0001|```ldi .rd immediate```|Loads an immediate to rd|```rd=immediate```|
-|```str```|I Type|0010|```str .rs[immediate] .rd```|Stores value in rd to memory|```Mem[rs+immediate]=rd```|
-|```bop```|I Type|0011|```bop immediate```|Changes pc to immediate|```pc=immediate```|
-|```cal```|I Type|0100|```cal immediate```|Changes pc to immediate and sets a return address; backs up f registers (.f0-.f14)|```ra=pc+2```<br>```pc=immediate```<br>```FCC+=1```|
-|```beq```|I Type|0101|```beq .rs .rd immediate```|Changes pc to immediate if rs and rd are equal|```if rs==rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=immediate;```|
-|```bne```|I Type|0110|```bne .rs .rd immediate```|Changes pc to immediate if rs and rd aren't equal|```if rs!=rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=immediate;```|
-|```sft```|I Type|0111|```sft .rs .rd immediate```|Shifts value in rs to rd by immediate. Positive shifts left, negative shifts right|```rd=rs<<immediate```|
-|```cop```|G Type|1000|```cop .rs .rd```|Copies the value of rs to rd while retaining the original value of rs|```rd=rs```|
-|```slt```|G Type|1010|```slt .rs .rd```|Sets cr to 1 if rs is less than rd; 0 otherwise|```cr=rs<rd?1:0```|
-|```ret```|G Type|1011|```ret```|Sets pc to the value in ra; restores f registers (.f0-.f14)|```pc=ra```<br>```FCC-=1```|
-|```add```|G Type|1100|```add .rs [.rm]```|Adds rs into the accumulator*|``` [rm]+=rs```|
-|```sub```|G Type|1101|```sub .rs [.rm]```|Subtracts rs from the accumulator*|```[rm]-=rs```|
-|```and```|G Type|1110|```and .rs [.rm]```|Ands rs with the accumulator*|```[rm]&=rs```|
-|```orr```|G Type|1111|```orr .rs [.rm]```|Ors rs with the accumulator*|```[rm]|=rs```|
-***optional argument of .rm specifies an accumulator register to operate on (defaults to .m0)**
+|```lda```|I|0000|```lda .rs[IM] .rd```|Loads a value from memory to rd|```rd = Mem[rs+IM]```|
+|```ldi```|I|0001|```ldi .rd IM```|Loads an immediate to rd|```rd = IM```|
+|```str```|I|0010|```str .rs[IM] .rd```|Stores value in rd to memory|```Mem[rs+IM] = rd```|
+|```bop```|I|0011|```bop IM```|Changes pc to immediate|```pc = IM```|
+|```cal```|I|0100|```cal IM```|Changes pc to immediate and sets a return address; backs up f registers (.f0-.f14)|```ra = pc+2```<br>```pc = IM```<br>```FCC += 1```|
+|```beq```|I|0101|```beq .rs .rd IM```|Changes pc to immediate if rs and rd are equal|```if rs==rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc=IM;```|
+|```bne```|I|0110|```bne .rs .rd IM```|Changes pc to immediate if rs and rd aren't equal|```if rs!=rd```<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```pc = IM;```|
+|```sft```|I|0111|```sft .rs .rd IM```|Shifts value in rs to rd by immediate. Positive shifts left, negative shifts right|```rd=rs<<IM```|
+|```cop```|G|1000|```cop .rs .rd```|Copies the value of rs to rd while retaining the original value of rs|```rd = rs```|
+|```slt```|G|1010|```slt .rs .rd```|Sets cr to 1 if rs is less than rd; 0 otherwise|```cr=rs<rd?1:0```|
+|```ret```|G|1011|```ret```|Sets pc to the value in ra; restores f registers (.f0-.f14)|```pc=ra```<br>```FCC-=1```|
+|```add```|G|1100|```add .rs [.rm]```|Adds rs into the accumulator*|``` [rm] += rs```|
+|```sub```|G|1101|```sub .rs [.rm]```|Subtracts rs from the accumulator*|```[rm] -= rs```|
+|```and```|G|1110|```and .rs [.rm]```|Ands rs with the accumulator*|```[rm] &= rs```|
+|```orr```|G|1111|```orr .rs [.rm]```|Ors rs with the accumulator*|```[rm] |= rs```|
+
 
 ## Function Calls
 
-When calling a function, the programmer places the arguments in registers .a0 - .a5 and uses the command cal (i.e.  ```cal loop```). The instruction will jump the program counter to the address of the function while also putting the incremented previous program counter value into the return address register (.ra). The function will then return (ret) to the address in the ra register. The programmer can expect their data in f registers to be retained; they should not expect data in any other register to be retained. After a function returns, returned values will be in the v registers. When writing a function, the user is responsible for returning from the function using ```ret```.
+When calling a function, the programmer places the arguments in registers .a0 - .a5 and uses the command cal (i.e.  ```cal myFunc```). The instruction will jump the program counter to the address of the function while also putting the incremented previous program counter value into the return address register (.ra). The function will then return (ret) to the address in the ra register. The programmer can expect their data in f registers to be retained; they should not expect data in any other register to be retained. After a function returns, returned values will be in the v registers. When writing a function, the user is responsible for returning from the function using ```ret```.
 
 ## Examples
 
@@ -206,7 +210,7 @@ done:	0x1E	1000 101101 111010	cop .a0 .v0
 
 #### I Types
 
-![I Type RTL](C:\Users\eckelsjd\Documents\RHIT\sophomore\winter\CSSE232\3B-dripchar-eckelsjd-morganbm-tuey\Design\images\rtl_I.png)
+![I Type RTL](./images/rtl_I.png)
 
 <table>
     <thead>
@@ -255,7 +259,7 @@ done:	0x1E	1000 101101 111010	cop .a0 .v0
 
 #### G Types
 
-![G Type RTL](C:\Users\eckelsjd\Documents\RHIT\sophomore\winter\CSSE232\3B-dripchar-eckelsjd-morganbm-tuey\Design\images\rtl_G.png)
+![G Type RTL](./images/rtl_G.png)
 
 <table>
     <thead>
@@ -286,8 +290,6 @@ done:	0x1E	1000 101101 111010	cop .a0 .v0
         </tr>
     </tbody>
 </table>
-
-
 
 
 ### Testing the RTL
