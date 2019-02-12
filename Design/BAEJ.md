@@ -456,6 +456,15 @@ A similar implementation was done for other instructions.
 | **Instruction Execution System** (IES) | Give this system the control signals needed for basic instructions which don't require memory such as arithmetic operations and moving values around in the register file. Include many different input values with each set of control signals and verify expected output. |
 | **Datapath**                           | Code an addition function into memory; verify correct result for a given input. Code relative prime algorithm into memory and run test bench with a given input to the datapath. Verify the correct output from the datapath.  Code a recursive function into memory; verify correct result for a given input. |
 
+### System Testing
+The following algorithms will be coded into memory.
+|Test Algorithm|Expected Result|
+|---|---|
+|addTen (int a)|a + 10|
+|modulus (int a, int b)| The remainder of the a / b|
+|summation (int a, int b)|Sum of all integers between a and b|
+|relativePrime(int a)|The relative prime number of a|
+
 ## Control
 
 ### Control Unit
