@@ -1,5 +1,5 @@
 ISim log file
-Running: C:\Users\morganbm\Desktop\3B-dripchar-eckelsjd-morganbm-tuey\Implementation\datapath\datapath_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb_isim_beh.wdb 
+Running: C:\Users\eckelsjd\Documents\RHIT\sophomore\winter\CSSE232\3B-dripchar-eckelsjd-morganbm-tuey\Implementation\datapath\datapath_tb_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb_isim_beh.wdb 
 ISim P.20131013 (signature 0x7708f090)
 ----------------------------------------------------------------------
 INFO:Security:50 - The XILINXD_LICENSE_FILE environment variable is set to '2100@ise.csse.rose-hulman.edu'.
@@ -14,15 +14,9 @@ WARNING:Security:42 - Your software subscription period has lapsed. Your current
 
 ----------------------------------------------------------------------
 This is a Full version of ISim.
-WARNING: File "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath.v" Line 16.  For instance uut/ctrl/, width 4 of formal port ALUop is not equal to width 3 of actual signal ALUop.
-WARNING:  For instance prog_count_sys/PCsrcMux/, width 16 of formal port C is not equal to width 32 of actual constant.
-WARNING:  For instance prog_count_sys/PCsrcMux/, width 16 of formal port D is not equal to width 32 of actual constant.
-WARNING:  For instance mem_mgmt_sys/memory/, width 16 of formal port W1 is not equal to width 32 of actual constant.
-WARNING:  For instance fcache_back_sys/IorD/, width 16 of formal port A is not equal to width 32 of actual constant.
-WARNING:  For instance fcache_back_sys/IorD/, width 16 of formal port B is not equal to width 32 of actual constant.
 Time resolution is 1 ps
 # onerror resume
 # wave add /
-# run 1000 ns
+# run 100000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.

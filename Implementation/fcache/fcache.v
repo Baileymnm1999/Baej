@@ -7,7 +7,7 @@ module fcache
    input [255:0] wData,
    output [255:0] rData);
 
-   reg[255:0] 	 regfile[0:65535];
+   reg[255:0] 	 regfile[0:1023];
 
    assign rData = regfile[addr];
 

@@ -3,9 +3,7 @@
 module datapath(
 	 input reset,
     input [15:0] ioIn,
-    output [15:0] ioOut,
-	 output [4:0] current,
-	 output [4:0] next
+    output [15:0] ioOut
     );
 	 
 	 reg clk = 1;
@@ -51,9 +49,7 @@ control_unit ctrl (
     .ALUop(ALUop),
     .cmpeq(cmpeq),
 	 .cmpne(cmpne),
-	 .resetSig(resetSig),
-	 .current_state(current),
-	 .next_state(next)
+	 .resetSig(resetSig)
 	);
 	 
 pms prog_mgmt_sys (

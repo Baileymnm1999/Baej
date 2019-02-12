@@ -23,7 +23,7 @@ module control_unit(
     output reg RegR1,
     output reg RegR2,
     output reg ALUsrc,
-    output reg [3:0] ALUop,
+    output reg [2:0] ALUop,
     output reg cmpeq,
 	 output reg cmpne,
 	 output reg resetSig,

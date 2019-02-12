@@ -36,8 +36,8 @@ mux_1_bit RAsrcMux (
 mux_2_bit PCsrcMux(
 	.A(PCsrcOpt0),
 	.B(RAreg),
-	.C(0),
-	.D(0),
+	.C(16'b0000000000000000),
+	.D(16'b0000000000000000),
 	.S({reset, PCsrc}),
 	.R(PCsrcWire)
 	);
