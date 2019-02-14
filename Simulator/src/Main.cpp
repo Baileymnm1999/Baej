@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        Simulator(argv[1], std::atoi(argv[2])).execute();
+        Simulator(argv[1], std::stoi(argv[2])).execute();
     }
 }
 

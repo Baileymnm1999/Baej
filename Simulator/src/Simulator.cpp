@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <regex>
 #include <bitset>
 #include <sstream>
@@ -10,13 +11,14 @@ Simulator::Simulator(char *filename, int input)
     sourceFile = *new std::string(filename);
     regFile[15] = input;
     pc = 0;
+    clockRate = 36.1f;
 }
 
 void Simulator::execute()
 {
     readProg();
     execProg();
-    std::cout << "OUTPUT: " << regFile[16] << std::endl;
+    printMetrics();
 }
 
 void Simulator::readProg()
@@ -29,6 +31,7 @@ void Simulator::readProg()
         mem[i] = line;
         i++;
     }
+    bytesInMem = i * 2;
 }
 
 void Simulator::execProg()
@@ -48,6 +51,7 @@ void Simulator::execProg()
         {
             regFile[rd] = std::stoi(mem[rs + im], nullptr, 2);
             pc += 2;
+            bytesFromMem += 2;
             break;
         }
         case 1:
@@ -60,6 +64,7 @@ void Simulator::execProg()
         {
             mem[rs + im] = std::bitset<16>(regFile[rd]).to_string();
             pc += 2;
+            bytesToMem += 2;
             break;
         }
         case 3:
@@ -152,6 +157,8 @@ void Simulator::execProg()
         default:
             break;
         }
+        bytesFromMem += 4;
+        instructions[op]++;
     }
 }
 
@@ -168,4 +175,79 @@ void Simulator::restore()
         regFile[i] = cache.top();
         cache.pop();
     }
+}
+
+void Simulator::printMetrics()
+{
+    int itypes = 0, gtypes = 0;
+    int cycles = 0, instCount = 0;
+    for (int i = 0; i < 16; i++)
+    {
+        instCount += instructions[i];
+        if (i < 8)
+            itypes += instructions[i];
+        else
+            gtypes += instructions[i];
+
+        switch (i)
+        {
+        case 3:
+        case 4:
+        case 11:
+        {
+            cycles += 2 * instructions[i];
+            break;
+        }
+        case 1:
+        case 5:
+        case 6:
+        case 8:
+        {
+            cycles += 3 * instructions[i];
+            break;
+        }
+        case 2:
+        case 7:
+        case 10:
+        case 12:
+        case 13:
+        case 14:
+        case 15:
+        {
+            cycles += 4 * instructions[i];
+            break;
+        }
+        case 0:
+        {
+            cycles += 5 * instructions[i];
+            break;
+        }
+        default:
+        {
+            break;
+        }
+        }
+    }
+    float cyclePerInst = cycles / instCount;
+    float execTime = cycles / (clockRate * 1000);
+
+    std::cout << std::fixed;
+    std::cout << std::setprecision(2);
+    std::cout << "=====================================================\n"
+              << "                       METRICS                       \n"
+              << "=====================================================\n"
+              << "                                                     \n"
+              << "Latency:                                             \n"
+              << "    Transfered from memory (bytes):  " << bytesFromMem << "\n"
+              << "    Transfered to memory   (bytes):  " << bytesToMem << "\n"
+              << "    Program size in memory (bytes):  " << bytesInMem << "\n"
+              << "                                                     \n"
+              << "Performance:                                         \n"
+              << "    Total instructions executed   :  " << instCount << "\n"
+              << "    Total cycles executed         :  " << cycles << "\n"
+              << "    Average cycles per instruction:  " << cyclePerInst << "\n"
+              << "    Simulation clock rate    (MHz):  " << clockRate << "\n"
+              << "    Execution time            (ms):  " << execTime << "\n"
+              << "                                                     \n"
+              << "Output:    " << regFile[16] << "\n\n";
 }
