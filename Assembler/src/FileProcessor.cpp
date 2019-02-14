@@ -1,68 +1,19 @@
 #include <string>
-#include <regex>
 #include <iostream>
+#include <regex>
+#include <bitset>
 #include <sstream>
 #include "FileProcessor.h"
 
 FileProcessor::FileProcessor(char *filename)
 {
     sourceFile = *new std::string(filename);
-    // inFile.open(filename);
-    // outFile.open("beaj.out", std::ios::out | std::ios::binary);
 }
 
 void FileProcessor::execute()
 {
     lookupSymbols();
-
-    int lineCount = 0x00;
-    std::string line, token;
-    // while (getline(inFile, line))
-    // {
-    //     if (!line.empty())
-    //     {
-    //         l = "";
-    //         for (auto c : line)
-    //         {
-    //             switch (c)
-    //             {
-    //             case (':'):
-    //             {
-    //                 int *addr = new int;
-    //                 *addr = lineCount;
-    //                 labelMap[token] = addr;
-    //                 break;
-    //             }
-    //             case ('.'):
-    //             {
-    //                 token = "";
-    //                 break;
-    //             }
-    //             case (']'):
-    //             {
-    //                 addImmediate(token);
-    //             }
-    //             case ('['):
-    //             case ('\n'):
-    //             case (' '):
-    //             {
-    //                 parseToken(token);
-    //                 token = "";
-    //                 break;
-    //             }
-    //             default:
-    //             {
-    //                 token += c;
-    //             }
-    //             }
-
-    //             if (token != "")
-    //             {
-    //                 lineCount++;
-    //             }
-    //         }
-    //     }
-    // }
+    writeBinary();
 }
 
 void FileProcessor::lookupSymbols()
@@ -79,19 +30,142 @@ void FileProcessor::lookupSymbols()
             if (pos != std::string::npos)
             {
                 symbol = line.substr(0, pos);
-                std::cout << "FOUND SYMBOL: " << symbol << "\n";
+                labelMap[symbol] = addr;
                 line = line.substr(pos + 1);
             }
-            std::string arr[4];
             int i = 0;
             std::stringstream ssin(line);
             while (ssin.good() && i < 4)
             {
-                ssin >> arr[i];
-                std::cout << arr[i] << " ";
-                ++i;
+                ssin >> instructions[addr][i];
+                i++;
             }
-            std::cout << "\n";
+            std::string inst = instructions[addr][0];
+            std::transform(inst.begin(), inst.end(), inst.begin(), ::tolower);
+            addr++;
+            if (opMap[inst] < 8)
+                addr++;
+        }
+    }
+}
+
+void FileProcessor::writeBinary()
+{
+    std::ofstream out("baej.out", std::ios::binary);
+    int addr = 0x00;
+    u_int16_t binary, immediate;
+    for (auto inst : instructions)
+    {
+
+        if (inst[0].empty())
+            continue;
+        int op = opMap[inst[0]];
+        binary = 0x0000 | op << 12;
+        immediate = 0x0000;
+        if (op >= 0 && op <= 15 && op != 1 && op != 3 && op != 4)
+        {
+            if (!inst[1].empty())
+                binary |= registerMap[inst[1].substr(1, 2)] << 6;
+            if (!inst[2].empty())
+                binary |= registerMap[inst[2].substr(1, 2)];
+        }
+        switch (opMap[inst[0]])
+        {
+        case 0:
+        case 2:
+        {
+            if (inst[1].empty() || inst[2].empty())
+            {
+                std::cerr << "ASSEMBLER ERROR: Missing operand for "
+                          << inst[0] << " " << inst[1] << " " << inst[2]
+                          << "\nPlease Stop";
+                exit(-1);
+            }
+            immediate = std::stoi(inst[1].substr(4, inst[2].size() - 2));
+            out << std::bitset<16>(binary) << '\n'
+                << std::bitset<16>(immediate) << '\n';
+            break;
+        }
+        case 1:
+        {
+            if (inst[1].empty() || inst[2].empty())
+            {
+                std::cerr << "ASSEMBLER ERROR: Missing operand for "
+                          << inst[0] << " " << inst[1] << " " << inst[2]
+                          << "\nPlease Stop";
+                exit(-1);
+            }
+            binary = 0x0000 | op << 12 | registerMap[inst[1].substr(1, 2)];
+            immediate = std::stoi(inst[2]);
+            out << std::bitset<16>(binary) << '\n'
+                << std::bitset<16>(immediate) << '\n';
+            break;
+        }
+        case 3:
+        case 4:
+        {
+            if (inst[1].empty())
+            {
+                std::cerr << "ASSEMBLER ERROR: Missing operand for "
+                          << inst[0] << " " << inst[1]
+                          << "\nPlease Stop";
+                exit(-1);
+            }
+            immediate = labelMap.find(inst[1]) == labelMap.end() ? std::stoi(inst[1]) : labelMap[inst[1]];
+            out << std::bitset<16>(binary) << '\n'
+                << std::bitset<16>(immediate) << '\n';
+            break;
+        }
+        case 5:
+        case 6:
+        case 7:
+        {
+            if (inst[1].empty() || inst[2].empty() || inst[3].empty())
+            {
+                std::cerr << "ASSEMBLER ERROR: Missing operand for "
+                          << inst[0] << " " << inst[1] << " " << inst[2]
+                          << "\nPlease Stop";
+                exit(-1);
+            }
+            immediate = labelMap.find(inst[3]) == labelMap.end() ? std::stoi(inst[3]) : labelMap[inst[3]];
+            out << std::bitset<16>(binary) << '\n'
+                << std::bitset<16>(immediate) << '\n';
+            break;
+        }
+        case 8:
+        case 10:
+        {
+            if (inst[1].empty() || inst[2].empty())
+            {
+                std::cerr << "ASSEMBLER ERROR: Missing operand for "
+                          << inst[0] << " " << inst[1] << " " << inst[2]
+                          << "\nPlease Stop";
+                exit(-1);
+            }
+            out << std::bitset<16>(binary) << '\n';
+            break;
+        }
+        case 12:
+        case 13:
+        case 14:
+        case 15:
+        {
+            if (inst[1].empty())
+            {
+                std::cerr << "ASSEMBLER ERROR: Missing operand for "
+                          << inst[0] << " " << inst[1] << " " << inst[2]
+                          << "\nPlease Stop";
+                exit(-1);
+            }
+            if (inst[2].empty())
+                binary |= 51;
+
+            out << std::bitset<16>(binary) << '\n';
+            break;
+        }
+        default:
+            out << std::bitset<16>(binary) << '\n';
+            break;
         }
     }
 }
