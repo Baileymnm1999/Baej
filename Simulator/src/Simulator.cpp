@@ -16,7 +16,7 @@ void Simulator::execute()
 {
     readProg();
     execProg();
-    std::cout << "OUTPUT: " << regFile[16] << "\n";
+    std::cout << "OUTPUT: " << regFile[16] << std::endl;
 }
 
 void Simulator::readProg()
@@ -36,13 +36,10 @@ void Simulator::execProg()
     int op, rs, rd, im;
     while (!mem[pc].empty())
     {
-        // std::cout << pc << '\n';
         op = std::stoi(mem[pc].substr(0, 4), nullptr, 2);
         rs = std::stoi(mem[pc].substr(4, 6), nullptr, 2);
         rd = std::stoi(mem[pc].substr(10, 6), nullptr, 2);
         im = mem[pc + 1].empty() ? 0 : std::stoi(mem[pc + 1], nullptr, 2);
-        // std::cout << op << " " << rs << " " << rd << "\n"
-        //           << im << "\n";
         regFile[63] = 0;
 
         switch (op)
@@ -166,7 +163,7 @@ void Simulator::backup()
 
 void Simulator::restore()
 {
-    for (int i = 0; i < 15; i++)
+    for (int i = 14; i >= 0; i--)
     {
         regFile[i] = cache.top();
         cache.pop();

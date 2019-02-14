@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string.h>
 #include "FileProcessor.h"
+#include "Utils.h"
 
 void error(std::string);
 
@@ -25,4 +26,21 @@ void error(std::string cause)
 {
     std::cerr << "ERROR: " << cause;
     exit(-1);
+}
+
+std::string &Utils::ltrim(std::string &str, const std::string &chars)
+{
+    str.erase(0, str.find_first_not_of(chars));
+    return str;
+}
+
+std::string &Utils::rtrim(std::string &str, const std::string &chars)
+{
+    str.erase(str.find_last_not_of(chars) + 1);
+    return str;
+}
+
+std::string &Utils::trim(std::string &str, const std::string &chars)
+{
+    return ltrim(rtrim(str, chars), chars);
 }

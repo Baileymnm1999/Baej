@@ -4,6 +4,7 @@
 #include <bitset>
 #include <sstream>
 #include "FileProcessor.h"
+#include "Utils.h"
 
 FileProcessor::FileProcessor(char *filename)
 {
@@ -26,6 +27,7 @@ void FileProcessor::lookupSymbols()
     {
         if (!line.empty())
         {
+            Utils::trim(line);
             int pos = line.find_first_of(":", 0);
             if (pos != std::string::npos)
             {

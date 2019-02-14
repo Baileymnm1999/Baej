@@ -38,6 +38,7 @@
         "ctime": "cpp",
         "deque": "cpp",
         "memory": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "string": "cpp"
     }
 }
