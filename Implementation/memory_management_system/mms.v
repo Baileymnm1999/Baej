@@ -26,7 +26,7 @@ mux_1_bit a2_src (
 	);
 	
 amemory16x1k memory (
-	.W1(0),
+	.W1(16'b000000000000000),
 	.W2(write2),
 	.R1(IR),
 	.R2(readOut2),

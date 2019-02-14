@@ -41,3 +41,10 @@ Milestone 5
 2/4/2019 - Worked on the control unit w/ Josh. [1 hour] 
 
 2/5/2019 - Realize that we monumentally fricked up the control unit, phat rip in the chat. Josh rebuilt it correctly, I helped write the test case. Navigated as Bailey drove implementing the PMS [4 hours]
+
+2/6/2019 - Helped debug the ALU test case [1.5 hours]
+
+2/9/2019 - Provided moral support and insulted Josh for a little bit [~30 mins-ish]
+
+2/10/2019 - Helped debug recursive calls not return properly and helped write the recursive test case [2.5 hours]
+ 

@@ -4,6 +4,7 @@
 module pcs(
 	 input clk,
 	 input restore,
+	 input reset,
     input writePC,
     input writeRA,
     input PCsrc,
@@ -32,10 +33,12 @@ mux_1_bit RAsrcMux (
 	.R(RAwire)
 	);
 
-mux_1_bit PCsrcMux(
+mux_2_bit PCsrcMux(
 	.A(PCsrcOpt0),
 	.B(RAreg),
-	.S(PCsrc),
+	.C(16'b0000000000000000),
+	.D(16'b0000000000000000),
+	.S({reset, PCsrc}),
 	.R(PCsrcWire)
 	);
 	
@@ -57,7 +60,7 @@ mux_1_bit ImRMux(
 	end
 	
 	always @(posedge clk) begin
-		if (writePC) PCreg = PCsrcWire;
+		if (writePC | conditionalBop) PCreg = PCsrcWire;
 		if (writeRA) RAreg = RAwire;
 		
 	end

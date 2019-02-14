@@ -3,6 +3,7 @@
 module pms(
 	 input clk,
 	 input restore,
+	 input reset,
     input writePC,
     input writeRA,
     input PCsrc,
@@ -27,6 +28,7 @@ module pms(
 pcs prog_count_sys (
 	 .clk(clk),
 	 .restore(restore),
+	 .reset(reset),
     .writePC(writePC),
     .writeRA(writeRA),
     .PCsrc(PCsrc),

@@ -1,45 +1,40 @@
-Running: fuse.exe -relaunch -intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb_isim_beh.exe" -prj "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb_beh.prj" "work.datapath_tb" "work.glbl" 
+Running: C:\Xilinx\14.7\ISE_DS\ISE\bin\nt64\unwrapped\fuse.exe -intstyle ise -incremental -lib unisims_ver -lib unimacro_ver -lib xilinxcorelib_ver -o C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb_isim_beh.exe -prj C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb_beh.prj work.datapath_tb work.glbl 
 ISim P.20131013 (signature 0x7708f090)
 Number of CPUs detected in this system: 8
 Turning on mult-threading, number of parallel sub-compilation jobs: 16 
 Determining compilation order of HDL files
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../regfile16b63/regfile16b64.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../mux_2_bit/mux_2_bit.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../mux_1_bit/mux_1_bit.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../fcache/fcache.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../comparator/comparator.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../adder_16_bit/adder_16_bit.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../two_port_memory/mem_unit.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../f_register_backup_system/fbs.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/rms.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../alu_16_bit/alu_16_bit.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../program_counting_system/pcs.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../memory_management_system/mms.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../data_management_system/dms.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../arithmetic_logic_system/arithmetic_logic_system.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../program_management_system/pms.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../instruction_execution_system/ies.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../control_unit/control_unit.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath.v" into library work
-Analyzing Verilog file "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../regfile16b63/regfile16b64.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../mux_2_bit/mux_2_bit.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../mux_1_bit/mux_1_bit.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../fcache/fcache.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../comparator/comparator.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../adder_16_bit/adder_16_bit.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../two_port_memory/mem_unit.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../f_register_backup_system/fbs.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/rms.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../alu_16_bit/alu_16_bit.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../program_counting_system/pcs.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../memory_management_system/mms.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../data_management_system/dms.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../arithmetic_logic_system/arithmetic_logic_system.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../program_management_system/pms.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../instruction_execution_system/ies.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../control_unit/control_unit.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath.v" into library work
+Analyzing Verilog file "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb.v" into library work
 Analyzing Verilog file "C:/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
 Starting static elaboration
-WARNING:HDLCompiler:1016 - "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb.v" Line 12: Port current is not connected to this instance
-WARNING:HDLCompiler:189 - "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb.v" Line 13: Size mismatch in connection of port <ioIn>. Formal port size is 16-bit while actual signal size is 32-bit.
-WARNING:HDLCompiler:189 - "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath.v" Line 51: Size mismatch in connection of port <ALUop>. Formal port size is 4-bit while actual signal size is 3-bit.
-WARNING:HDLCompiler:189 - "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../memory_management_system/mms.v" Line 29: Size mismatch in connection of port <W1>. Formal port size is 16-bit while actual signal size is 32-bit.
-WARNING:HDLCompiler:189 - "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../f_register_backup_system/fbs.v" Line 23: Size mismatch in connection of port <A>. Formal port size is 16-bit while actual signal size is 32-bit.
-WARNING:HDLCompiler:189 - "C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/../f_register_backup_system/fbs.v" Line 24: Size mismatch in connection of port <B>. Formal port size is 16-bit while actual signal size is 32-bit.
+WARNING:HDLCompiler:1016 - "C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath.v" Line 27: Port current_state is not connected to this instance
 Completed static elaboration
 Compiling module control_unit
 Compiling module adder_16_bit
 Compiling module mux_1_bit
+Compiling module mux_2_bit
 Compiling module pcs
 Compiling module amemory16x1k
 Compiling module mms
 Compiling module pms
 Compiling module regfile16b64
-Compiling module mux_2_bit
 Compiling module comparator
 Compiling module rms
 Compiling module fcache
@@ -52,7 +47,8 @@ Compiling module datapath
 Compiling module datapath_tb
 Compiling module glbl
 Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
 Compiled 20 Verilog Units
-Built simulation executable C:/Users/morganbm/Desktop/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb_isim_beh.exe
-Fuse Memory Usage: 28564 KB
-Fuse CPU Usage: 656 ms
+Built simulation executable C:/Users/eckelsjd/Documents/RHIT/sophomore/winter/CSSE232/3B-dripchar-eckelsjd-morganbm-tuey/Implementation/datapath/datapath_tb_isim_beh.exe
+Fuse Memory Usage: 28652 KB
+Fuse CPU Usage: 593 ms

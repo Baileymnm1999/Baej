@@ -43,3 +43,8 @@ Wednesday, February 6, 2019 [120 min]: Meeting number 2 today. Finished ALS inte
 Thursday, February 7, 2019 [180 min]: Massive bug fix in the register management system. Comparator was broken lol. Will finish tomorrow.
 
 Friday, February 8, 2019 [120 min]: Register management system is 100% functional with extensive testing. Had to fix bugs in the comparator and the reg file.
+
+Saturday, February 9, 2019 [60 min]: Testing relPrime on our processor. Lot of debugging. Realizing more issues with control unit.
+
+Sunday, February 10, 2019 [120 min]: Scanning through and updating design document with work over the past couple weeks. Control unit was updated and is working.
+				     Also was having more issues with RA that needed to be fixed with restoring and backing up. Updated FSM and RTL.

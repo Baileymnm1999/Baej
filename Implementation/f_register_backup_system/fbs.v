@@ -20,8 +20,8 @@ module fbs(
 
   // Controls FCC inc or dec
   mux_1_bit IorD(
-    .A(-1),
-    .B(1),
+    .A(16'b1111111111111111),
+    .B(16'b0000000000000001),
     .S(backup),
     .R(IorD_R)
     );

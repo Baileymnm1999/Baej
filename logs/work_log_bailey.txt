@@ -37,3 +37,12 @@ Milestone 5
 Sunday, Febuary 3, 2019 [90 min] - Met to discuss what we need to do for the rest of the week. Discovered a few issues with our design and discussed fixes. Helped divide and assign integration work
 
 Tuesday, Febuary 5, 2019 [150 min] - Updated PCS, integrated MMS and PMS.
+
+Wednesday, Febuary 6, 2019 [60 min] - Wrote test bench and tested FBS.
+
+Thursday, Febuary 7, 2019 [180 min] - Helped with RMS integration. Helped debug control unit.
+
+Friday, Febuary 8, 2019 [180 min] - With josh integrated IES and wrote test benches. After, integrated IES, PMS, and control unit to form the data path.
+
+Sunday, Febuary 10, 2019 [240 min] - Wrote some programs to test and debug datapath with including relprime. More control issues found and fixed. Processor seems to work fine. Added a reset input to the datapath to reset to processor to pc = 0.
+

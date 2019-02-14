@@ -14,7 +14,7 @@ module alu_16_bit(
 			0: R = A & B; 	// And
 			1: R = A | B; 	// Or
 			2: R = A + B;	// Add
-			3: R = A - B;	// Sub
+			3: R = B - A;	// Sub
 			4: if ($signed(B) < 0) begin // shift
 					R = (A >>(~B)) >> 1;
 				end
