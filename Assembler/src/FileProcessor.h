@@ -1,3 +1,6 @@
+#ifndef __FILEPROCESSOR__
+#define __FILEPROCESSOR__
+
 #include <map>
 #include <fstream>
 #include <vector>
@@ -9,12 +12,12 @@ private:
   static std::map<std::string, int> registerMap;
   static std::map<std::string, int> opMap;
   std::map<std::string, int *> labelMap;
-  std::vector<Instruction> instructions;
-  std::fstream inFile;
-  std::ofstream outFile;
+  std::string sourceFile;
 
 public:
   FileProcessor(char *);
-  void parseToken(Instruction *, std::string);
+  void lookupSymbols();
   void execute();
 };
+
+#endif

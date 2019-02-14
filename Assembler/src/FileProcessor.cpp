@@ -6,83 +6,92 @@
 
 FileProcessor::FileProcessor(char *filename)
 {
-    inFile.open(filename);
-    outFile.open("beaj.out", std::ios::out | std::ios::binary);
-}
-
-void FileProcessor::parseToken(std::string token)
-{
-    if (registerMap.find(token) != registerMap.end())
-    {
-    }
+    sourceFile = *new std::string(filename);
+    // inFile.open(filename);
+    // outFile.open("beaj.out", std::ios::out | std::ios::binary);
 }
 
 void FileProcessor::execute()
 {
+    lookupSymbols();
+
     int lineCount = 0x00;
     std::string line, token;
-    while (getline(inFile, line))
+    // while (getline(inFile, line))
+    // {
+    //     if (!line.empty())
+    //     {
+    //         l = "";
+    //         for (auto c : line)
+    //         {
+    //             switch (c)
+    //             {
+    //             case (':'):
+    //             {
+    //                 int *addr = new int;
+    //                 *addr = lineCount;
+    //                 labelMap[token] = addr;
+    //                 break;
+    //             }
+    //             case ('.'):
+    //             {
+    //                 token = "";
+    //                 break;
+    //             }
+    //             case (']'):
+    //             {
+    //                 addImmediate(token);
+    //             }
+    //             case ('['):
+    //             case ('\n'):
+    //             case (' '):
+    //             {
+    //                 parseToken(token);
+    //                 token = "";
+    //                 break;
+    //             }
+    //             default:
+    //             {
+    //                 token += c;
+    //             }
+    //             }
+
+    //             if (token != "")
+    //             {
+    //                 lineCount++;
+    //             }
+    //         }
+    //     }
+    // }
+}
+
+void FileProcessor::lookupSymbols()
+{
+    std::ifstream infile(sourceFile);
+
+    int addr = 0x00;
+    std::string line, symbol;
+    while (getline(infile, line))
     {
         if (!line.empty())
         {
-            // std::regex syntxRegex("^([a-zA-Z]:)? *([(lda)(ldi)(str)(bop)(cal)(beq)(bne)(sft)(cop)(slt)(ret)(add)(sub)(and)(orr)])[ \t]*(.[(f[0-14])(t[0-27])([am][0-5])(v[0-3])(cr)(sp)(z0)(ip)(op)](\[\d+\])? *){,2}[ \t]*(\d+)?");
-            // std::regex labelRegex("^([a-zA-Z]:)");
-            // std::regex instrRegex("([(lda)(ldi)(str)(bop)(cal)(beq)(bne)(sft)(cop)(slt)(ret)(add)(sub)(and)(orr)])");
-            // std::regex paramRegex("(.[(f[0-14])(t[0-27])([am][0-5])(v[0-3])(cr)(sp)(z0)(ip)(op)])");
-            // std::regex immedRegex("([\[\d+\]\d+])");
-
-            // std::smatch syntxMatch;
-            // std::regex_search(line, syntxMatch, syntxRegex);
-            // if (syntxMatch.size() == 1)
-            // {
-            //     std::cout << "Syntax check passed...\n";
-            //     std::smatch instrMatch;
-            //     std::regex_search(line, instrMatch, instrRegex);
-            //     if (instrMatch.size() == 1)
-            //     {
-            //     }
-            // }
-
-            token = "";
-            for (auto c : line)
+            int pos = line.find_first_of(":", 0);
+            if (pos != std::string::npos)
             {
-                switch (c)
-                {
-                case (':'):
-                {
-                    int *addr = new int;
-                    *addr = lineCount;
-                    labelMap[token] = addr;
-                    break;
-                }
-                case ('.'):
-                {
-                    token = "";
-                    break;
-                }
-                case (']'):
-                {
-                    addImmediate(token);
-                }
-                case ('['):
-                case ('\n'):
-                case (' '):
-                {
-                    parseToken(token);
-                    token = "";
-                    break;
-                }
-                default:
-                {
-                    token += c;
-                }
-                }
-
-                if (token != "")
-                {
-                    lineCount++;
-                }
+                symbol = line.substr(0, pos);
+                std::cout << "FOUND SYMBOL: " << symbol << "\n";
+                line = line.substr(pos + 1);
             }
+            std::string arr[4];
+            int i = 0;
+            std::stringstream ssin(line);
+            while (ssin.good() && i < 4)
+            {
+                ssin >> arr[i];
+                std::cout << arr[i] << " ";
+                ++i;
+            }
+            std::cout << "\n";
         }
     }
 }

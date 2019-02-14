@@ -3,7 +3,7 @@
 #include <string.h>
 #include "FileProcessor.h"
 
-void error(char *cause);
+void error(std::string);
 
 int main(int argc, char *argv[])
 {
@@ -21,8 +21,8 @@ int main(int argc, char *argv[])
     }
 }
 
-void error(char *cause)
+void error(std::string cause)
 {
-    std::cerr << "ERROR: " << *cause;
+    std::cerr << "ERROR: " << cause;
     exit(-1);
 }
