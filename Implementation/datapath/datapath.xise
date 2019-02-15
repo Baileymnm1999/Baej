@@ -99,6 +99,9 @@
     <file xil_pn:name="summation.mem" xil_pn:type="FILE_MEM">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
+    <file xil_pn:name="add_10.mem" xil_pn:type="FILE_MEM">
+      <association xil_pn:name="Implementation" xil_pn:seqID="51"/>
+    </file>
   </files>
 
   <properties>
@@ -407,6 +410,7 @@
   <bindings>
     <binding xil_pn:location="/datapath" xil_pn:name="relPrime.mem"/>
     <binding xil_pn:location="/datapath" xil_pn:name="summation.mem"/>
+    <binding xil_pn:location="/datapath" xil_pn:name="add_10.mem"/>
   </bindings>
 
   <libraries/>
