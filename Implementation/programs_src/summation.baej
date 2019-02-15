@@ -1,3 +1,5 @@
+// Test 3 - Summation algorithm; test function calls (bop, beq, cal, ret)
+
 	0x00 	1000 001111 101110	cop .ip .a1
 	0x01 	0001 000000 101101	ldi .a0 1
 	0x02 	0000 000000 000001	

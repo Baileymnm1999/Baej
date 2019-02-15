@@ -19,9 +19,9 @@ module datapath_tb;
 	initial begin
 		// Initialize Inputs
 		
-		// 3 sets of tests stored in memory. Go to mem_unit.v file and uncomment the $readmemb line for the desired test.
+		// 4 sets of tests stored in memory. Go to mem_unit.v file and uncomment the $readmemb line for the desired test.
 			
-		// Test 1 - Add 10 program
+		// Test 1 - Arithmetic test (add, sub, and, orr, slt, cop, sft, ldi)
 		
 		/*
 		reset = 1;
@@ -29,23 +29,27 @@ module datapath_tb;
 		#0.2;
 		reset = 0;
 		#35000;
-		if (ioOut == ioIn + 10) $display("PASS: add_10");
-		else $display("FAIL: add_10");
+		// check waveforms for verification of other arithmetic instructions
+		// last instruction tested is sft .ip .op -2, check the result:
+		if (ioOut == ioIn >> 2) $display("PASS: arithmetic_test of %d",ioIn);
+		else $display("FAIL: arithmetic_test of %d", ioIn);
 		*/
 
-		// Test 2 - RelPrime program
+		// Test 2 - Memory test (lda, str, bne)
 		
-		
+		/*
 		reset = 1;
-		ioIn = 5040;
+		ioIn = 50;
 		#0.2;
 		reset = 0;
-		#35000;  // 35 microseconds for full program execution
-		if (ioOut == 11) $display("PASS: relPrime of %d",ioIn);
-		else $display("FAIL: relPrime of %d", ioIn);
+		#35000;
+		// check waveforms for verification that 3 was loaded from memory into .op briefly
+		// last instruction tested loads ioIn from memory to ioOut, check the result:
+		if (ioOut == ioIn) $display("PASS: memory_test of %d",ioIn);
+		else $display("FAIL: memory_test of %d", ioIn);
+		*/
 		
-		
-		// Test 3 - summation program
+		// Test 3 - Summation algorithm (bop, cal, ret)
 		
 		/*
 		reset = 1;
@@ -56,6 +60,18 @@ module datapath_tb;
 		if (ioOut == (ioIn * (ioIn + 1)) / 2) $display("PASS: relPrime of %d",ioIn);
 		else $display("FAIL: relPrime of %d", ioIn);
 		*/
+		
+		// Test 4 - RelPrime algorithm
+		
+		
+		reset = 1;
+		ioIn = 5040;
+		#0.2;
+		reset = 0;
+		#35000;  // 35 microseconds for full program execution
+		if (ioOut == 11) $display("PASS: relPrime of %d",ioIn);
+		else $display("FAIL: relPrime of %d", ioIn);
+		
 		
 	end
       

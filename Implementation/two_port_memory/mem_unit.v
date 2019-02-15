@@ -69,13 +69,18 @@ module amemory16x1k(W1,
 	  
 	//integer i;
 	initial begin
-	
-	//for (i=0;i<`MEM_DEPTH;i=i+1)
-   // mem[i] = 0;
 	 
-	//$readmemb("add_10.mem", mem);
-	$readmemb("relPrime.mem", mem);
+	// Test 1
+	//$readmemb("arithmetic_test.mem", mem);
+	
+	// Test 2
+	//$readmemb("memory_test.mem", mem);
+	
+	// Test 3
 	//$readmemb("summation.mem", mem);
+	
+	// Test 4
+	$readmemb("relPrime.mem", mem);
 	
 	end
    

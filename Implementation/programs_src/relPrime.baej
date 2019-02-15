@@ -1,3 +1,5 @@
+// Test 4 - test relPrime algorithm
+
 relP:	0x00	0001 000000 010000	ldi .op 2
 	0x01	0000 000000 000010	
 	0x02	0001 000000 000001	ldi .f1 1
