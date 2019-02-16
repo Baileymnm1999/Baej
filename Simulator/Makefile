@@ -4,7 +4,7 @@ BLD_DIR := ./build
 BIN_DIR := ./bin
 SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(BLD_DIR)/%.o,$(SRC_FILES))
-LDFLAGS := $() #`pkg-config --cflags --libs sdl2`
+LDFLAGS := $()
 CPPFLAGS := $()
 CXXFLAGS := $()
 

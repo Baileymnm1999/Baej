@@ -228,7 +228,7 @@ void Simulator::printMetrics()
         }
         }
     }
-    float cyclePerInst = cycles / instCount;
+    float cyclePerInst = cycles / (float)instCount;
     float execTime = cycles / (clockRate * 1000);
 
     std::cout << std::fixed;
