@@ -69,45 +69,19 @@ module amemory16x1k(W1,
 	  
 	//integer i;
 	initial begin
-	
-	//for (i=0;i<`MEM_DEPTH;i=i+1)
-   // mem[i] = 0;
 	 
-	//$readmemb("relPrime.mem", mem);
-	 
-	 /*
-	  		//Test 1 - Individual instruction test (not completed yet)
-	mem[0] = 16'b0000000000000001; // lda .f0[23] .f1
-	mem[1] = 16'b0000000000010111;   
-	mem[2] = 16'b0001000000000001; // ldi .f1 100
-	mem[3] = 16'b0000000001100100;  
-	mem[4] = 16'b0010000000000001; // str .f0[23] .f1
-	mem[5] = 16'b0000000000010111;  
-	mem[6] = 16'b0011000000000000; // bop 
-	//mem[7] = 16'b0000000000000000;  
-	//mem[8] = 16'b0000111100001111; // cal 
-	mem[9] = 16'b0000111100001111;  
-	mem[10] = 16'b0000111100001111; // beq 
-	mem[11] = 16'b0000111100001111;  
-	mem[12] = 16'b0000111100001111; // bne
-	mem[13] = 16'b0000111100001111; 
-	mem[14] = 16'b0000111100001111; // sft
-	mem[15] = 16'b0000111100001111; 
-	mem[16] = 16'b0000111100001111; // cop
-	mem[17] = 16'b0000111100001111; // slt
-	mem[18] = 16'b0000111100001111; // ret 
-	mem[19] = 16'b0000111100001111; // add 
-	mem[20] = 16'b0000111100001111; // sub
-	mem[21] = 16'b0000111100001111; // and
-	mem[22] = 16'b0000111100001111; // orr 
-
-	mem[23] = 16'b0000000001000000; // 64
+	// Test 1
+	//$readmemb("arithmetic_test.mem", mem);
 	
-				//Test 2 - Add 10 program 
-	mem[0] = 16'b0001000000010000; // ldi .op 10
-	mem[1] = 16'b0000000000001010;
-	mem[2] = 16'b1100001111010000; // add .io .op
-	*/
+	// Test 2
+	//$readmemb("memory_test.mem", mem);
+	
+	// Test 3
+	//$readmemb("summation.mem", mem);
+	
+	// Test 4
+	$readmemb("relPrime.mem", mem);
+	
 	end
    
 endmodule

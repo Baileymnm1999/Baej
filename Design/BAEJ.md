@@ -454,16 +454,21 @@ A similar implementation was done for other instructions.
 | **Program Management System** (PMS)    | Hard-code values into a sequential block of memory then allow the program counter to increment through memory and verify that the correct values which were written to memory are written to the output registers. |
 | **Data Management System** (DMS)       | Repeatedly write values to registers 0 - 14 using many permutations of input methods. Each time all 15 registers are filled, send a backup control signal. Do this many times then conduct the same number of restores, ensuring values are correct along the way. |
 | **Instruction Execution System** (IES) | Give this system the control signals needed for basic instructions which don't require memory such as arithmetic operations and moving values around in the register file. Include many different input values with each set of control signals and verify expected output. |
-| **Datapath**                           | Code an addition function into memory; verify correct result for a given input. Code relative prime algorithm into memory and run test bench with a given input to the datapath. Verify the correct output from the datapath.  Code a recursive function into memory; verify correct result for a given input. |
+| **Datapath**                           | SEE SYSTEM TESTING                                           |
 
 ### System Testing
 The following algorithms will be coded into memory.
 |Test Algorithm|Expected Result|
 |---|---|
-|addTen (int a)|a + 10|
-|modulus (int a, int b)| The remainder of the a / b|
-|summation (int a, int b)|Sum of all integers between a and b|
-|relativePrime(int a)|The relative prime number of a|
+|add (int a)|64 + a|
+|sub (int a)|64 - a|
+|and (int a)|64 & a|
+|orr (int a)|64 or a|
+|slt (int a)|(a < 64) ? 1:0|
+|sft (int a)|a << 2 ; a >> 2|
+|memory (int a)|"a" stored in memory and then retrieved to output|
+|summation (int a)|Sum of all integers between 0 and a|
+|relativePrime (int a)|The first relative prime number of a|
 
 ## Control
 

@@ -20,3 +20,4 @@ Time resolution is 1 ps
 # run 100000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
+PASS: relPrime of  5040
