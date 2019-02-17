@@ -80,7 +80,7 @@ module amemory16x1k(W1,
 	//$readmemb("summation.mem", mem);
 	
 	// Test 4
-	$readmemb("relPrime.mem", mem);
+	//$readmemb("relPrime.mem", mem);
 	
 	end
    

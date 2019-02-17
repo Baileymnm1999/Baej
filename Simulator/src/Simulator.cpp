@@ -11,7 +11,7 @@ Simulator::Simulator(char *filename, int input)
     sourceFile = *new std::string(filename);
     regFile[15] = input;
     pc = 0;
-    clockRate = 36.1f;
+    clockRate = 87.596f;
 }
 
 void Simulator::execute()
@@ -238,8 +238,8 @@ void Simulator::printMetrics()
               << "=====================================================\n"
               << "                                                     \n"
               << "Latency:                                             \n"
-              << "    Transfered from memory (bytes):  " << bytesFromMem << "\n"
-              << "    Transfered to memory   (bytes):  " << bytesToMem << "\n"
+              << "    Transferred from memory (bytes):  " << bytesFromMem << "\n"
+              << "    Transferred to memory   (bytes):  " << bytesToMem << "\n"
               << "    Program size in memory (bytes):  " << bytesInMem << "\n"
               << "                                                     \n"
               << "Performance:                                         \n"

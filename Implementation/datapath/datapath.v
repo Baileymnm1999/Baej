@@ -7,6 +7,7 @@ module datapath(
     );
 	 
 	 reg clk = 1;
+	 reg clk2 = 1;
 	 
 	 // Control wires
 	 wire PCsrc, writePC, writeRA, ImRPC, backup, restore, ALUsrc, cmpeq, cmpne, cmp_result, resetSig;
@@ -26,7 +27,7 @@ module datapath(
 	 
 control_unit ctrl (
     .op(op),
-	 .clk(clk),
+	 .clk(clk2),
 	 .Reset(reset),
     .PCsrc(PCsrc),
     .writePC(writePC),
@@ -102,6 +103,11 @@ ies inst_exec_sys (
     .RAOut(RArestore)
 	);
 
-	always clk = #0.1 ~clk;
+	always @(clk2) begin
+		#0.01;
+		clk = ~clk;
+	end
+	
+	always clk2 = #0.1 ~clk2;
 
 endmodule
