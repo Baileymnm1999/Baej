@@ -247,7 +247,7 @@ module control_unit(
 		end
 	
 	//Current State calculation
-	always @ (negedge clk) begin
+	always @ (posedge clk) begin
 		
 			// $display("The current state is %d", current_state);
 			if (Reset) current_state = reset;
