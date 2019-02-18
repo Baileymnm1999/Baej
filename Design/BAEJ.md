@@ -458,17 +458,20 @@ A similar implementation was done for other instructions.
 
 ### System Testing
 The following algorithms will be coded into memory.
-|Test Algorithm|Expected Result|
-|---|---|
-|add (int a)|64 + a|
-|sub (int a)|64 - a|
-|and (int a)|64 & a|
-|orr (int a)|64 or a|
-|slt (int a)|(a < 64) ? 1:0|
-|sft (int a)|a << 2 ; a >> 2|
-|memory (int a)|"a" stored in memory and then retrieved to output|
-|summation (int a)|Sum of all integers between 0 and a|
-|relativePrime (int a)|The first relative prime number of a|
+
+| Test Algorithm        | Expected Result                                   |
+| --------------------- | ------------------------------------------------- |
+| add (int a)           | 64 + a                                            |
+| sub (int a)           | 64 - a                                            |
+| and (int a)           | 64 & a                                            |
+| orr (int a)           | 64 or a                                           |
+| slt (int a)           | (a < 64) ? 1:0                                    |
+| sft (int a)           | a << 2 ; a >> 2                                   |
+| summation (int a)     | Sum of all integers between 0 and a               |
+| memory (int a)        | "a" stored in memory and then retrieved to output |
+| relativePrime (int a) | The first relative prime number of a              |
+
+
 
 ## Control
 
