@@ -46,3 +46,10 @@ Friday, Febuary 8, 2019 [180 min] - With josh integrated IES and wrote test benc
 
 Sunday, Febuary 10, 2019 [240 min] - Wrote some programs to test and debug datapath with including relprime. More control issues found and fixed. Processor seems to work fine. Added a reset input to the datapath to reset to processor to pc = 0.
 
+Final Work
+
+Friday, Febuary 15, 2019 [60 min] - Demo given to Micah
+
+Saturday, Febuary 16, 2019 [180 min] - Made some optimizations and we worked on final presentation
+
+Sunday, Febuary 17, 2019 [20 min] - Recorded video demo
